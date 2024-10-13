@@ -68,15 +68,18 @@ const MyGoals = () => {
 
 	return (
 		<div className="list-container justify-center items-center">
+			<div className="inline-block rounded-full border-[2px] justify-center w-20 border-blue-400 border-solid"></div>
+
 			<h3>My Goals</h3>
-			{
-				mygoalsStatus === "loading" &&
+			{mygoalsStatus === "loading" && (
 				<div className="flex justify-center mx-auto items-center">
 					<DotLoader />
 				</div>
-			}
+			)}
 			<div className="generic-cards">
-				{(mygoalsStatus === "loading" && mygoalsList.length === 0) && <p>You Dont have any goals yet</p>}
+				{mygoalsStatus === "loading" && mygoalsList.length === 0 && (
+					<p>You Dont have any goals yet</p>
+				)}
 				{mygoalsList.map((goal, index) => (
 					<GenericCard
 						key={`${index} - ${goal.goal.id}`}

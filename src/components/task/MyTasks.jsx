@@ -84,6 +84,8 @@ const MyTasks = () => {
 
 	return (
 		<div className="list-container">
+			<div className="inline-block border-[2px] justify-center w-20 border-main border-solid"></div>
+
 			<h3>My Tasks</h3>
 
 			{isLoading && (

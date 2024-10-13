@@ -6,17 +6,17 @@ import MyTaskCard from "./myTaskCard";
 
 const MyTaskList = () => {
 	const [taskList, setTaskList] = useState([]);
-	const userId = localStorage.getItem('userid')
+	const userId = localStorage.getItem("userid");
 
 	const { data, error, isLoading } = useSWR(
 		`/tasks/mytasks/${userId}`,
 		fetcher
 	);
-	
+
 	useEffect(() => {
 		if (data) {
 			setTaskList(data);
-      console.log("tasklsit", taskList)
+			console.log("tasklsit", taskList);
 		}
 	}, [data]);
 
@@ -37,4 +37,3 @@ const MyTaskList = () => {
 };
 
 export default MyTaskList;
-

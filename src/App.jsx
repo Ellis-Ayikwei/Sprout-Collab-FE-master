@@ -27,9 +27,7 @@ import store, { persistor } from "./redux/store";
 import React from "react";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
-const userId = "013f6e28-855a-4c9b-8213-1a911aefe22c";
 
-localStorage.setItem("userid", userId);
 
 const router = createBrowserRouter(
 	createRoutesFromElements(
@@ -92,6 +90,7 @@ const router = createBrowserRouter(
 	)
 );
 const App = () => {
+
 	return (
 		<div className="App">
 			<ThemeProvider>

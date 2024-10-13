@@ -20,6 +20,7 @@ const logInSlice = createSlice({
 		SetloginData: (state, action) => {
 			state.isLoggedIn = true;
 			state.myData = action.payload;
+			localStorage.setItem("userid", action.payload.id);
 		},
 	},
 });

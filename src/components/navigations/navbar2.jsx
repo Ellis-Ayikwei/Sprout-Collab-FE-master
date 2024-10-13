@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 import { usePreferences } from "../../contexts/PreferenceContext";
 import logo from "../../images/sclogo-alone.png";
 
-import { faGear } from "@fortawesome/free-solid-svg-icons";
+import { faBell, faGear } from "@fortawesome/free-solid-svg-icons";
 import {
 	Dialog,
 	DialogPanel,
@@ -91,12 +91,30 @@ const Example = () => {
 					</NavLink>
 				)}
 				{isLoggedIn && (
-					<NavLink
-						to="/logout"
-						className="btn--primary menu-item rounded-3xl"
-					>
-						Logout
-					</NavLink>
+					<div className="flex items-center space-x-4">
+						<div className="flex items-center space-x-4">
+							<p>Ellis</p>
+							<img
+								className="h-10 w-10 rounded-full shadow border-main border-2"
+								src="https://avatars.githubusercontent.com/u/57622665?v=4"
+								alt="Atilwind Logo"
+							/>
+						</div>
+						<div>
+							<button
+								type="button"
+								className="btn--primary menu-item rounded-3xl"
+							>
+								<FontAwesomeIcon icon={faBell} />
+							</button>
+						</div>
+						<NavLink
+							to="/logout"
+							className="btn--primary menu-item rounded-3xl"
+						>
+							Logout
+						</NavLink>
+					</div>
 				)}
 				{isLoggedIn && (
 					<button
@@ -111,7 +129,7 @@ const Example = () => {
 	};
 
 	return (
-		<header className="bg-white ">
+		<header className="bg-transparent ">
 			<nav
 				aria-label="Global"
 				className="mx-auto flex w-full items-center justify-between p-6 lg:px-8"
