@@ -10,6 +10,7 @@ import PropTypes from "prop-types";
 import React from "react";
 import { buildStyles, CircularProgressbar } from "react-circular-progressbar";
 import { GetColor1BasedOnProgress } from "../../utils/getColorBasedOnProgress";
+import { useSelector } from "react-redux";
 
 const GenericCard = ({
 	onClick,
@@ -30,6 +31,7 @@ const GenericCard = ({
 }) => {
 	const color = GetColor1BasedOnProgress(progress);
 	const userid = localStorage.getItem("userid");
+	const myData = useSelector((state) => state.login.myData);
 	console.log("the data", data?.id);
 	return (
 		<div
@@ -127,7 +129,7 @@ const GenericCard = ({
 						)}
 						{join && !isMember && (
 							<button
-								onClick={() => joinCollab(userid, data?.id)}
+								onClick={() => joinCollab(myData, data?.id)}
 								className="right-0 bg-main !rounded-full text-sm text-white px-4 ml-auto "
 							>
 								Join
