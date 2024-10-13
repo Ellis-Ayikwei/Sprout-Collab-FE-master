@@ -65,7 +65,7 @@ const MyProjects = () => {
 
 	return (
 		<div className="list-container">
-			<div className="inline-block border-[2px] justify-center w-20 border-orange-400 border-solid"></div>
+			<div className="inline-block border-[2px] justify-center w-20 rounded-full border-orange-400 border-solid"></div>
 
 			<h3>My Projects</h3>
 
