@@ -73,9 +73,9 @@ const Sidebar = () => {
 
 	return (
 		<div
-			className="main--aside"
+			className="main--aside "
 			style={{
-				zIndex: (isOpen && isMobile) ? "1" : "0",
+				zIndex: isOpen && isMobile ? "1" : "0",
 			}}
 		>
 			<div
@@ -83,7 +83,7 @@ const Sidebar = () => {
 					width: isOpen || !isMobile ? "200px" : "50px",
 					// zIndex: (isOpen && isMobile) ? "1" : "0",
 				}}
-				className="sidebar"
+				className="sidebar overflow-y-hidden"
 			>
 				<div className="top-section">
 					<p
@@ -128,6 +128,7 @@ const Sidebar = () => {
 						margin: "10px",
 						display: isOpen || !isMobile ? "block" : "none",
 					}}
+					className="h-full bg-black !justify-center !items-center"
 				>
 					<li
 						style={{
@@ -147,7 +148,7 @@ const Sidebar = () => {
 					<MyCollabs />
 				</ul>
 			</div>
-			<div className="version">Sprout Collab 1.0.0</div>
+			{/* <div className="version">Sprout Collab 1.0.0</div> */}
 		</div>
 	);
 };

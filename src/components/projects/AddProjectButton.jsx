@@ -68,10 +68,10 @@ const AddProjectButton = ({ goalId, collabId }) => {
 	};
 
 	return (
-		<div className="add-goal">
+		<div className="">
 			<button
 				onClick={openModal}
-				className="add-goal-button"
+				className="bg-main !rounded-full text-3xl text-white px-4"
 			>
 				+
 			</button>

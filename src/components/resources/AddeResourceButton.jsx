@@ -5,9 +5,9 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // eslint-disable-next-line no-unused-vars
+import PropTypes from "prop-types";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import PropTypes from 'prop-types';
 import { toast } from "react-toastify";
 import validator from "validator";
 import axiosInstance from "../../helpers/configEndpoints";
@@ -124,10 +124,10 @@ const AddResourceButton = ({ goalId, collabId }) => {
 	};
 
 	return (
-		<div className="add-goal">
+		<div className="">
 			<button
 				onClick={openModal}
-				className="btn--primary"
+				className="bg-main !rounded-full text-xl text-white px-4 py-1"
 			>
 				<b>
 					<FontAwesomeIcon icon={faUpload} />

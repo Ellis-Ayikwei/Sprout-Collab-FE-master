@@ -89,10 +89,10 @@ const AddGoalButton = ({ TypeData }) => {
 	};
 
 	return (
-		<div className="add-goal">
+		<div className="">
 			<button
 				onClick={openModal}
-				className="btn--primary"
+				className="bg-main !rounded-full text-xl text-white px-4 py-1"
 			>
 				<b>+</b> New Goal
 			</button>

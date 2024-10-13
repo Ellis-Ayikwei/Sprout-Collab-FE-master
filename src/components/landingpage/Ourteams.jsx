@@ -16,15 +16,16 @@ const Ourteams = () => {
 					<h4 className="text-lg text-primary font-semibold mb-2">Our Team</h4>
 					<h1 className="text-3xl font-bold mb-4">About Us</h1>
 					<p className="text-lg text-gray-600 mb-8">
-						We are a diverse group of developers who are passionate about building
-						scalable and secure applications. Our team consists of experienced
-						software developers who have worked on various projects ranging from
-						e-commerce platforms to AI-powered chatbots. We are part of the ALX
-						community and continue to learn and grow as developers.
+						We are a diverse group of developers who are passionate about
+						building scalable and secure applications. Our team consists of
+						experienced software developers who have worked on various projects
+						ranging from e-commerce platforms to AI-powered chatbots. We are
+						part of the ALX community and continue to learn and grow as
+						developers.
 					</p>
 				</div>
 				<div className="flex grid-cols-1 justify-center md:grid-cols-2 gap-6 items-center mx-auto">
-					<div className="bg-white lg:col-span-1 lg:col rounded-lg shadow-lg p-6 justify-center items-center ">
+					<div className="bg-body lg:col-span-1 lg:col rounded-lg shadow-lg p-6 justify-center items-center ">
 						<div className="team-item justify-center items-center">
 							<div className="team-img justify-center items-center">
 								<img
@@ -33,9 +34,14 @@ const Ourteams = () => {
 									alt=""
 								/>
 							</div>
-							<div className="team-title mb-5">
-								<h4 className="text-xl font-semibold mb-2">David James</h4>
-								<p className="text-lg text-gray-600">Profession</p>
+							<div className=" mb-5 mt-5">
+								<h4 className="text-lg font-semibold">Ellis Armah Ayikwei</h4>
+								<p className="text-sm text-gray-600">
+									Lead Fullstack Developer
+								</p>
+								<em className="text-lg text-gray-600">
+									Alx Software Engineer Graduate
+								</em>
 							</div>
 							<div className="team-icon flex items-center justify-center space-x-4">
 								<a

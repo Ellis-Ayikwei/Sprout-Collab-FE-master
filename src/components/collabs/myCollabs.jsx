@@ -22,7 +22,7 @@ const MyCollabs = () => {
 	}, [data]);
 
 	return (
-		<div className="collabs-pane">
+		<div className="h-full">
 			{isLoading && <Loader />}
 			{error && <div> Error: {error.message}</div>}
 

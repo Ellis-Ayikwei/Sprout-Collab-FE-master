@@ -42,7 +42,7 @@ const Tasks1 = ({ projectID }) => {
 						padding: "10px",
 					}}
 				>
-					<h2>task</h2>
+					<h2>Tasks</h2>
 					<AddTaskButton
 						projectID={projectID}
 						goalID={project?.goal_id}

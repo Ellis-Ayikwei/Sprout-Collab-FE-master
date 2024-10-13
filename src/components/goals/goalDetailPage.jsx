@@ -120,7 +120,7 @@ const GoalDetails = () => {
 			>
 				{goalData?.description}
 			</header>
-			<div className="goal-content">
+			<div className="goal-content grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
 				<CollabsProvider>
 					<CollabList goal={goalData} />
 					<ProjectList goal={goalData} />

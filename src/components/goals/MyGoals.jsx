@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import axiosInstance from "../../helpers/configEndpoints";
 import Rocket from "../../images/rocket.png";
 import { fetchMyGoals } from "../../redux/myGoalSlice";
-import Loader from "../Loader";
+import DotLoader from "../DotLoader";
 import GenericCard from "../task/genericCard";
 
 const MyGoals = () => {
@@ -67,11 +67,16 @@ const MyGoals = () => {
 	}, [mygoalsList]);
 
 	return (
-		<div className="list-container">
+		<div className="list-container justify-center items-center">
 			<h3>My Goals</h3>
-			{mygoalsStatus === "loading" && <Loader />}
+			{
+				mygoalsStatus === "loading" &&
+				<div className="flex justify-center mx-auto items-center">
+					<DotLoader />
+				</div>
+			}
 			<div className="generic-cards">
-				{mygoalsList.length === 0 && <p>You Dont have any goals yet</p>}
+				{(mygoalsStatus === "loading" && mygoalsList.length === 0) && <p>You Dont have any goals yet</p>}
 				{mygoalsList.map((goal, index) => (
 					<GenericCard
 						key={`${index} - ${goal.goal.id}`}

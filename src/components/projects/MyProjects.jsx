@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import axiosInstance from "../../helpers/configEndpoints";
 import Rocket from "../../images/rocket.png";
 import { fetchMyProjects } from "../../redux/myProjectSlice";
-import Loader from "../Loader";
+import DotLoader from "../DotLoader";
 import GenericCard from "../task/genericCard";
 
 const MyProjects = () => {
@@ -57,20 +57,24 @@ const MyProjects = () => {
 
 	// Polling for member counts
 	useEffect(() => {
-		
-			if (myprojectList.length > 0) {
-				fetchGoalMemberCounts();
-			}
-		 // 1 second polling
-
+		if (myprojectList.length > 0) {
+			fetchGoalMemberCounts();
+		}
+		// 1 second polling
 	}, [myprojectList]); // Re-run when myprojectList changes
 
 	return (
 		<div className="list-container">
 			<h3>My Projects</h3>
-			{myprojectsStatus == "loading" && <Loader />}
+
+			{myprojectsStatus === "loading" && (
+				<div className="flex justify-center mx-auto items-center">
+					<DotLoader />
+				</div>
+			)}
+
 			<div className="generic-cards">
-			{myprojectList.length === 0 && <p>You Dont have any projects yet</p>}
+				{myprojectList.length === 0 && <p>You Dont have any projects yet</p>}
 
 				{myprojectList.map((project) => (
 					<GenericCard

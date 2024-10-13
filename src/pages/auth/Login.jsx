@@ -17,6 +17,7 @@ const Login = () => {
 
 	const [isignedUp, setIsignedUp] = useState(false);
 	const isLoggedIn = useSelector((state) => state.login.isLoggedIn);
+	const myData = useSelector((state) => state.login.myData);
 	const [loading, setLoading] = useState(false);
 	const [userNameOrEmail, setUserNameOrEmail] = useState("");
 	const [error, setError] = useState("");
@@ -52,7 +53,8 @@ const Login = () => {
 			const response = await authAxiosInstance.post("/login", payload);
 			dispatch(SetloginData(response.data));
 			if (isLoggedIn) {
-				navigate("/");
+				navigate("/home");
+				console.log("logged in", myData);
 			} else {
 				setError("Login failed. Please check your credentials.");
 			}

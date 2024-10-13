@@ -3,7 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import axiosInstance from "../../helpers/configEndpoints";
 import CollabImage from "../../images/collabb.png";
 import { fetchCollaborations, setCollabid } from "../../redux/collabSlice";
-import Loader from "../Loader";
+// @ts-ignore
+import DotLoader from "../DotLoader";
 import GenericCard from "../task/genericCard";
 import AddCollabButton from "./AddCollabButton";
 
@@ -40,13 +41,17 @@ const useFetchAllCollaborationMembers = (collabIds) => {
 const CollabList = ({ goal }) => {
 	const dispatch = useDispatch();
 	const collaborations = useSelector(
+		// @ts-ignore
 		(state) => state.collaborations.collaborations
 	);
+	// @ts-ignore
 	const status = useSelector((state) => state.collaborations.status);
+	// @ts-ignore
 	const error = useSelector((state) => state.collaborations.error);
 
 	useEffect(() => {
 		if (goal?.id) {
+			// @ts-ignore
 			dispatch(fetchCollaborations(goal.id));
 		}
 	}, [dispatch, goal]);
@@ -58,6 +63,7 @@ const CollabList = ({ goal }) => {
 
 	const collabIds = collaborations.map((collab) => collab.id);
 	const { collaborationMembers } = useFetchAllCollaborationMembers(collabIds);
+	console.log("the colab membs", collaborationMembers);
 
 	return (
 		<div className="list-container">
@@ -74,7 +80,13 @@ const CollabList = ({ goal }) => {
 				{goal && <AddCollabButton goalId={goal.id} />}
 			</div>
 			<div className="generic-cards">
-				{status === "loading" && <Loader />}
+				{status === "loading" && (
+					<div className="flex justify-center mx-auto items-center">
+						<
+						DotLoader
+						/>
+					</div>
+				)}
 				{status === "failed" && <div className="error-message">{error}</div>}
 				{status === "succeeded" && sortedCollaborations.length === 0 && (
 					<p>No collaborations found for this goal. Create a new one.</p>
@@ -83,8 +95,14 @@ const CollabList = ({ goal }) => {
 					sortedCollaborations.length > 0 &&
 					sortedCollaborations.map((collab) => {
 						const membersCount = collaborationMembers[collab.id]?.length || 0;
+						const isMember = collaborationMembers[collab.id]?.some(
+							(member) => member.user_id === localStorage.getItem("userid")
+						)
 
+
+						
 						return (
+							// @ts-ignore
 							<GenericCard
 								key={collab.id}
 								title={collab.name}
@@ -95,6 +113,9 @@ const CollabList = ({ goal }) => {
 								status={collab.status}
 								dateCreated={collab.created_at.split("T")[0]}
 								onClick={() => dispatch(setCollabid(collab.id))}
+								join={true}
+								isMember={isMember}
+								data={collab}
 							/>
 						);
 					})}

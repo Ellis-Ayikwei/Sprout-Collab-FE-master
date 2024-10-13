@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import useSWR from "swr";
-import Loader from "../../components/Loader";
 import GenericCard from "../../components/task/genericCard";
 import axiosInstance from "../../helpers/configEndpoints";
 import fetcher from "../../helpers/fetcher";
@@ -10,6 +9,7 @@ import Rocket from "../../images/rocket.png";
 import { fetchtaskCheckList, setTaskMData } from "../../redux/ChecklistSlice";
 import { setTaskData } from "../../redux/TaskSlice";
 import { setCollabid } from "../../redux/collabSlice";
+import DotLoader from "../DotLoader";
 
 // Sample data for GenericCard and MyGoalCard
 
@@ -85,9 +85,16 @@ const MyTasks = () => {
 	return (
 		<div className="list-container">
 			<h3>My Tasks</h3>
-			{isLoading && <Loader />}
+
+			{isLoading && (
+				<div className="flex justify-center mx-auto items-center">
+					<DotLoader />
+				</div>
+			)}
 			<div className="generic-cards">
-			{userTasks.length === 0 && <p>You Dont have any tasks yet yet</p>}
+				{!isLoading && userTasks.length === 0 && (
+					<p>You Dont have any tasks yet yet</p>
+				)}
 
 				{userTasks.map((userTask) => (
 					<GenericCard

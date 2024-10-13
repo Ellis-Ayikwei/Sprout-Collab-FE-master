@@ -2,9 +2,8 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Project from "../../images/project.png";
-import { setCollabid } from "../../redux/collabSlice";
 import { fetchProjects } from "../../redux/ProjectsSlice";
-import Loader from "../Loader";
+import DotLoader from "../DotLoader";
 import GenericCard from "../task/genericCard";
 import AddProjectButton from "./AddProjectButton";
 
@@ -22,14 +21,13 @@ const ProjectList = ({ goal }) => {
 		}
 	}, [dispatch, collabId]);
 
-	
 	const handleClick = (projectId) => {
 		navigate(`/projects/${projectId}/tasks`);
 	};
 
 	const renderProjects = () => {
 		if (status === "loading") {
-			return <Loader />;
+			return <DotLoader />;
 		}
 		if (!collabId) {
 			return <p>Please select a collaboration to view its projects.</p>;

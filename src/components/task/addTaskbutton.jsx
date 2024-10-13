@@ -65,10 +65,10 @@ const AddTaskButton = ({ projectID, goalID }) => {
 	};
 
 	return (
-		<div className="add-task">
+		<div className="">
 			<button
 				onClick={openModal}
-				className="btn--primary"
+				className="bg-main !rounded-full text-xl text-white px-4"
 			>
 				<FontAwesomeIcon icon={faPlus} />
 			</button>

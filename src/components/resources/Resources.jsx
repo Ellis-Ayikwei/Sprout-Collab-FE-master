@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import "react-toastify/dist/ReactToastify.css";
 import { setCollabid } from "../../redux/collabSlice";
 import { fetchResource } from "../../redux/ResourceSlice";
-import Loader from "../Loader";
+import DotLoader from "../DotLoader";
 import AddResourceButton from "./AddeResourceButton";
 import ResourceItem from "./ResourceItem";
 
@@ -64,7 +64,11 @@ const Resources = ({ goal }) => {
 					textAlign: "center",
 				}}
 			>
-				{isLoading && <Loader />}
+				{isLoading === "loading" && (
+					<div className="flex justify-center mx-auto items-center">
+						<DotLoader />
+					</div>
+				)}
 			</div>
 			<ul className="resource-list">
 				{!isLoading && !collabid && (

@@ -73,12 +73,12 @@ export default function Example() {
 								<img
 									src={image4}
 									alt="Hero3"
-									className="w-auto w-full h-auto max-w-[500px] rounded-lg"
-								/>
+									className="w-auto w-full h-auto max-w-[500px] rounded-lg border-4 border-main"
+								/>{" "}
 								<img
 									src={image5}
 									alt="Hero4"
-									className="w-auto w-full  h-auto max-w-[500px] rounded-lg"
+									className="w-auto w-full  h-auto max-w-[500px] rounded-lg border-4 border-main"
 								/>
 							</div>
 						</div>

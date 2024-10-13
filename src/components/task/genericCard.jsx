@@ -1,11 +1,11 @@
 import {
 	faClockFour,
 	faHandshake,
-	faUser,
 	faUserGroup,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ProgressBar from "@ramonak/react-progress-bar";
+import joinCollab from "components/collabs/joinCollab";
 import PropTypes from "prop-types";
 import React from "react";
 import { buildStyles, CircularProgressbar } from "react-circular-progressbar";
@@ -24,9 +24,13 @@ const GenericCard = ({
 	dateCreated,
 	status,
 	icon,
+	join,
+	isMember,
+	data,
 }) => {
 	const color = GetColor1BasedOnProgress(progress);
-
+	const userid = localStorage.getItem("userid");
+	console.log("the data", data?.id);
 	return (
 		<div
 			className="generic-card"
@@ -42,55 +46,95 @@ const GenericCard = ({
 				)}
 				<div className="generic-info">
 					<div className="generic-info1">
-						<h5 className="generic-info__name">{title}</h5>
+						<h5
+							className={`generic-info__name text-sm sm:text-base md:text-lg lg:text-xl xl:text-lg`}
+						>
+							{title}
+						</h5>
 						{description && (
-							<p className="generic-info__description">{description}</p>
+							<p
+								className={`text-xs sm:text-sm  lg:text-sm xl:text-sm text-gray-400`}
+							>
+								{description}
+							</p>
 						)}
 					</div>
-					<ul className="generic-info2">
+					{progress != null && progressType === "bar" && (
+						<div className="generic--details2 generic-progress-bar w-full mb-1 mt-1">
+							<ProgressBar
+								completed={progress}
+								maxCompleted={100}
+								height="10px"
+								baseBgColor={color.tintColor}
+								bgColor={color.mainColor}
+								labelSize="10px"
+								className="w-full"
+							/>
+						</div>
+					)}
+					<ul className="generic-info2 w-full">
 						{dateCreated && (
-							<li className="generic-info__created_at">
+							<li
+								className={`generic-info__created_at text-xs sm:text-sm  lg:text-sm xl:text-sm`}
+							>
 								{/* {dataType?.created_at.split("T")[0] || '0'} */}
 								{dateCreated}
 							</li>
 						)}
-						{visibility && <li className="generic-info__visibility">{visibility}</li>}
+						{visibility && (
+							<li
+								className={`generic-info__visibility text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl`}
+							>
+								{visibility}
+							</li>
+						)}
 						{memberCount && (
 							<li>
-								<FontAwesomeIcon icon={faUserGroup} />
-								{"  "} {memberCount}
+								<span
+									className={`text-xs sm:text-sm md:text-base lg:text-lg xl:text-sm`}
+								>
+									<FontAwesomeIcon icon={faUserGroup} />
+									{"  "} {memberCount}
+								</span>
 							</li>
 						)}
 						{collaborationCount > 0 && (
 							<li>
 								<FontAwesomeIcon icon={faHandshake} /> {"  "}
-								{collaborationCount}
+								<span
+									className={`text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl`}
+								>
+									{collaborationCount}
+								</span>
 							</li>
 						)}
 						{duration && (
 							<li>
 								<FontAwesomeIcon icon={faClockFour} /> {"  "}
-								{duration} days
+								<span
+									className={`text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl`}
+								>
+									{duration} days
+								</span>
 							</li>
 						)}
-						{status && <li>{status}</li>}
-
+						{status && (
+							<li
+								className={`text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl`}
+							>
+								{status}
+							</li>
+						)}
+						{join && !isMember && (
+							<button
+								onClick={() => joinCollab(userid, data?.id)}
+								className="right-0 bg-main !rounded-full text-sm text-white px-4 ml-auto "
+							>
+								Join
+							</button>
+						)}
 						{/* <li className='generic-info__member-count'>{members.genericMembers.length} Members</li> */}
 					</ul>
-
-					{progress != null && progressType === "bar" && (
-						<div className="generic--details2 generic-progress-bar">
-							<ProgressBar
-								completed={progress}
-								maxCompleted={100}
-								width="200px"
-								height="10px"
-								baseBgColor={color.tintColor}
-								bgColor={color.mainColor}
-								labelSize="10px"
-							/>
-						</div>
-					)}
 				</div>
 				{progress != null && progressType === "circular" && (
 					<div className="generic-progress-circular">
