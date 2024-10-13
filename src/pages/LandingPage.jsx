@@ -1,12 +1,16 @@
+import OurFeatures from "components/landingpage/OurFeatures";
+import Ourteams from "components/landingpage/Ourteams";
+import Example from "components/landingpage/taiwidn";
 import React from "react";
-import Hero from "../components/landingpage/Hero";
-import BenefitSection from "../components/landingpage/benefits_section";
 
 const LandingPage = () => {
 	return (
 		<div className="App">
-			<Hero />
-			<BenefitSection />
+			<Example />
+			{/* <Hero /> */}
+			<OurFeatures />
+
+			<Ourteams />
 		</div>
 	);
 };

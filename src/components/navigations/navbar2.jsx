@@ -221,7 +221,7 @@ const Example = () => {
 						Company
 					</a>
 				</PopoverGroup> */}
-				<div className="md:hidden">
+				<div className="">
 					<NavItems />
 				</div>
 			</nav>

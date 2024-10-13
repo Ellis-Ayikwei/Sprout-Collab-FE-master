@@ -3,10 +3,10 @@
 .benefits {
 	margin-top: 20%;
 	margin-bottom: 20px;
-	justify-content: center!important;
-  hr{
-    margin: 20px;
-  }
+	justify-content: center !important;
+	hr {
+		margin: 20px;
+	}
 	.benefits__content {
 		article {
 			font-weight: bold;
@@ -30,7 +30,7 @@
 		text-align: center;
 		margin-top: 5%;
 		.benefits__image {
-			box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+			// box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 			margin-bottom: 20px;
 			border-radius: 15px;
 			@media only screen and (max-width: 600px) {

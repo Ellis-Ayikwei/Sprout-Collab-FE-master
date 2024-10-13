@@ -8,6 +8,7 @@ import NavbarOnSm from "../components/navigations/navBarOnSmallerDevices";
 import Sidebar from "../components/navigations/Sidebar";
 import AllProviders from "../contexts/allProviders";
 import SeTT from "./SettingsPage";
+import React from "react";
 
 const Layout = () => {
 	const location = useLocation();
