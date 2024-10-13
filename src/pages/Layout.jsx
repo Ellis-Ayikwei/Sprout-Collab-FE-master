@@ -53,11 +53,14 @@ const Layout = () => {
 
 				{showNav && <SecondNav />}
 				{showAside && <Sidebar />}
-				<div className={showAside ? "Outlet" : ""}>
+				<div
+					className={showAside ? "Outlet" : ""}
+					style={{ maxHeight: "calc(100vh - 100px)" }}
+				>
 					<Outlet />
 				</div>
 				<SeTT />
-				{showFooter && <Footer />}
+				<Footer />
 			</AllProviders>
 		</>
 	);
