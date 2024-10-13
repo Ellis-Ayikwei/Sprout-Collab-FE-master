@@ -1,0 +1,29 @@
+@use "./custom" as *;
+.myCollabs {
+	color: $main;
+    
+	position: relative;
+    .generic-card{
+        margin-bottom:5px;
+        width: 90% !important;
+        padding:5px;
+    }
+}
+
+.collabs-pane {
+	
+	align-items: center;
+
+	justify-content: center !important;
+	overflow-y: scroll;
+	height: 170px !important;
+	line-height: 10px;
+
+}
+
+.my-collab-section {
+	height: 10%;
+	@media screen and (max-width: 768px) {
+		display: none;
+	}
+}
