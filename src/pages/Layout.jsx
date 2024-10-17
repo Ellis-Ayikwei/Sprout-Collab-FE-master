@@ -1,14 +1,11 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Outlet, useLocation } from "react-router-dom";
 import Footer from "../components/landingpage/Footer";
-import Navbar from "../components/navigations/Navbar";
 import SecondNav from "../components/navigations/navbar2";
-import NavbarOnSm from "../components/navigations/navBarOnSmallerDevices";
 import Sidebar from "../components/navigations/Sidebar";
 import AllProviders from "../contexts/allProviders";
 import SeTT from "./SettingsPage";
-import React from "react";
 
 const Layout = () => {
 	const location = useLocation();
@@ -53,14 +50,11 @@ const Layout = () => {
 
 				{showNav && <SecondNav />}
 				{showAside && <Sidebar />}
-				<div
-					className={showAside ? "Outlet" : ""}
-					style={{ maxHeight: "calc(100vh - 100px)" }}
-				>
+				<div className={showAside ? "Outlet h-full justify-between" : ""}>
 					<Outlet />
 				</div>
-				<SeTT />
 				<Footer />
+				<SeTT />
 			</AllProviders>
 		</>
 	);

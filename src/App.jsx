@@ -1,5 +1,7 @@
 import { ThemeProvider } from "@material-tailwind/react";
+import React from "react";
 import "react-circular-progressbar/dist/styles.css";
+import { Provider } from "react-redux";
 import {
 	Route,
 	RouterProvider,
@@ -8,6 +10,7 @@ import {
 } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { PersistGate } from "redux-persist/integration/react";
 import "./App.scss";
 import GoalCatergories from "./components/goals/GoalCatergory";
 import GoalDetails from "./components/goals/goalDetailPage";
@@ -22,12 +25,7 @@ import NoPage from "./pages/NoPage";
 import ProjectPage from "./pages/ProjectPage";
 import SeTT from "./pages/SettingsPage";
 import TestPage1 from "./pages/Testpage1";
-import Counter1 from "./redux/counter";
 import store, { persistor } from "./redux/store";
-import React from "react";
-import { Provider } from "react-redux";
-import { PersistGate } from "redux-persist/integration/react";
-
 
 const router = createBrowserRouter(
 	createRoutesFromElements(
@@ -90,9 +88,8 @@ const router = createBrowserRouter(
 	)
 );
 const App = () => {
-
 	return (
-		<div className="App">
+		<div className="App h-full">
 			<ThemeProvider>
 				<Provider store={store}>
 					<PersistGate
