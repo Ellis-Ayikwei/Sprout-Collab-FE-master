@@ -1,6 +1,6 @@
 "use client";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { NavLink } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { usePreferences } from "../../contexts/PreferenceContext";
 import logo from "../../images/sclogo-alone.png";
 
@@ -8,32 +8,43 @@ import { faBell, faGear } from "@fortawesome/free-solid-svg-icons";
 import { Dialog, DialogPanel } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { resetLogin } from "../../redux/authActions/LoginSlice";
 
 const Example = () => {
 	const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 	const { showPrefs } = usePreferences();
 	const isLoggedIn = useSelector((state) => state.login.isLoggedIn);
+	const dispatch = useDispatch();
+	const navigate = useNavigate();
+
+	const logoutHandler = async () => {
+		try {
+			await dispatch(resetLogin());
+			navigate("/login");
+		} catch (error) {
+			console.error(error);
+		}
+	};
 
 	const NavItems = () => {
 		return (
 			<div className={`lg:flex lg:flex-1 gap-2 lg:justify-end `}>
 				{!isLoggedIn && (
-					<NavLink
+					<Link
 						to="/register"
-						onClick={() => console.log("hello")}
 						className="btn--outline menu-item rounded-3xl text-"
 					>
 						Get Started
-					</NavLink>
+					</Link>
 				)}
 				{!isLoggedIn && (
-					<NavLink
+					<Link
 						to="/login"
 						className="btn--primary rounded-3xl"
 					>
 						Login
-					</NavLink>
+					</Link>
 				)}
 				{isLoggedIn && (
 					<div className="flex items-center space-x-4">
@@ -49,21 +60,22 @@ const Example = () => {
 							<button
 								type="button"
 								className="btn--primary menu-item rounded-3xl"
+								onClick={() => dispatch(showPrefs())}
 							>
 								<FontAwesomeIcon icon={faBell} />
 							</button>
 						</div>
-						<NavLink
-							to="/logout"
+						<button
+							onClick={logoutHandler}
 							className="btn--primary menu-item rounded-3xl"
 						>
 							Logout
-						</NavLink>
+						</button>
 					</div>
 				)}
 				{isLoggedIn && (
 					<button
-						onClick={showPrefs}
+						onClick={() => dispatch(showPrefs())}
 						className="btn--primary menu-item rounded-3xl"
 					>
 						<FontAwesomeIcon icon={faGear} />
@@ -75,12 +87,9 @@ const Example = () => {
 
 	return (
 		<header className="bg-transparent">
-			<nav
-				aria-label="Global"
-				className="mx-auto flex w-full items-center justify-between p-6 lg:px-8"
-			>
+			<nav className="mx-auto flex w-full items-center justify-between p-6 lg:px-8 z-10">
 				<div className="flex lg:flex-1">
-					<NavLink
+					<Link
 						to="/"
 						className="main-logo"
 						style={{ textDecoration: "none" }}
@@ -93,7 +102,7 @@ const Example = () => {
 						<p className="logo-text">
 							<b>Sprout</b>Collab
 						</p>
-					</NavLink>
+					</Link>
 				</div>
 				<div className="flex lg:hidden">
 					<button
@@ -121,7 +130,7 @@ const Example = () => {
 				<div className="fixed inset-0 z-10" />
 				<DialogPanel className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
 					<div className="flex items-center justify-between">
-						<NavLink
+						<Link
 							to="/"
 							className="main-logo"
 							style={{ textDecoration: "none" }}
@@ -134,7 +143,7 @@ const Example = () => {
 							<p className="logo-text">
 								<b>Sprout</b>Collab
 							</p>
-						</NavLink>
+						</Link>
 						<button
 							type="button"
 							onClick={() => setMobileMenuOpen(false)}

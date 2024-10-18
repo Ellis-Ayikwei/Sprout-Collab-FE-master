@@ -1,9 +1,10 @@
+import fetcher from "helpers/fetcher";
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import useSWR from "swr";
 import axiosInstance from "../../helpers/configEndpoints";
 import Rocket from "../../images/rocket.png";
-import { fetchMyGoals } from "../../redux/myGoalSlice";
 import DotLoader from "../DotLoader";
 import GenericCard from "../task/genericCard";
 
@@ -12,21 +13,12 @@ const MyGoals = () => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const [goalMemberCount, setGoalMemberCount] = useState({}); // Object for member counts
-	const mygoalsList = useSelector((state) => state.mygoals.mygoalsList);
-	const mygoalsStatus = useSelector((state) => state.mygoals.status);
-	const mygoalsError = useSelector((state) => state.mygoals.error);
 
-	// Fetch goals periodically
-	useEffect(() => {
-		if (mygoalsStatus === "idle") {
-			dispatch(fetchMyGoals());
-		}
-		console.log("the goals", mygoalsList);
-	}, [dispatch]);
-
-	useEffect(() => {
-		dispatch(fetchMyGoals());
-	}, [dispatch]);
+	const {
+		data: mygoalsList,
+		error,
+		isLoading,
+	} = useSWR(`/goals/mygoals/${localStorage.getItem("userid")}`, fetcher);
 
 	// Fetch member count for a specific goal
 	const getGoalMemberCount = async (goalId) => {
@@ -43,7 +35,7 @@ const MyGoals = () => {
 	const fetchGoalMemberCounts = async () => {
 		try {
 			const counts = await Promise.all(
-				mygoalsList.map(async (mygoal) => ({
+				mygoalsList?.map(async (mygoal) => ({
 					goalId: mygoal.goal.id, // Consistent naming
 					count: await getGoalMemberCount(mygoal.goal.id),
 				}))
@@ -61,7 +53,7 @@ const MyGoals = () => {
 
 	// Polling for member counts
 	useEffect(() => {
-		if (mygoalsList.length > 0) {
+		if (mygoalsList?.length > 0) {
 			fetchGoalMemberCounts();
 		}
 	}, [mygoalsList]);
@@ -72,17 +64,17 @@ const MyGoals = () => {
 
 			<h3 className="text-lg font-semibold mt-2">My Goals</h3>
 			<div className="mt-6 flex flex-col items-center justify-start h-auto w-full p-2 gap-2 overflow-y-scroll">
-				{mygoalsStatus === "loading" && (
+				{isLoading && (
 					<div className="flex justify-center items-center mx-auto">
 						<DotLoader />
 					</div>
 				)}
-				{mygoalsStatus !== "loading" && mygoalsList.length === 0 && (
+				{!isLoading && mygoalsList?.length === 0 && (
 					<p className="text-center text-gray-500">
 						You don't have any goals yet
 					</p>
 				)}
-				{mygoalsList.map((goal, index) => (
+				{mygoalsList?.map((goal, index) => (
 					<GenericCard
 						key={`${index} - ${goal.goal.id}`}
 						progress={goal.goal_member.progress ?? 0}

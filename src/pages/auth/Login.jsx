@@ -51,7 +51,7 @@ const Login = () => {
 		console.log("payload", payload);
 		try {
 			const response = await authAxiosInstance.post("/login", payload);
-			dispatch(SetloginData(response.data));
+			await dispatch(SetloginData(response.data));
 			if (isLoggedIn) {
 				navigate("/home");
 				console.log("logged in", myData);
