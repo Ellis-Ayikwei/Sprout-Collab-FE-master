@@ -62,7 +62,7 @@ const ProjectList = ({ goal }) => {
 					/>
 				)}
 			</div>
-			<div className="mt-6 flex flex-col items-center justify-center h-full w-full p-2 gap-2">
+			<div className="mt-6 flex flex-col items-center justify-start h-full w-full p-2 gap-2">
 				{renderProjects()}
 			</div>
 		</div>

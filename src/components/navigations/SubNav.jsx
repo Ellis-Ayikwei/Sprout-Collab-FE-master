@@ -40,27 +40,42 @@ const SubNav = ({
 			<div className="Goalname">{title}</div>
 			<div className="details">
 				{collabs !== undefined && (
-					<div className="detail-item">
+					<div
+						className="detail-item text-white bg-amber-500 rounded-full px-2 py1
+					"
+					>
 						<FontAwesomeIcon icon={faHandshake} /> {collabs}
 					</div>
 				)}
 				{members !== undefined && (
-					<div className="detail-item">
+					<div
+						className="detail-item text-white bg-green-500 rounded-full px-2 py1
+					"
+					>
 						<FontAwesomeIcon icon={faUsers} /> {members}
 					</div>
 				)}
 				{projects !== undefined && (
-					<div className="detail-item">
+					<div
+						className="detail-item text-white bg-gray-500 rounded-full px-2 py1
+					"
+					>
 						<FontAwesomeIcon icon={faProjectDiagram} /> {projects}
 					</div>
 				)}
 				{tasks !== undefined && (
-					<div className="detail-item">
+					<div
+						className="detail-item text-white bg-blue-500 rounded-full px-2 py1
+					"
+					>
 						<FontAwesomeIcon icon={faTasks} /> {tasks}
 					</div>
 				)}
 				{isAdmin && (
-					<div className="admin-info">
+					<div
+						className="admin-info text-white bg-cyan-500 rounded-full px-2 py1
+					"
+					>
 						<FontAwesomeIcon icon={faFileSignature} /> <em>Admin</em>
 					</div>
 				)}

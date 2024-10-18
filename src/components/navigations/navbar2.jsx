@@ -86,8 +86,8 @@ const Example = () => {
 	};
 
 	return (
-		<header className="bg-transparent">
-			<nav className="mx-auto flex w-full items-center justify-between p-6 lg:px-8 z-10">
+		<header className="sticky top-0 z-50">
+			<nav className="mx-auto fixed flex w-full items-center justify-between p-6 lg:px-8">
 				<div className="flex lg:flex-1">
 					<Link
 						to="/"

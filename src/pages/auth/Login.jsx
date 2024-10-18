@@ -1,8 +1,10 @@
 import { Facebook, Google } from "@mui/icons-material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 
+import DotLoader from "components/DotLoader";
+import CheckedSymbol from "components/checkSymbol";
 import React from "react";
 import authAxiosInstance from "../../helpers/authAxiosInstance";
 import logo from "../../images/sclogo-alone.png";
@@ -25,43 +27,48 @@ const Login = () => {
 	const loginHandler = async (event) => {
 		event.preventDefault();
 		setError("");
-
+	  
 		const input = userNameOrEmail.trim();
 		const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 		const isUsername = /^[a-zA-Z0-9_.-]{3,}$/;
 		const userInput = { email: "", username: "" };
-
+	  
 		// Determine if input is email or username
 		if (isEmail.test(input)) {
-			userInput.email = input;
+		  userInput.email = input;
 		} else if (isUsername.test(input)) {
-			userInput.username = input;
+		  userInput.username = input;
 		} else {
-			setError("Invalid input. Please enter a valid username or email.");
-			return;
+		  setError("Invalid input. Please enter a valid username or email.");
+		  return;
 		}
-
+	  
 		// Check for empty password or input
 		if (!password) {
-			setError("Please fill in all fields");
-			return;
+		  setError("Please fill in all fields");
+		  return;
 		}
-
+	  
 		const payload = { ...userInput, password };
 		console.log("payload", payload);
+	  
 		try {
-			const response = await authAxiosInstance.post("/login", payload);
-			await dispatch(SetloginData(response.data));
-			if (isLoggedIn) {
-				navigate("/home");
-				console.log("logged in", myData);
-			} else {
-				setError("Login failed. Please check your credentials.");
-			}
+		  setLoading(true);
+		  const response = await authAxiosInstance.post("/login", payload);
+		  await dispatch(SetloginData(response.data));
 		} catch (error) {
-			setError(error.message);
+		  setLoading(false);
+		  setError(error.message);
 		}
-	};
+	  };
+	  
+	  useEffect(() => {
+		if (isLoggedIn) {
+		  setLoading(false); 
+		  navigate("/home");
+		}
+	  }, [isLoggedIn]);
+	  
 
 	return (
 		<div className="h-screen flex items-center justify-center">
@@ -112,19 +119,20 @@ const Login = () => {
 						hover:text-blue-400 hover:bg-white
 						transition duration-200 ease-in"
 						>
-							{/* {
+							{loading ?
 							<DotLoader
 								width="w-7"
 								height="h-7"
 							/>
+							:"sign In"
 						}
 						{isignedUp && (
 							<CheckedSymbol
 								width="w-7"
 								height="h-7"
 							/>
-						)} */}
-							sign In
+						)}
+							
 						</button>
 					</form>
 					<div className="flex space-x-2 m-4 items-center justify-center rounded-full border-[3px] border-black-400 hover:border-green-400 p-2">

@@ -84,7 +84,7 @@ const router = createBrowserRouter(
 );
 const App = () => {
 	return (
-		<div className="App">
+		<div className="App mt-20">
 			<ThemeProvider>
 				<Provider store={store}>
 					<PersistGate

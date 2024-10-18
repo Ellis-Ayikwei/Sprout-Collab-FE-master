@@ -71,7 +71,7 @@ const CollabList = ({ goal }) => {
 				<h2>Collaborations</h2>
 				{goal && <AddCollabButton goalId={goal.id} />}
 			</div>
-			<div className="mt-6 flex flex-col items-center justify-center h-full w-full p-2 gap-2">
+			<div className="mt-6 flex flex-col items-center justify-start h-full w-full p-2 gap-2">
 				{status === "loading" && (
 					<div className="flex justify-center mx-auto items-center">
 						<DotLoader />
