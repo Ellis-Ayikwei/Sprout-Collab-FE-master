@@ -50,15 +50,17 @@ const ReusableModal = ({ isOpen, onRequestClose, label, children }) => {
 	}, []);
 
 	return (
-		<Modal
-			isOpen={isOpen}
-			onRequestClose={onRequestClose}
-			style={customStyles}
-			contentLabel={label}
-			ariaHideApp={false}
-		>
-			<div ref={modalRef}>{children}</div>
-		</Modal>
+		<div className="p">
+			<Modal
+				isOpen={isOpen}
+				onRequestClose={onRequestClose}
+				style={customStyles}
+				contentLabel={label}
+				ariaHideApp={false}
+			>
+				<div ref={modalRef}>{children}</div>
+			</Modal>
+		</div>
 	);
 };
 

@@ -48,23 +48,22 @@ const ChecklistCloner = ({ onChecklistsChange }) => {
 	}, [checklists, onChecklistsChange]);
 
 	return (
-		<div className="clone-items-container">
+		<div className="clone-items-container w-full">
 			<p>Add Task Checklists</p>
 			<div className="new-item">
-			
-					<input
-						type="text"
-						value={newChecklistName}
-						placeholder="Check List Name"
-						onChange={(e) => setNewChecklistName(e.target.value)}
-					/>
-					<input
-						value={newChecklistDescription}
-						placeholder="Check List Description"
-						rows={2}
-						onChange={(e) => setNewChecklistDescription(e.target.value)}
-					/>
-			
+				<input
+					type="text"
+					value={newChecklistName}
+					placeholder="Check List Name"
+					onChange={(e) => setNewChecklistName(e.target.value)}
+				/>
+				<input
+					value={newChecklistDescription}
+					placeholder="Check List Description"
+					rows={2}
+					onChange={(e) => setNewChecklistDescription(e.target.value)}
+				/>
+
 				<button
 					className="btn--outline"
 					onClick={handleAddChecklist}
@@ -78,9 +77,7 @@ const ChecklistCloner = ({ onChecklistsChange }) => {
 					<li key={index}>
 						<div className="checklist-name-and-desc">
 							<p className="checklist-name">{checklist.name}</p>
-							<small
-								className="checklist-desc"
-							>
+							<small className="checklist-desc">
 								{checklist.description
 									.split(" ")
 									.slice(0, 5)

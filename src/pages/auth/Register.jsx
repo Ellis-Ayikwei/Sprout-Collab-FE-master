@@ -134,12 +134,13 @@ const RegisterPage = () => {
 
 	return (
 		<div
-			className="h-screen flex flex-wrap items-center justify-center
+			className="h-screen flex flex-wrap !items-center justify-center
 		"
 		>
-			{/* Register form on the left */}
-			<div className="w-full max-w-md rounded-2xl shadow p-10">
-				<h3 className="text-2xl font-semibold  pt-2 mb-4">Create an Account</h3>
+			<div className="w-full max-w-md rounded-2xl shadow p-10 !items-center">
+				<h3 className="text-2xl font-semibold  pt-2 mb-4 !items-center">
+					Create an Account
+				</h3>
 				{/* Inputs */}
 				<div>
 					{errorMessage && <p className="text-red-500">{errorMessage}</p>}
@@ -278,14 +279,13 @@ const RegisterPage = () => {
 					</button>
 				</div>
 
-				<div className="inline-block border-[1px] justify-center w-20 border-blue-400 border-solid"></div>
 				<div className="flex flex-row items-center justify-center text-center !gab-6">
 					<p className="  text-sm"> Already have an account?</p>
 					<Link
-						to="/register"
-						className="text-blue-400 ml-1 text-sm font-medium"
+						to="/login"
+						className="cursor-pointer text-blue-400 ml-1 text-sm font-medium"
 					>
-						Register
+						Sign In
 					</Link>
 				</div>
 			</div>

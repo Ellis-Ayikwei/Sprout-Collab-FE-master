@@ -6,11 +6,11 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ProgressBar from "@ramonak/react-progress-bar";
 import joinCollab from "components/collabs/joinCollab";
-import PropTypes from "prop-types";
 import React from "react";
 import { buildStyles, CircularProgressbar } from "react-circular-progressbar";
+import { useDispatch, useSelector } from "react-redux";
 import { GetColor1BasedOnProgress } from "../../utils/getColorBasedOnProgress";
-import { useSelector } from "react-redux";
+import PropTypes from "prop-types";
 
 const GenericCard = ({
 	onClick,
@@ -28,14 +28,17 @@ const GenericCard = ({
 	join,
 	isMember,
 	data,
+	goalId,
 }) => {
 	const color = GetColor1BasedOnProgress(progress);
 	const userid = localStorage.getItem("userid");
 	const myData = useSelector((state) => state.login.myData);
 	console.log("the data", data?.id);
+	const dispatch = useDispatch();
+
 	return (
 		<div
-			className="generic-card"
+			className="generic-card !w-full"
 			onClick={() => onClick()}
 		>
 			<div className="generic--details1">
@@ -55,7 +58,7 @@ const GenericCard = ({
 						</h5>
 						{description && (
 							<p
-								className={`text-xs sm:text-sm  lg:text-sm xl:text-sm text-gray-400`}
+								className={`text-xs sm:text-sm  lg:text-sm xl:text-xs text-gray-400`}
 							>
 								{description}
 							</p>
@@ -66,7 +69,7 @@ const GenericCard = ({
 							<ProgressBar
 								completed={progress}
 								maxCompleted={100}
-								height="10px"
+								height="7px"
 								baseBgColor={color.tintColor}
 								bgColor={color.mainColor}
 								labelSize="10px"
@@ -120,16 +123,12 @@ const GenericCard = ({
 								</span>
 							</li>
 						)}
-						{status && (
-							<li
-								className={`text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl`}
-							>
-								{status}
-							</li>
-						)}
-						{join && !isMember && (
+						{status && <li className={`text-xs l`}>{status}</li>}
+						{join && isMember  === false  && (
 							<button
-								onClick={() => joinCollab(myData, data?.id)}
+								onClick={() => {
+									joinCollab(myData, data?.id);
+								}}
 								className="right-0 bg-main !rounded-full text-sm text-white px-4 ml-auto "
 							>
 								Join
@@ -160,7 +159,6 @@ const GenericCard = ({
 	);
 };
 
-// Define expected prop types for validation
 GenericCard.propTypes = {
 	dataProp: PropTypes.object,
 	progressProp: PropTypes.number,
@@ -173,5 +171,7 @@ GenericCard.propTypes = {
 	additionalInfo: PropTypes.arrayOf(PropTypes.string),
 	progressType: PropTypes.oneOf(["circular", "bar"]), // Type of progress indicator
 };
+
+
 
 export default GenericCard;

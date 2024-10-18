@@ -76,7 +76,7 @@ const Login = () => {
 						<b>Sprout</b>Collab
 					</p>{" "}
 				</div>
-				<div className="w-full max-w-md rounded-2xl shadow p-10">
+				<div className="w-full max-w-md rounded-2xl shadow p-10 items-center">
 					<h3 className="text-2xl font-semibold  pt-2 mb-4">Sign In!</h3>
 					{/* Inputs */}
 					{error && <div>{error}</div>}
@@ -144,7 +144,6 @@ const Login = () => {
 						</button>
 					</div>
 
-					<div className="inline-block border-[1px] justify-center w-20 border-blue-400 border-solid"></div>
 					<div className="flex flex-row items-center justify-center text-center !gab-6">
 						<p className="  text-sm"> Don't have an account?</p>
 						<Link

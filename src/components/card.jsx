@@ -5,7 +5,7 @@ const Card = ({ title, description, imageUrl, link }) => {
 	const navigate = useNavigate();
 
 	const handleClick = (event) => {
-		event.preventDefault(); // Prevent default behavior
+		event.preventDefault();
 		navigate(link);
 	};
 
@@ -17,7 +17,7 @@ const Card = ({ title, description, imageUrl, link }) => {
 		>
 			<img
 				className="card-image"
-				src={imageUrl}
+				src={require(`../assets/images/${imageUrl}.jpg`)}
 				alt={title}
 			/>
 			<div className="card-content">

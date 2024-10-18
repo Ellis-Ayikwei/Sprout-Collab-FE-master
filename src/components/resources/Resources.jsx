@@ -32,17 +32,11 @@ const Resources = ({ goal }) => {
 
 	return (
 		<div
-			className=" list-container"
+			className="flex flex-col justify-start items-center h-full border-2 border-main rounded-3xl py-5 px-2"
 			ref={parentRef}
 		>
 			<div
-				style={{
-					display: "flex",
-					alignContent: "center",
-					alignItems: "center",
-					justifyContent: "space-between",
-					padding: "10px",
-				}}
+				className="w-full flex items-center justify-between"
 			>
 				<h2>Resources</h2>
 				{collabid && (

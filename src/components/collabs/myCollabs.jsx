@@ -24,11 +24,10 @@ const MyCollabs = () => {
 	return (
 		<div className="h-full">
 			{isLoading && <Loader />}
-			{error && <div> Error: {error.message}</div>}
 
-			<div className="myCollabs">
+			<div className="mt-6 flex flex-col items-center justify-center h-full w-full p-2 gap-2">
 				{collabs &&
-					collabs.slice(0, 4).map((collab) => (
+					collabs.slice(0, 3).map((collab) => (
 						<GenericCard
 							key={collab.collaboration_member.id}
 							title={collab.collaboration.name}

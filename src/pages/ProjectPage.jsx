@@ -9,7 +9,7 @@ import SubNav from "../components/navigations/SubNav";
 import Resources from "../components/resources/Resources";
 import TaskMembersDone from "../components/task/TMembersDone";
 import ChecklistBox from "../components/task/TaskCheckList";
-import Tasks1 from "../components/task/TaskList copy";
+import Tasks from "../components/task/Tasks";
 import fetcher from "../helpers/fetcher";
 import { setCollabid } from "../redux/collabSlice";
 
@@ -28,7 +28,7 @@ const ProjectPage = () => {
 			dispatch(setCollabid(""));
 		};
 	}, []);
-	
+
 	return (
 		<div>
 			<SubNav
@@ -36,21 +36,26 @@ const ProjectPage = () => {
 				addedComponent={<AddCollabButton />}
 			/>
 			{/* <TaskList projectID={projectId} /> */}
-			<Tasks1 projectID={projectId} />
-			<div className="checklist-and-memebersdone">
-				<ChecklistBox />
-				<p
-					style={{
-						textAlign: "center",
-						marginTop: "10px",
-						marginBottom: "10px",
-					}}
-				>
-					Members Done with this task <FontAwesomeIcon icon={faArrowDown} />:
-				</p>
-				<TaskMembersDone />
+			<div className="h-screen w-full flex flex-col justify-start items-start">
+				<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-5 flex-grow mt-0 w-full max-h-[70%] ">
+					<Tasks projectID={projectId} />
+					<div className="h-full">
+						<ChecklistBox />
+						<p
+							style={{
+								textAlign: "center",
+								marginTop: "10px",
+								marginBottom: "10px",
+							}}
+						>
+							Members Done with this task <FontAwesomeIcon icon={faArrowDown} />
+							:
+						</p>
+						<TaskMembersDone />
+					</div>
+					<Resources />
+				</div>
 			</div>
-			<Resources />
 		</div>
 	);
 };

@@ -1,9 +1,10 @@
+import fetcher from "helpers/fetcher";
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import useSWR from "swr";
 import axiosInstance from "../../helpers/configEndpoints";
 import Rocket from "../../images/rocket.png";
-import { fetchMyProjects } from "../../redux/myProjectSlice";
 import DotLoader from "../DotLoader";
 import GenericCard from "../task/genericCard";
 
@@ -11,17 +12,16 @@ const MyProjects = () => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const [projectMemberCount, setProjectMemberCount] = useState({}); // Object for member counts
-	const myprojectList = useSelector((state) => state.myprojects.projects);
-	const myprojectsStatus = useSelector((state) => state.myprojects.status);
-	const myprojectsError = useSelector((state) => state.myprojects.error);
 
-	// Fetch projects periodically
-	useEffect(() => {
-		if (myprojectsStatus === "idle") {
-			dispatch(fetchMyProjects());
-		}
-	}, [myprojectsStatus, dispatch]);
+	const {
+		data: myprojectList,
+		error,
+		isLoading,
+	} = useSWR(`project/myprojects/${localStorage.getItem("userid")}`, fetcher);
 
+
+	console.log("myprojectList", myprojectList)
+	console.log("the rror is", error)
 	// Fetch member count for a specific project
 	const getGoalMemberCount = async (projectId) => {
 		try {
@@ -39,7 +39,7 @@ const MyProjects = () => {
 	const fetchGoalMemberCounts = async () => {
 		try {
 			const counts = await Promise.all(
-				myprojectList.map(async (myproject) => ({
+				myprojectList?.map(async (myproject) => ({
 					projectId: myproject.project.id, // Consistent naming
 					count: await getGoalMemberCount(myproject.project.id),
 				}))
@@ -57,28 +57,31 @@ const MyProjects = () => {
 
 	// Polling for member counts
 	useEffect(() => {
-		if (myprojectList.length > 0) {
+		if (myprojectList?.length > 0) {
 			fetchGoalMemberCounts();
 		}
 		// 1 second polling
 	}, [myprojectList]); // Re-run when myprojectList changes
 
 	return (
-		<div className="list-container">
+		<div className="flex flex-col justify-start items-center h-full border-2 border-main rounded-3xl py-5">
 			<div className="inline-block border-[2px] justify-center w-20 rounded-full border-orange-400 border-solid"></div>
 
-			<h3>My Projects</h3>
+			<h3 className="text-lg font-semibold mt-2">My Projects</h3>
 
-			{myprojectsStatus === "loading" && (
-				<div className="flex justify-center mx-auto items-center">
-					<DotLoader />
-				</div>
-			)}
+			<div className="mt-6 flex flex-col items-center justify-start h-auto w-full p-2 gap-2 overflow-y-scroll">
+				{isLoading && (
+					<div className="flex justify-center mx-auto items-center">
+						<DotLoader />
+					</div>
+				)}
+				{myprojectList?.length === 0 && (
+					<p className="text-center text-gray-500">
+						You Dont have any projects yet
+					</p>
+				)}
 
-			<div className="generic-cards">
-				{myprojectList.length === 0 && <p>You Dont have any projects yet</p>}
-
-				{myprojectList.map((project) => (
+				{myprojectList?.map((project) => (
 					<GenericCard
 						key={project.project.id}
 						progress={project.project_member.progress ?? 0}

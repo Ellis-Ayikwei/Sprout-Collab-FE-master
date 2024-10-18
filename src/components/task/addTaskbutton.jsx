@@ -11,6 +11,8 @@ import ChecklistCloner from "./CheckListsCloner";
 const initialdata = {
 	name: "",
 	description: "",
+	start_date: "",
+	end_date: "",
 };
 const AddTaskButton = ({ projectID, goalID }) => {
 	console.log("the goal id", goalID);
@@ -55,6 +57,7 @@ const AddTaskButton = ({ projectID, goalID }) => {
 			await axiosInstance.post(`projects/${projectID}/tasks`, taskData);
 			dispatch(fetchtasks(projectID));
 			toast.success("Task created successfully");
+			console.log("Task created successfully:", taskData);
 			setTaskFormData(initialdata);
 			closeModal();
 		} catch (error) {
@@ -78,26 +81,82 @@ const AddTaskButton = ({ projectID, goalID }) => {
 				onRequestClose={closeModal}
 				contentLabel="Add Task"
 			>
-				<h2>Add New Task</h2>
-				<form onSubmit={handleSubmit}>
+				<h2 className="text-2xl font-bold mb-4">Add New Task</h2>
+				<form
+					onSubmit={handleSubmit}
+					className="items-start"
+				>
+					<label
+						htmlFor="name"
+						className="block text-sm font-medium text-gray-700 mb-1"
+					>
+						Task Name:
+					</label>
 					<input
 						type="text"
+						id="name"
 						name="name"
 						placeholder="Task Name"
 						value={taskFormData.name}
 						onChange={handleChange}
 						required
 						maxLength={128}
+						className="block w-full px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500"
 					/>
+					<label
+						htmlFor="description"
+						className="block text-sm font-medium text-gray-700 mb-1 "
+					>
+						Description:
+					</label>
 					<textarea
+						id="description"
 						name="description"
 						placeholder="Description"
 						value={taskFormData.description}
 						onChange={handleChange}
 						required
+						className="block w-full px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500"
 					/>
+					<label
+						htmlFor="checklists"
+						className="block text-sm font-medium text-gray-700 mb-1 "
+					>
+						Checklists:
+					</label>
 					<ChecklistCloner onChecklistsChange={handleChecklistDataChange} />
-					<div className="form-buttons">
+					<label
+						htmlFor="startDate"
+						className="block text-sm font-medium text-gray-700 mb-1 "
+					>
+						Start Date:
+					</label>
+					<input
+						type="date"
+						id="startDate"
+						name="start_date"
+						value={taskFormData.start_date}
+						onChange={handleChange}
+						required
+						className="block w-full px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500"
+					/>
+					<label
+						htmlFor="dueDate"
+						className="block text-sm font-medium text-gray-700 mb-1 "
+					>
+						Due Date:
+					</label>
+					<input
+						type="date"
+						id="dueDate"
+						name="end_date"
+						value={taskFormData.end_date}
+						onChange={handleChange}
+						required
+						className="block w-full px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500"
+					/>
+
+					<div className="form-buttons mt-6 gap-4">
 						<button
 							className="btn--primary"
 							type="submit"

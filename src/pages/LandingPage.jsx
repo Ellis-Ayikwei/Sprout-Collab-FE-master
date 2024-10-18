@@ -5,7 +5,7 @@ import React from "react";
 
 const LandingPage = () => {
 	return (
-		<div className="App">
+		<div className="">
 			<Example />
 			{/* <Hero /> */}
 			<OurFeatures />

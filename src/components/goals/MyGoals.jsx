@@ -67,18 +67,20 @@ const MyGoals = () => {
 	}, [mygoalsList]);
 
 	return (
-		<div className="list-container justify-center items-center">
-			<div className="inline-block rounded-full border-[2px] justify-center w-20 border-blue-400 border-solid"></div>
+		<div className="flex flex-col justify-start items-center h-full border-2 border-main rounded-3xl py-5">
+			<div className="rounded-full border-2 border-blue-400 w-20 flex justify-center"></div>
 
-			<h3>My Goals</h3>
-			{mygoalsStatus === "loading" && (
-				<div className="flex justify-center mx-auto items-center">
-					<DotLoader />
-				</div>
-			)}
-			<div className="generic-cards">
-				{mygoalsStatus === "loading" && mygoalsList.length === 0 && (
-					<p>You Dont have any goals yet</p>
+			<h3 className="text-lg font-semibold mt-2">My Goals</h3>
+			<div className="mt-6 flex flex-col items-center justify-start h-auto w-full p-2 gap-2 overflow-y-scroll">
+				{mygoalsStatus === "loading" && (
+					<div className="flex justify-center items-center mx-auto">
+						<DotLoader />
+					</div>
+				)}
+				{mygoalsStatus !== "loading" && mygoalsList.length === 0 && (
+					<p className="text-center text-gray-500">
+						You don't have any goals yet
+					</p>
 				)}
 				{mygoalsList.map((goal, index) => (
 					<GenericCard

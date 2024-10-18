@@ -1,16 +1,13 @@
 @use "./custom" as *;
 .myCollabs {
 	color: $main;
-    
+
 	position: relative;
-    .generic-card{
-        margin-bottom:5px;
-        width: 90% !important;
-        padding:5px;
-    }
+	.generic-card {
+		margin-bottom: 5px;
+		padding: 5px;
+	}
 }
-
-
 
 .my-collab-section {
 	height: 10%;

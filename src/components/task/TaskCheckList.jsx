@@ -47,21 +47,33 @@ const ChecklistBox = ({ task }) => {
 	};
 
 	return (
-		<div className="checklist-box">
-			<h2>{taskData?.name} - Checklists </h2>
+		<div className="bg-white shadow-md rounded-xl px-8 pt-6 pb-8 mb-4 flex flex-col">
+			<div className="bg-amber-500 w-fit text-white text-xs rounded-full px-4 py-1.5 before:mr-2 before:bg-white before:rounded-full before:w-2 before:h-2 before:inline-block">
+				{taskMetadata?.status}
+			</div>
+			<h2 className="text-xl font-bold mt-1">{taskData?.name} - Checklists </h2>
+			<div className="h-1 w-full bg-amber-500 y-5 "></div>
 			{checklistStatus === "loading" && <p>Loading checklist...</p>}
 			{checklistStatus === "idle" && (
-				<p>Please select a Task to show its check lists</p>
+				<p className="text-gray-600">
+					Please select a Task to show its check lists
+				</p>
 			)}
 			{checklistStatus === "succeeded" && checklist.length === 0 && (
-				<p>No Check list available for the selected task</p>
+				<p className="text-gray-600">
+					No Check list available for the selected task
+				</p>
 			)}
 			{checklistStatus === "succeeded" && checklist.length > 0 && (
 				<div>
-					<ul>
+					<ul className="list-none">
 						{checklist.map((item) => (
-							<li key={item.id}>
+							<li
+								key={item.id}
+								className="flex items-center"
+							>
 								<input
+									className="mr-2"
 									type="checkbox"
 									id={item.id}
 									checked={
@@ -70,56 +82,37 @@ const ChecklistBox = ({ task }) => {
 									}
 									onChange={() => handleToggle(item.id)}
 								/>
-								<label htmlFor={item.id}>{item.name}</label>
+								<label
+									className="text-gray-700"
+									htmlFor={item.id}
+								>
+									{item.name}
+								</label>
 							</li>
 						))}
 					</ul>
 
-					<div className="status">
-						<div className="status-item">
-							<input
-								type="checkbox"
-								id="started"
-								checked={taskMetadata?.status === "started"}
-								readOnly
-							/>
-							<label htmlFor="started">Started</label>
-						</div>
-						<div className="status-item">
-							<input
-								type="checkbox"
-								id="paused"
-								checked={taskMetadata?.status === "paused"}
-								readOnly
-							/>
-							<label htmlFor="paused">Paused</label>
-						</div>
-						<div className="status-item">
-							<input
-								type="checkbox"
-								id="done"
-								checked={taskMetadata?.status === "done"}
-								readOnly
-							/>
-							<label htmlFor="done">Done</label>
-						</div>
+					<div className="task-metadata mt-4">
+						<b className="text-gray-700">
+							Due date:{" "}
+							{taskData?.end_date
+								? new Date(taskData?.end_date).toDateString()
+								: ""}
+						</b>
 					</div>
-					<div className="task-metadata">
-						<b className="due-date">Due date: {taskMetadata?.end_date}</b>
-					</div>
-					<div className="task-actions">
+					<div className="task-actions mt-4">
 						{taskMetadata?.status === "done" && (
 							<>
 								<input
 									type="text"
 									id="url"
 									placeholder="Link :"
-									className="input-url"
+									className="border border-gray-400 rounded px-2 py-1 w-64"
 									value={link}
 									onChange={handleLinkChange}
 								/>
 								<button
-									className="btn btn-primary"
+									className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
 									onClick={handleLinkSubmit}
 								>
 									Submit
@@ -129,7 +122,9 @@ const ChecklistBox = ({ task }) => {
 					</div>
 				</div>
 			)}
-			{checklistStatus === "failed" && <p>Error: {checklistError}</p>}
+			{checklistStatus === "failed" && (
+				<p className="text-red-500">Error: {checklistError}</p>
+			)}
 			<ToastContainer />
 		</div>
 	);

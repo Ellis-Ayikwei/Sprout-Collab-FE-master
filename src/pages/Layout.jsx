@@ -1,7 +1,7 @@
+import Footer from "components/navigations/Footer";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Outlet, useLocation } from "react-router-dom";
-import Footer from "../components/landingpage/Footer";
 import SecondNav from "../components/navigations/navbar2";
 import Sidebar from "../components/navigations/Sidebar";
 import AllProviders from "../contexts/allProviders";
@@ -35,22 +35,16 @@ const Layout = () => {
 		<>
 			<AllProviders>
 				{load && <div className="main-loader"></div>}
-				{/* {showNav && (
-					<Navbar
-						toggle={toggle}
-						isopen={isopen}
-					/>
-				)}
-				{
-					<NavbarOnSm
-						toggle={toggle}
-						isopen={isopen}
-					/>
-				} */}
 
 				{showNav && <SecondNav />}
 				{showAside && <Sidebar />}
-				<div className={showAside ? "Outlet h-full justify-between" : ""}>
+				<div
+					className={
+						showAside
+							? "Outlet flex-col h-full relative !justify-start overflow-hidden lg:min-h-screen mt-5"
+							: ""
+					}
+				>
 					<Outlet />
 				</div>
 				<Footer />

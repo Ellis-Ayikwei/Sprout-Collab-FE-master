@@ -66,25 +66,15 @@ const CollabList = ({ goal }) => {
 	console.log("the colab membs", collaborationMembers);
 
 	return (
-		<div className="list-container">
-			<div
-				style={{
-					display: "flex",
-					alignContent: "center",
-					alignItems: "center",
-					justifyContent: "space-between",
-					padding: "10px",
-				}}
-			>
+		<div className="flex flex-col justify-start items-center h-full border-2 border-main rounded-3xl py-5 px-2">
+			<div className="w-full flex items-center justify-between">
 				<h2>Collaborations</h2>
 				{goal && <AddCollabButton goalId={goal.id} />}
 			</div>
-			<div className="generic-cards">
+			<div className="mt-6 flex flex-col items-center justify-center h-full w-full p-2 gap-2">
 				{status === "loading" && (
 					<div className="flex justify-center mx-auto items-center">
-						<
-						DotLoader
-						/>
+						<DotLoader />
 					</div>
 				)}
 				{status === "failed" && <div className="error-message">{error}</div>}
@@ -97,10 +87,9 @@ const CollabList = ({ goal }) => {
 						const membersCount = collaborationMembers[collab.id]?.length || 0;
 						const isMember = collaborationMembers[collab.id]?.some(
 							(member) => member.user_id === localStorage.getItem("userid")
-						)
+						);
+						console.log("is member", isMember);
 
-
-						
 						return (
 							// @ts-ignore
 							<GenericCard
@@ -116,6 +105,7 @@ const CollabList = ({ goal }) => {
 								join={true}
 								isMember={isMember}
 								data={collab}
+								goalId={goal?.id}
 							/>
 						);
 					})}

@@ -74,8 +74,7 @@ const MyTasks = () => {
 	}, [userTasks]);
 
 	const handleClick = async (task) => {
-		dispatch(fetchtaskCheckList(task.task.id));
-		dispatch(setTaskMData(task.task_member));
+		dispatch(fetchtaskCheckList(task.task.id))
 		const theProject = await getProject(task.task.project_id);
 		dispatch(setCollabid(theProject.collab_id));
 		dispatch(setTaskData(task.task));
@@ -83,19 +82,19 @@ const MyTasks = () => {
 	};
 
 	return (
-		<div className="list-container">
+		<div className="flex flex-col justify-start items-center h-full border-2 border-main rounded-3xl py-5">
 			<div className="inline-block border-[2px] justify-center w-20 rounded-full border-main border-solid"></div>
 
-			<h3>My Tasks</h3>
+			<h3 className="text-lg font-semibold mt-2">My Tasks</h3>
+			<div className="mt-6 flex flex-col items-center justify-start h-auto w-full p-2 gap-2 overflow-y-scroll">
 
 			{isLoading && (
 				<div className="flex justify-center mx-auto items-center">
 					<DotLoader />
 				</div>
 			)}
-			<div className="generic-cards">
 				{!isLoading && userTasks.length === 0 && (
-					<p>You Dont have any tasks yet yet</p>
+					<p className="text-center text-gray-500" >You Dont have any tasks yet yet</p>
 				)}
 
 				{userTasks.map((userTask) => (

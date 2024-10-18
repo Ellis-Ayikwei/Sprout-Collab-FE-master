@@ -12,12 +12,11 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { PersistGate } from "redux-persist/integration/react";
 import "./App.scss";
-import GoalCatergories from "./components/goals/GoalCatergory";
-import GoalDetails from "./components/goals/goalDetailPage";
 import Goals from "./components/goals/Goals";
 import LoginPage from "./pages/auth/Login";
-import Login2 from "./pages/auth/Login2";
 import RegisterPage from "./pages/auth/Register";
+import GoalCatergories from "./pages/GoalCatergory";
+import GoalDetails from "./pages/goalDetailPage";
 import HomeLoggedIn from "./pages/HomeLoggedIn";
 import LandingPage from "./pages/LandingPage";
 import Layout from "./pages/Layout";
@@ -75,10 +74,6 @@ const router = createBrowserRouter(
 				path="/comment"
 				element={<TestPage1 />}
 			/>
-			<Route
-				path="/testlogin"
-				element={<Login2 />}
-			/>
 
 			<Route
 				path="*"
@@ -89,7 +84,7 @@ const router = createBrowserRouter(
 );
 const App = () => {
 	return (
-		<div className="App h-full">
+		<div className="App">
 			<ThemeProvider>
 				<Provider store={store}>
 					<PersistGate

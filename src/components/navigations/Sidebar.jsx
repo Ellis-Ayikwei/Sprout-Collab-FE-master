@@ -1,13 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-	FaBars,
-	FaCalendarAlt,
-	FaCommentAlt,
-	FaHistory,
-	FaRoad,
-	FaTh,
-	FaUserAlt,
-} from "react-icons/fa";
+import { FaBars, FaProjectDiagram, FaRocket, FaTasks, FaTh, FaUserAlt } from "react-icons/fa";
 import { Link, NavLink } from "react-router-dom";
 import MyCollabs from "../collabs/myCollabs";
 
@@ -50,30 +42,25 @@ const Sidebar = () => {
 			icon: <FaUserAlt />,
 		},
 		{
-			path: "/analytics",
-			name: "Calender",
-			icon: <FaCalendarAlt />,
+			path: "/home",
+			name: "My Tasks",
+			icon: <FaTasks />,
 		},
 		{
-			path: "/comment",
-			name: "Comments",
-			icon: <FaCommentAlt />,
+			path: "/home",
+			name: "My projects",
+			icon: <FaProjectDiagram />,
 		},
 		{
-			path: "/product",
-			name: "Milestones",
-			icon: <FaRoad />,
-		},
-		{
-			path: "/productList",
-			name: "History",
-			icon: <FaHistory />,
+			path: "/home",
+			name: "My Goals",
+			icon: <FaRocket />,
 		},
 	];
 
 	return (
 		<div
-			className="main--aside "
+			className="main--aside"
 			style={{
 				zIndex: isOpen && isMobile ? "1" : "0",
 			}}
@@ -128,7 +115,7 @@ const Sidebar = () => {
 						margin: "10px",
 						display: isOpen || !isMobile ? "block" : "none",
 					}}
-					className="h-full bg-black !justify-center !items-center"
+					className="h-ful !justify-center !items-center"
 				>
 					<li
 						style={{

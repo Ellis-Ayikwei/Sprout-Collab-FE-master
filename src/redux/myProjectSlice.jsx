@@ -5,7 +5,7 @@ const userId = localStorage.getItem("userid");
 
 export const fetchMyProjects = createAsyncThunk('projects/fetchMyProjects', async () => {
   const response = await fetcher(`project/myprojects/${userId}`);
-  return response; // Directly return the response as it is an array
+  return response;
 });
 
 const myProjectSlice = createSlice({

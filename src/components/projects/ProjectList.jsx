@@ -52,16 +52,8 @@ const ProjectList = ({ goal }) => {
 	};
 
 	return (
-		<div className="list-container">
-			<div
-				style={{
-					display: "flex",
-					alignContent: "center",
-					alignItems: "center",
-					justifyContent: "space-between",
-					padding: "10px",
-				}}
-			>
+		<div className="flex flex-col justify-start items-center h-full border-2 border-main rounded-3xl py-5 px-2">
+			<div className="w-full flex items-center justify-between">
 				<h2>Projects</h2>
 				{goal?.id && collabId && (
 					<AddProjectButton
@@ -70,7 +62,9 @@ const ProjectList = ({ goal }) => {
 					/>
 				)}
 			</div>
-			<div className="generic-cards">{renderProjects()}</div>
+			<div className="mt-6 flex flex-col items-center justify-center h-full w-full p-2 gap-2">
+				{renderProjects()}
+			</div>
 		</div>
 	);
 };
