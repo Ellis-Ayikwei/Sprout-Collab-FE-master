@@ -30,7 +30,7 @@ const taskSlice = createSlice({
 			state.taskListChecklists = action.payload;
 		},
 		setTaskMetaData: (state, action) => {
-			state.taskMetaData = action.payload.find(
+			state.taskMetaData = action.payload?.find(
 				(taskMember) => taskMember.user_id === userId
 			);
 		},

@@ -37,6 +37,7 @@ const Tasks = ({ projectID }) => {
 		return () => {
 			dispatch(setTaskData(null));
 			dispatch(setTaskChecklist(null));
+			dispatch(setTaskMetaData(null));
 		};
 	}, []);
 

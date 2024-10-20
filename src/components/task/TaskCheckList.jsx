@@ -13,10 +13,18 @@ const ChecklistBox = ({ task }) => {
 
 	const [checkedItems, setCheckedItems] = useState([]);
 	const [link, setLink] = useState(""); // State for the input link
+	const [saveActions, setSaveActions] = useState(false);
+	const [prevCheckedItems, setPrevCheckedItems] = useState([]);
 
 	useEffect(() => {
-		if (checklistStatus === "succeeded") {
+		if (checklist) {
 			setCheckedItems(
+				checklist?.map((item) => ({
+					id: item.id,
+					completed: item.completed,
+				}))
+			);
+			setPrevCheckedItems(
 				checklist?.map((item) => ({
 					id: item.id,
 					completed: item.completed,
@@ -25,7 +33,17 @@ const ChecklistBox = ({ task }) => {
 		}
 	}, [checklist, checklistStatus]);
 
-	const handleToggle = (itemId) => {
+	useEffect(() => {
+		if (
+			JSON.stringify(checkedItems) !== JSON.stringify(prevCheckedItems)
+		) {
+			setSaveActions(true);
+		} else {
+			setSaveActions(false);
+		}
+	}, [checkedItems, prevCheckedItems]);
+
+	const handleToggle = (e, itemId) => {
 		setCheckedItems(
 			checkedItems?.map((item) =>
 				item.id === itemId ? { ...item, completed: !item.completed } : item
@@ -48,18 +66,24 @@ const ChecklistBox = ({ task }) => {
 
 	return (
 		<div className="bg-white shadow-md rounded-xl px-8 pt-6 pb-8 mb-4 flex flex-col">
-			<div className="bg-amber-500 w-fit text-white text-xs rounded-full px-4 py-1.5 before:mr-2 before:bg-white before:rounded-full before:w-2 before:h-2 before:inline-block">
-				{taskMetadata?.status}
-			</div>
-			<h2 className="text-xl font-bold mt-1">{taskData?.name} - Checklists </h2>
+			{taskMetadata?.status && (
+				<div className="bg-amber-500 w-fit text-white text-xs rounded-full px-4 py-1.5 before:mr-2 before:bg-white before:rounded-full before:w-2 before:h-2 before:inline-block">
+					{taskMetadata?.status}
+				</div>
+			)}
+			{taskData?.name && (
+				<h2 className="text-xl font-bold mt-1">
+					{taskData?.name} - Checklists{" "}
+				</h2>
+			)}
 			<div className="h-1 w-full bg-amber-500 y-5 "></div>
 			{checklistStatus === "loading" && <p>Loading checklist...</p>}
-			{checklistStatus === "idle" && (
+			{!taskData && (
 				<p className="text-gray-600">
 					Please select a Task to show its check lists
 				</p>
 			)}
-			{checklistStatus === "succeeded" && checklist?.length === 0 && (
+			{checklist?.length === 0 && (
 				<p className="text-gray-600">
 					No Check list available for the selected task
 				</p>
@@ -80,7 +104,7 @@ const ChecklistBox = ({ task }) => {
 										checkedItems?.find((i) => i.id === item.id)?.completed ||
 										taskMetadata?.status === "done"
 									}
-									onChange={() => handleToggle(item.id)}
+									onChange={(e) => handleToggle(e, item.id)}
 								/>
 								<label
 									className="text-gray-700"
@@ -100,7 +124,7 @@ const ChecklistBox = ({ task }) => {
 								: ""}
 						</b>
 					</div>
-					<div className="task-actions mt-4">
+					<div className="mt-4 flex flex-wrap gap-1">
 						{taskMetadata?.status === "done" && (
 							<>
 								<input
@@ -120,6 +144,18 @@ const ChecklistBox = ({ task }) => {
 							</>
 						)}
 					</div>
+					<div className="mt-4 flex flex-wrap">
+						{saveActions && (
+							<>
+								<button
+									className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+									onClick={handleLinkSubmit}
+								>
+									save
+								</button>
+							</>
+						)}
+					</div>
 				</div>
 			)}
 			{checklistStatus === "failed" && (
@@ -131,3 +167,4 @@ const ChecklistBox = ({ task }) => {
 };
 
 export default ChecklistBox;
+
