@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { Suspense, useEffect, useMemo, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import useSWR from "swr";
@@ -52,19 +52,6 @@ const GoalDetails = () => {
 			const tasks = filterTasks(tasksData, goalId);
 			setGoal({ goalData, goalMembers, collaborations, projects, tasks });
 		}
-
-		console.log(
-			"the goal ddata",
-			goalData,
-			"the colsss",
-			collaborations,
-			" the projs",
-			projectsData,
-			"the task",
-			tasksData,
-			"the goal members",
-			goalMembers
-		);
 	}, [goalData, collaborations, goalMembers, projectsData, tasksData]);
 
 	useEffect(() => {
@@ -100,25 +87,28 @@ const GoalDetails = () => {
 
 	return (
 		<div className="goal-details-container">
-			<SubNav
-				title={memoizedGoalName}
-				members={memoizedMemberCount}
-				collabs={memoizedCollaborationCount}
-				projects={memoizedProjectCount}
-				tasks={memoizedTaskCount}
-			/>
-			<div className="h-screen w-full flex flex-col justify-start items-start">
-				<div className="flex items-center justify-center w-full bg-white rounded-full px-5 py-2 text-main shadow h-16 mb-0">
-					{goalData?.description}
+			<Suspense fallback={<div>Loading...</div>}>
+				<SubNav
+					title={memoizedGoalName}
+					members={memoizedMemberCount}
+					collabs={memoizedCollaborationCount}
+					projects={memoizedProjectCount}
+					tasks={memoizedTaskCount}
+				/>
+				<div className="h-screen w-full flex flex-col justify-start items-start">
+					<div className="flex items-center justify-center w-full bg-white rounded-full px-5 py-2 text-main shadow h-16 mb-0">
+						{goalData?.description}
+					</div>
+					<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 flex-grow w-full max-h-[70%] mt-5">
+						<CollabList goal={goalData} />
+						<ProjectList goal={goalData} />
+						<Resources goal={goalData} />
+					</div>
 				</div>
-				<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 flex-grow w-full max-h-[70%] mt-5">
-					<CollabList goal={goalData} />
-					<ProjectList goal={goalData} />
-					<Resources goal={goalData} />
-				</div>
-			</div>
+			</Suspense>
 		</div>
 	);
 };
 
 export default GoalDetails;
+

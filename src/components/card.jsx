@@ -17,8 +17,9 @@ const Card = ({ title, description, imageUrl, link }) => {
 		>
 			<img
 				className="card-image"
-				src={require(`../assets/images/${imageUrl}.jpg`)}
+				src={require(`../assets/images/${imageUrl}.jpg?resize&size=300`)}
 				alt={title}
+				loading="lazy"
 			/>
 			<div className="card-content">
 				<h3 className="card-title">{title}</h3>
@@ -29,3 +30,4 @@ const Card = ({ title, description, imageUrl, link }) => {
 };
 
 export default Card;
+

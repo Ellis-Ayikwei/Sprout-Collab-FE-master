@@ -1,11 +1,12 @@
-import React, { useEffect } from "react";
+import React, { lazy, Suspense, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Project from "../../images/project.png";
 import { fetchProjects } from "../../redux/ProjectsSlice";
 import DotLoader from "../DotLoader";
-import GenericCard from "../task/genericCard";
-import AddProjectButton from "./AddProjectButton";
+
+const GenericCard = lazy(() => import("../task/genericCard"));
+const AddProjectButton = lazy(() => import("./AddProjectButton"));
 
 const ProjectList = ({ goal }) => {
 	const dispatch = useDispatch();
@@ -39,15 +40,17 @@ const ProjectList = ({ goal }) => {
 			return <p>Error: {error.message}</p>;
 		}
 		return projects.map((project) => (
-			<GenericCard
-				key={project?.id}
-				title={project?.name}
-				description={project?.description}
-				icon={Project}
-				status={project.status}
-				dateCreated={project?.created_at.split("T")[0]}
-				onClick={() => handleClick(project?.id)}
-			/>
+			<Suspense fallback={<DotLoader key={project?.id} />}>
+				<GenericCard
+					key={project?.id}
+					title={project?.name}
+					description={project?.description}
+					icon={Project}
+					status={project.status}
+					dateCreated={project?.created_at.split("T")[0]}
+					onClick={() => handleClick(project?.id)}
+				/>
+			</Suspense>
 		));
 	};
 
@@ -56,10 +59,12 @@ const ProjectList = ({ goal }) => {
 			<div className="w-full flex items-center justify-between">
 				<h2>Projects</h2>
 				{goal?.id && collabId && (
-					<AddProjectButton
-						goalId={goal?.id}
-						collabId={collabId}
-					/>
+					<Suspense fallback={<DotLoader />}>
+						<AddProjectButton
+							goalId={goal?.id}
+							collabId={collabId}
+						/>
+					</Suspense>
 				)}
 			</div>
 			<div className="mt-6 flex flex-col items-center justify-start h-full w-full p-2 gap-2">
@@ -70,3 +75,4 @@ const ProjectList = ({ goal }) => {
 };
 
 export default ProjectList;
+
