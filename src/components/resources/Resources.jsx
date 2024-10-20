@@ -2,7 +2,6 @@
 import React, { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "react-toastify/dist/ReactToastify.css";
-import { setCollabid } from "../../redux/collabSlice";
 import { fetchResource } from "../../redux/ResourceSlice";
 import DotLoader from "../DotLoader";
 import AddResourceButton from "./AddeResourceButton";
@@ -20,24 +19,23 @@ const Resources = ({ goal }) => {
 
 	useEffect(() => {
 		if (collabid) {
+			console.log("collabid in resources", collabid);
 			dispatch(fetchResource(collabid));
 		}
 	}, [dispatch, collabid]);
 
-	useEffect(() => {
-		return () => {
-			dispatch(setCollabid(""));
-		};
-	}, []);
+	// useEffect(() => {
+	// 	return () => {
+	// 		dispatch(setCollabid(""));
+	// 	};
+	// }, []);
 
 	return (
 		<div
 			className="flex flex-col justify-start items-center h-full border-2 border-main rounded-3xl py-5 px-2"
 			ref={parentRef}
 		>
-			<div
-				className="w-full flex items-center justify-between"
-			>
+			<div className="w-full flex items-center justify-between">
 				<h2>Resources</h2>
 				{collabid && (
 					<AddResourceButton

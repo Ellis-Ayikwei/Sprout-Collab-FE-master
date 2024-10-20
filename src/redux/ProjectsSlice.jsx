@@ -26,7 +26,6 @@ const projectsSlice = createSlice({
 			.addCase(fetchProjects.fulfilled, (state, action) => {
 				state.status = "succeeded";
 				state.projectList = action.payload;
-				console.log("the project slice", action.payload);
 			})
 			.addCase(fetchProjects.rejected, (state, action) => {
 				state.status = "failed";

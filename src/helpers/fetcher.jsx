@@ -15,8 +15,6 @@ const fetcher = async (url, config = {}) => {
         }
         // Make the GET request using axiosInstance
         const response = await axiosInstance.get(url, config);
-        console.log(`Fetched data for URL ${url}:`, response.data);
-        // Return the response data
         return response.data;
     } catch (error) {
         // Handle any errors here

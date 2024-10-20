@@ -7,7 +7,6 @@ import SubNav from "../components/navigations/SubNav";
 import ProjectList from "../components/projects/ProjectList";
 import Resources from "../components/resources/Resources";
 import fetcher from "../helpers/fetcher";
-import { setCollabid } from "../redux/collabSlice";
 
 const filterProjects = (projectsData, goalId) => {
 	return projectsData.filter((project) => project.goal_id === goalId);
@@ -54,11 +53,11 @@ const GoalDetails = () => {
 		}
 	}, [goalData, collaborations, goalMembers, projectsData, tasksData]);
 
-	useEffect(() => {
-		return () => {
-			dispatch(setCollabid(""));
-		};
-	}, []);
+	// useEffect(() => {
+	// 	return () => {
+	// 		dispatch(setCollabid(""));
+	// 	};
+	// }, []);
 
 	const memoizedGoalName = useMemo(
 		() => goal.goalData?.name || "Loading...",
@@ -111,4 +110,3 @@ const GoalDetails = () => {
 };
 
 export default GoalDetails;
-

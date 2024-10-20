@@ -22,13 +22,13 @@ const HomeLoggedIn = () => {
 				Set your goals high, and don’t stop till you get there. 🌟
 			</div>
 			<div className="grid xl:grid-cols-3 md:grid-cols-2 gap-2 items-center ">
-				<div className="h-full md:h-[90%] xl:h-full">
+				<div className="h-full md:h-[90%] xl:h-md">
 					<MyGoals />
 				</div>
-				<div className="h-full md:h-[90%] xl:h-full">
+				<div className="h-full md:h-[90%] xl:h-md">
 					<MyProjects />
 				</div>
-				<div className="h-full md:h-[90%] xl:h-full">
+				<div className="h-full md:h-[90%] xl:h-md">
 					<MyTasks />
 				</div>
 			</div>

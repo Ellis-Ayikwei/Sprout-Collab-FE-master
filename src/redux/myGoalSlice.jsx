@@ -6,9 +6,7 @@ import axiosInstance from '../helpers/configEndpoints';
 const userId = localStorage.getItem("userid")
 //const userId = "1857a37b-0afe-4ceb-a05f-867fa9918de7";
 export const fetchMyGoals = createAsyncThunk('goals/fetchMyGoals', async () => {
-  console.log("the fetch my goals....")
   const response = await fetcher(`/goals/mygoals/${userId}`);
-  console.log("Fetched data:", response); 
   return response;
 });
 

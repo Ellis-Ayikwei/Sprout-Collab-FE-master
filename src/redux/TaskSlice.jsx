@@ -28,12 +28,10 @@ const taskSlice = createSlice({
         state.status = 'loading';
       })
       .addCase(fetchtasks.fulfilled, (state, action) => {
-        console.log("Fulfilled action fetchtask: ", action.payload);
         state.status = 'succeeded';
         state.taskList = action.payload;
       })
       .addCase(fetchtasks.rejected, (state, action) => {
-        console.log("Rejected action error: ", action.error.message);
         state.status = 'failed';
         state.error = action.error.message;
       });

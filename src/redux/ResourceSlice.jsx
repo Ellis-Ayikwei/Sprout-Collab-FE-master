@@ -26,7 +26,6 @@ const resourceSlice = createSlice({
 			.addCase(fetchResource.fulfilled, (state, action) => {
 				state.status = "succeeded";
 				state.resourceList = action.payload;
-				console.log("the resource slice", action.payload);
 			})
 			.addCase(fetchResource.rejected, (state, action) => {
 				state.status = "failed";
