@@ -10,6 +10,9 @@ const ChecklistBox = ({ task }) => {
 	const checklistError = useSelector((state) => state.tasks.taskMetaData);
 	const taskMetadata = useSelector((state) => state.tasks.taskMetaData);
 	const taskData = useSelector((state) => state.tasks.taskData);
+	const userChecklistData = useSelector(
+		(state) => state.tasks.userChecklistData
+	);
 
 	const [checkedItems, setCheckedItems] = useState([]);
 	const [link, setLink] = useState(""); // State for the input link
@@ -34,9 +37,7 @@ const ChecklistBox = ({ task }) => {
 	}, [checklist, checklistStatus]);
 
 	useEffect(() => {
-		if (
-			JSON.stringify(checkedItems) !== JSON.stringify(prevCheckedItems)
-		) {
+		if (JSON.stringify(checkedItems) !== JSON.stringify(prevCheckedItems)) {
 			setSaveActions(true);
 		} else {
 			setSaveActions(false);
@@ -167,4 +168,3 @@ const ChecklistBox = ({ task }) => {
 };
 
 export default ChecklistBox;
-

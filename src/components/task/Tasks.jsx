@@ -7,6 +7,7 @@ import taskImg from "../../images/task.png";
 import { fetchtaskCheckList } from "../../redux/ChecklistSlice";
 import {
 	fetchtasks,
+	fetchUserTaskCheckList,
 	setTaskChecklist,
 	setTaskData,
 	setTaskMetaData,
@@ -19,6 +20,7 @@ const Tasks = ({ projectID }) => {
 	const taskList = useSelector((state) => state.tasks.taskList);
 	const status = useSelector((state) => state.tasks.status);
 	const error = useSelector((state) => state.tasks.error);
+	const taskMetadata = useSelector((state) => state.tasks.taskMetaData);
 
 	const { data: project } = useSWR(`/projects/${projectID}`, fetcher);
 
@@ -27,6 +29,7 @@ const Tasks = ({ projectID }) => {
 		dispatch(setTaskData(task));
 		dispatch(setTaskChecklist(task.all_checklists));
 		dispatch(setTaskMetaData(task.all_members));
+		dispatch(fetchUserTaskCheckList());
 	};
 
 	useEffect(() => {
@@ -49,8 +52,11 @@ const Tasks = ({ projectID }) => {
 					projectID={projectID}
 					goalID={project?.goal_id}
 				/>
-				<button className="btn" onClick={() => dispatch(fetchtasks(projectID))}>
-				ghteti
+				<button
+					className="btn"
+					onClick={() => dispatch(fetchtasks(projectID))}
+				>
+					ghteti
 				</button>
 			</div>
 			<div className="mt-6 flex flex-col items-center justify-start h-full w-full p-2 gap-2">
