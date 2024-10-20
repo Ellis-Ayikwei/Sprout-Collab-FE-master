@@ -48,6 +48,7 @@ const ProjectList = ({ goal }) => {
 					icon={Project}
 					status={project.status}
 					dateCreated={project?.created_at.split("T")[0]}
+					memberCount={project.all_members?.length}
 					onClick={() => handleClick(project?.id)}
 				/>
 			</Suspense>
@@ -75,4 +76,3 @@ const ProjectList = ({ goal }) => {
 };
 
 export default ProjectList;
-

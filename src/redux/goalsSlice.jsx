@@ -4,6 +4,8 @@ import axiosInstance from '../helpers/configEndpoints';
 
 export const fetchGoals = createAsyncThunk('goals/fetchGoals', async () => {
   const response = await fetcher('/goals');
+  console.log("the goal response", response);
+
   return response;
 });
 

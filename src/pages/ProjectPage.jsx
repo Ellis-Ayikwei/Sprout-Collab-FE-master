@@ -20,7 +20,6 @@ const ProjectPage = () => {
 	const { data, error, isLoading } = useSWR(`projects/${projectId}`, fetcher);
 	useEffect(() => {
 		if (data) {
-			console.log("the data from the use state", data);
 			setProjectdata(data);
 		}
 

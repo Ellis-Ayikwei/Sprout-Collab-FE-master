@@ -1,12 +1,12 @@
 const { default: axiosInstance } = require("helpers/configEndpoints");
 
-const joinCollab = async (userData, collabid) => {
+const joinCollab = async (collaborationData, collaborationId) => {
 	try {
 		const response = await axiosInstance.post(
-			`collaborations/${collabid}/members`,
-			JSON.stringify(userData)
+			`collaborations/${collaborationId}/members`,
+			JSON.stringify(collaborationData)
 		);
-		console.log("Successfully joined collaboration:", response.data);
+		return response;
 	} catch (error) {
 		console.error("Error joining collaboration:", error);
 	}

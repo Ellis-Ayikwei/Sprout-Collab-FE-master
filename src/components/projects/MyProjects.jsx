@@ -20,9 +20,7 @@ const MyProjects = () => {
 	} = useSWR(`project/myprojects/${localStorage.getItem("userid")}`, fetcher);
 
 
-	console.log("myprojectList", myprojectList)
-	console.log("the rror is", error)
-	// Fetch member count for a specific project
+
 	const getGoalMemberCount = async (projectId) => {
 		try {
 			const response = await axiosInstance.get(

@@ -27,48 +27,51 @@ const Login = () => {
 	const loginHandler = async (event) => {
 		event.preventDefault();
 		setError("");
-	  
-		const input = userNameOrEmail.trim();
+
+		const userInput = userNameOrEmail.trim();
 		const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 		const isUsername = /^[a-zA-Z0-9_.-]{3,}$/;
-		const userInput = { email: "", username: "" };
-	  
-		// Determine if input is email or username
-		if (isEmail.test(input)) {
-		  userInput.email = input;
-		} else if (isUsername.test(input)) {
-		  userInput.username = input;
+
+		let loginData;
+		if (isEmail.test(userInput)) {
+			loginData = { email: userInput };
+		} else if (isUsername.test(userInput)) {
+			loginData = { username: userInput };
 		} else {
-		  setError("Invalid input. Please enter a valid username or email.");
-		  return;
+			setError("Invalid input. Please enter a valid username or email.");
+			return;
 		}
-	  
+
 		// Check for empty password or input
 		if (!password) {
-		  setError("Please fill in all fields");
-		  return;
+			setError("Please fill in all fields");
+			return;
 		}
-	  
-		const payload = { ...userInput, password };
-		console.log("payload", payload);
-	  
+
 		try {
-		  setLoading(true);
-		  const response = await authAxiosInstance.post("/login", payload);
-		  await dispatch(SetloginData(response.data));
+			setLoading(true);
+			const response = await authAxiosInstance.post("/login", {
+				...loginData,
+				password,
+			});
+			await dispatch(SetloginData(response.data));
 		} catch (error) {
-		  setLoading(false);
-		  setError(error.message);
+			console.log(error.response.status);
+			setLoading(false);
+			if (error.response.status === 404) {
+				setError("User not found");
+			} else if (error.response.status === 401) {
+				setError("Wrong username/email or password");
+			}
 		}
-	  };
-	  
-	  useEffect(() => {
+	};
+
+	useEffect(() => {
 		if (isLoggedIn) {
-		  setLoading(false); 
-		  navigate("/home");
+			setLoading(false);
+			navigate("/home");
 		}
-	  }, [isLoggedIn]);
-	  
+	}, [isLoggedIn]);
 
 	return (
 		<div className="h-screen flex items-center justify-center">
@@ -86,7 +89,11 @@ const Login = () => {
 				<div className="w-full max-w-md rounded-2xl shadow p-10 items-center">
 					<h3 className="text-2xl font-semibold  pt-2 mb-4">Sign In!</h3>
 					{/* Inputs */}
-					{error && <div>{error}</div>}
+					{error && (
+						<div className="w-full text-red-500 border-2 border-red-400 p-4 rounded-full">
+							{error}
+						</div>
+					)}
 					<form className="flex flex-col">
 						<input
 							type="text"
@@ -119,20 +126,20 @@ const Login = () => {
 						hover:text-blue-400 hover:bg-white
 						transition duration-200 ease-in"
 						>
-							{loading ?
-							<DotLoader
-								width="w-7"
-								height="h-7"
-							/>
-							:"sign In"
-						}
-						{isignedUp && (
-							<CheckedSymbol
-								width="w-7"
-								height="h-7"
-							/>
-						)}
-							
+							{loading ? (
+								<DotLoader
+									width="w-7"
+									height="h-7"
+								/>
+							) : (
+								"sign In"
+							)}
+							{isignedUp && (
+								<CheckedSymbol
+									width="w-7"
+									height="h-7"
+								/>
+							)}
 						</button>
 					</form>
 					<div className="flex space-x-2 m-4 items-center justify-center rounded-full border-[3px] border-black-400 hover:border-green-400 p-2">

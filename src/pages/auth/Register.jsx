@@ -43,7 +43,6 @@ const RegisterPage = () => {
 
 	const changeValue = (e) => {
 		const { value, id } = e.target;
-		console.log("value", value);
 		setParams({ ...params, [id]: value });
 	};
 
@@ -69,7 +68,6 @@ const RegisterPage = () => {
 	};
 
 	const saveNewUser = async () => {
-		console.log("params", params);
 		if (!params.first_name) {
 			setErrorMessage("First Name is required.");
 			return true;
@@ -113,7 +111,7 @@ const RegisterPage = () => {
 
 				setTimeout(() => {
 					navigate("/login");
-				}, 6000);
+				}, 1000);
 			}
 		} catch (error) {
 			if (error.response && error.response.data) {

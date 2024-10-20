@@ -6,7 +6,8 @@ export const fetchCollaborations = createAsyncThunk(
 	"collaborations/fetchCollaborations",
 	async (goalId) => {
 		const response = await fetcher(`goals/${goalId}/collaborations`);
-		return response; // Directly return the response as it is an array
+		
+		return response;
 	}
 );
 
@@ -21,7 +22,6 @@ const collabSlice = createSlice({
 	reducers: {
 		setCollabid(state, action) {
 			state.collabid = action.payload;
-			console.log("collab id set :: ", state.collabid);
 		},
 	},
 	extraReducers: (builder) => {

@@ -16,11 +16,7 @@ const Tasks = ({ projectID }) => {
 		
 	}, []);
 
-	useEffect(() => {
-		console.log("taskList from the useEffect", taskList);
-		console.log("status from the useEffect", status);
-		console.log("error from the useEffect", error);
-	}, [status]);
+
 
 	return (
 		<div className="task-list">

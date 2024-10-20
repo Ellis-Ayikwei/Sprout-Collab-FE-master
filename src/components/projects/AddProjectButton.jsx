@@ -15,7 +15,6 @@ const initialdata = {
 	type: "",
 };
 const AddProjectButton = ({ goalId, collabId }) => {
-	console.log("the gdd1 from projects", goalId, collabId);
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [disabled, setDisabled] = useState(false);
 	const dispatch = useDispatch();

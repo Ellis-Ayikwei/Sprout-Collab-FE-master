@@ -70,10 +70,7 @@ const taskCheckListSlice = createSlice({
 				state.taskMData = action.payload.find(
 					(taskMember) => taskMember.user_id === userId
 				);
-				console.log(
-					"the metaData is this00000000000000000000000000000000000000000",
-					state.taskMData
-				);
+				
 			})
 			.addCase(fetchtaskMembers.rejected, (state, action) => {
 				state.status = "failed";

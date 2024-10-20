@@ -11,7 +11,6 @@ import { ToastContainer } from "react-toastify";
 
 const MyTaskCard = ({ taskData }) => {
 	const { task, taskMember } = taskData[0];
-  console.log("task catda", taskMember)
 	const dispatch = useDispatch();
 	const [memberData, setMemberData] = useState({});
 

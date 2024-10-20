@@ -17,7 +17,6 @@ const TaskMemberCard = ({ taskMember }) => {
 	useEffect(() => {
 		if (data) {
 			setUserD(data);
-			console.log("the user d", userD);
 		}
 	}, [data]);
 

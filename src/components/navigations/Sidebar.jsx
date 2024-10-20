@@ -1,6 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { FaBars, FaProjectDiagram, FaRocket, FaTasks, FaTh, FaUserAlt } from "react-icons/fa";
-import { Link, NavLink } from "react-router-dom";
+import {
+	FaBars,
+	FaProjectDiagram,
+	FaRocket,
+	FaTasks,
+	FaTh,
+	FaUserAlt,
+} from "react-icons/fa";
+import { NavLink } from "react-router-dom";
 import MyCollabs from "../collabs/myCollabs";
 
 const Sidebar = () => {
@@ -108,32 +115,17 @@ const Sidebar = () => {
 						</NavLink>
 					))}
 				</div>
-
 				<hr />
-				<ul
+				My Collabs
+				<div
 					style={{
 						margin: "10px",
 						display: isOpen || !isMobile ? "block" : "none",
 					}}
-					className="h-ful !justify-center !items-center"
+					className="!justify-center !items-center h-[40%] bg-red-700 overflow-y-scroll"
 				>
-					<li
-						style={{
-							fontSize: "13px",
-							display: "flex",
-							alignContent: "center",
-							alignItems: "center",
-							justifyContent: "space-between",
-						}}
-					>
-						My Collabs
-						<Link to="/benefits">
-							<small style={{ fontWeight: "200" }}>veiw more</small>
-						</Link>
-					</li>
-
 					<MyCollabs />
-				</ul>
+				</div>
 			</div>
 			{/* <div className="version">Sprout Collab 1.0.0</div> */}
 		</div>

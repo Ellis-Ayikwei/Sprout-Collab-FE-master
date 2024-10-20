@@ -28,7 +28,6 @@ const Layout = () => {
 
 	const [isopen, setIsopen] = useState(false);
 	const toggle = () => {
-		console.log("toggeld");
 		setIsopen(!isopen);
 	};
 	return (

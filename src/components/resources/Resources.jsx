@@ -6,6 +6,7 @@ import { fetchResource } from "../../redux/ResourceSlice";
 import DotLoader from "../DotLoader";
 import AddResourceButton from "./AddeResourceButton";
 import ResourceItem from "./ResourceItem";
+import { setCollabid } from "../../redux/collabSlice";
 
 const Resources = ({ goal }) => {
 	const parentRef = useRef(null);
@@ -24,11 +25,11 @@ const Resources = ({ goal }) => {
 		}
 	}, [dispatch, collabid]);
 
-	// useEffect(() => {
-	// 	return () => {
-	// 		dispatch(setCollabid(""));
-	// 	};
-	// }, []);
+	useEffect(() => {
+		return () => {
+			dispatch(setCollabid(""));
+		};
+	}, []);
 
 	return (
 		<div

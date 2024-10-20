@@ -6,11 +6,13 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ProgressBar from "@ramonak/react-progress-bar";
 import joinCollab from "components/collabs/joinCollab";
-import React from "react";
+import PropTypes from "prop-types";
+import React, { useCallback, useState } from "react";
 import { buildStyles, CircularProgressbar } from "react-circular-progressbar";
 import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
+import { fetchCollaborations } from "../../redux/collabSlice";
 import { GetColor1BasedOnProgress } from "../../utils/getColorBasedOnProgress";
-import PropTypes from "prop-types";
 
 const GenericCard = ({
 	onClick,
@@ -19,51 +21,69 @@ const GenericCard = ({
 	duration,
 	progress,
 	progressType = "circular",
-	memberCount,
-	collaborationCount,
+	memberCount = 0,
+	collaborationCount = 0,
 	visibility,
 	dateCreated,
 	status,
 	icon,
-	join,
-	isMember,
+	isCollaboration = false,
+	isMember = false,
 	data,
 	goalId,
 }) => {
-	const color = GetColor1BasedOnProgress(progress);
-	const userid = localStorage.getItem("userid");
-	const myData = useSelector((state) => state.login.myData);
-	console.log("the data", data?.id);
 	const dispatch = useDispatch();
+	const myData = useSelector((state) => state.login.myData);
+	const color = GetColor1BasedOnProgress(progress || 0);
+	const [isLoading, setIsLoading] = useState(false);
+
+	// Memoize the onClick handler
+	const handleClick = useCallback(() => {
+		if (onClick) onClick();
+	}, [onClick]);
+
+	// Memoized function to join the collaboration
+	const handleJoinCollab = useCallback(() => {
+		if (data && myData) {
+			setIsLoading(true);
+			joinCollab(myData, data?.id).then((res) => {
+				console.log("res", res);
+				if (res?.status === 200) {
+					toast.success("Successfully joined collaboration");
+					dispatch(fetchCollaborations(data?.goal_id));
+
+					setIsLoading(false);
+				}
+			});
+		}
+	}, [dispatch, myData, data]);
 
 	return (
 		<div
 			className="generic-card !w-full"
-			onClick={() => onClick()}
+			onClick={handleClick}
 		>
 			<div className="generic--details1">
 				{icon && (
 					<img
 						src={icon}
-						alt="Handshake"
+						alt="Icon"
 						className="growth--icon"
 					/>
 				)}
 				<div className="generic-info">
 					<div className="generic-info1">
-						<h5
-							className={`generic-info__name text-sm sm:text-base md:text-lg lg:text-xl xl:text-lg`}
-						>
+						<h5 className="generic-info__name text-sm sm:text-base md:text-lg lg:text-xl xl:text-lg">
 							{title}
 						</h5>
 						{description && (
-							<p
-								className={`text-xs sm:text-sm  lg:text-sm xl:text-xs text-gray-400`}
-							>
+							<p className="text-xs sm:text-sm lg:text-sm xl:text-xs text-gray-400">
 								{description}
 							</p>
 						)}
 					</div>
+
+					{/* Progress Bar or Circular Progress */}
 					{progress != null && progressType === "bar" && (
 						<div className="generic--details2 generic-progress-bar w-full mb-1 mt-1">
 							<ProgressBar
@@ -77,38 +97,29 @@ const GenericCard = ({
 							/>
 						</div>
 					)}
+
 					<ul className="generic-info2 w-full">
 						{dateCreated && (
-							<li
-								className={`generic-info__created_at text-xs sm:text-sm  lg:text-sm xl:text-sm`}
-							>
-								{/* {dataType?.created_at.split("T")[0] || '0'} */}
+							<li className="generic-info__created_at text-xs sm:text-sm lg:text-sm xl:text-sm">
 								{dateCreated}
 							</li>
 						)}
 						{visibility && (
-							<li
-								className={`generic-info__visibility text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl`}
-							>
+							<li className="generic-info__visibility text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl">
 								{visibility}
 							</li>
 						)}
-						{memberCount && (
-							<li>
-								<span
-									className={`text-xs sm:text-sm md:text-base lg:text-lg xl:text-sm`}
-								>
-									<FontAwesomeIcon icon={faUserGroup} />
-									{"  "} {memberCount}
-								</span>
-							</li>
-						)}
+						<li>
+							<span className="text-xs sm:text-sm md:text-base lg:text-lg xl:text-sm">
+								<FontAwesomeIcon icon={faUserGroup} />
+								{"  "}
+								{memberCount}
+							</span>
+						</li>
 						{collaborationCount > 0 && (
 							<li>
 								<FontAwesomeIcon icon={faHandshake} /> {"  "}
-								<span
-									className={`text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl`}
-								>
+								<span className="text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl">
 									{collaborationCount}
 								</span>
 							</li>
@@ -116,27 +127,23 @@ const GenericCard = ({
 						{duration && (
 							<li>
 								<FontAwesomeIcon icon={faClockFour} /> {"  "}
-								<span
-									className={`text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl`}
-								>
+								<span className="text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl">
 									{duration} days
 								</span>
 							</li>
 						)}
-						{status && <li className={`text-xs l`}>{status}</li>}
-						{join && isMember  === false  && (
+						{status && <li className="text-xs l">{status}</li>}
+						{isCollaboration && !isMember && (
 							<button
-								onClick={() => {
-									joinCollab(myData, data?.id);
-								}}
-								className="right-0 bg-main !rounded-full text-sm text-white px-4 ml-auto "
+								onClick={handleJoinCollab}
+								className="right-0 bg-main !rounded-full text-sm text-white px-4 ml-auto"
 							>
-								Join
+								{isLoading ? "Joining...." : "Join"}
 							</button>
 						)}
-						{/* <li className='generic-info__member-count'>{members.genericMembers.length} Members</li> */}
 					</ul>
 				</div>
+
 				{progress != null && progressType === "circular" && (
 					<div className="generic-progress-circular">
 						<CircularProgressbar
@@ -159,19 +166,33 @@ const GenericCard = ({
 	);
 };
 
+// PropTypes validation
 GenericCard.propTypes = {
-	dataProp: PropTypes.object,
-	progressProp: PropTypes.number,
-	colorFunc: PropTypes.func,
-	onClickHandler: PropTypes.func,
-	showMiniCircle: PropTypes.bool,
-	showValue: PropTypes.bool,
-	title: PropTypes.string,
+	onClick: PropTypes.func.isRequired,
+	title: PropTypes.string.isRequired,
 	description: PropTypes.string,
-	additionalInfo: PropTypes.arrayOf(PropTypes.string),
-	progressType: PropTypes.oneOf(["circular", "bar"]), // Type of progress indicator
+	duration: PropTypes.number,
+	progress: PropTypes.number,
+	progressType: PropTypes.oneOf(["circular", "bar"]),
+	memberCount: PropTypes.number,
+	collaborationCount: PropTypes.number,
+	visibility: PropTypes.string,
+	dateCreated: PropTypes.string,
+	status: PropTypes.string,
+	icon: PropTypes.string,
+	isCollaboration: PropTypes.bool,
+	isMember: PropTypes.bool,
+	data: PropTypes.object,
+	goalId: PropTypes.string,
 };
 
-
+// Default Props
+GenericCard.defaultProps = {
+	progressType: "circular",
+	memberCount: 0,
+	collaborationCount: 0,
+	isCollaboration: false,
+	isMember: false,
+};
 
 export default GenericCard;

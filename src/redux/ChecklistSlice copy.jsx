@@ -45,7 +45,6 @@ const taskCheckListSlice = createSlice({
 	},
 	reducers: {
 		setTaskMData: (state, action) => {
-			console.log("the payload", action.payload);
 			state.taskMData = action.payload;
 		},
 		setTaskId: (state, action) => {

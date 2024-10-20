@@ -6,6 +6,7 @@ export const fetchProjects = createAsyncThunk(
 	"projects/fetchProjects",
 	async (collabId) => {
 		const response = await fetcher(`collaborations/${collabId}/projects`);
+		console.log("Full API Response for projects: ", response);
 		return response;
 	}
 );
