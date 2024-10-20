@@ -11,27 +11,33 @@ import { fetchGoalTypes } from "../redux/goalTypeSlice";
 import DotLoader from "components/DotLoader";
 
 const GoalsPage = () => {
-	const navigate = useNavigate();
 	const { typeId } = useParams();
 	const dispatch = useDispatch();
-
-	const { goals, goalsStatus, goalsError } = useSelector(
-		(state) => state.goals
+	const navigate = useNavigate();
+	const {
+		goalsList: goals,
+		status: goalsStatus,
+		error: goalsError,
+	} = useSelector((state) => state.goals);
+	const { typesList: types, status: typesStatus } = useSelector(
+		(state) => state.goalTypes
 	);
-	const { types, typesStatus } = useSelector((state) => state.goalTypes);
 
-	
 	useEffect(() => {
-		
-		if (typesStatus === "idle") {
+		console.log("goalsStatus:", goalsStatus);
+		if (goalsStatus === "idle" || goalsStatus === "failed") {
+			console.log("Fetching goals...");
+			dispatch(fetchGoals());
+		}
+		console.log("typesStatus:", typesStatus);
+		if (typesStatus === "idle" || typesStatus === "failed") {
+			console.log("Fetching goal types...");
 			dispatch(fetchGoalTypes());
 		}
-	}, [dispatch, typesStatus]);
+	}, [dispatch, goalsStatus, typesStatus]);
 
 	const filteredGoals = goals?.filter((goal) => goal.type === typeId);
 	const type = types?.find((t) => t.id === typeId);
-
-	const goalIds = filteredGoals?.map((goal) => goal.id);
 
 	return (
 		<div className="goals-page">
@@ -51,22 +57,22 @@ const GoalsPage = () => {
 				className="goal-cards"
 			>
 				{goalsStatus === "loading" && <DotLoader />}
-				{goalsStatus !== "loading" &&
-					filteredGoals?.map((goal) => {
-						return (
-							<GenericCard
-								key={goal.id}
-								title={goal.name}
-								description={goal.description}
-								icon={Rocket}
-								duration={goal.duration}
-								collaborationCount={goal.all_collaborations?.length}
-								dateCreated={goal.created_at.split("T")[0]}
-								memberCount={goal.all_members?.length}
-								onClick={() => navigate(`/goal-details/${goal.id}`)}
-							/>
-						);
-					})}
+				{filteredGoals?.map((goal) => (
+					<GenericCard
+						key={goal.id}
+						title={goal.name}
+						description={goal.description}
+						icon={Rocket}
+						duration={goal.duration}
+						collaborationCount={goal.all_collaborations?.length}
+						dateCreated={goal.created_at.split("T")[0]}
+						memberCount={goal.all_members?.length}
+						onClick={() => {
+							console.log("Navigating to goal-details...", goal.id);
+							navigate(`/goal-details/${goal.id}`);
+						}}
+					/>
+				))}
 			</div>
 		</div>
 	);

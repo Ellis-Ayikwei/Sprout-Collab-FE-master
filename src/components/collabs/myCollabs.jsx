@@ -21,7 +21,6 @@ const MyCollabs = () => {
 			{isLoading && <DotLoader />}
 			{data?.slice(0, 3).map(
 				(collab) => (
-					console.log("collab", collab),
 					(
 						<GenericCard
 							key={collab.collaboration_member.id}

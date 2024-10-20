@@ -5,10 +5,10 @@ import { submitLink } from "../../redux/ChecklistSlice"; // Import your action f
 
 const ChecklistBox = ({ task }) => {
 	const dispatch = useDispatch();
-	const checklist = useSelector((state) => state.taskCheckList.checkList);
+	const checklist = useSelector((state) => state.tasks.taskListChecklists);
 	const checklistStatus = useSelector((state) => state.taskCheckList.status);
-	const checklistError = useSelector((state) => state.taskCheckList.error);
-	const taskMetadata = useSelector((state) => state.taskCheckList.taskMData);
+	const checklistError = useSelector((state) => state.tasks.taskMetaData);
+	const taskMetadata = useSelector((state) => state.tasks.taskMetaData);
 	const taskData = useSelector((state) => state.tasks.taskData);
 
 	const [checkedItems, setCheckedItems] = useState([]);
@@ -17,7 +17,7 @@ const ChecklistBox = ({ task }) => {
 	useEffect(() => {
 		if (checklistStatus === "succeeded") {
 			setCheckedItems(
-				checklist.map((item) => ({
+				checklist?.map((item) => ({
 					id: item.id,
 					completed: item.completed,
 				}))
@@ -27,7 +27,7 @@ const ChecklistBox = ({ task }) => {
 
 	const handleToggle = (itemId) => {
 		setCheckedItems(
-			checkedItems.map((item) =>
+			checkedItems?.map((item) =>
 				item.id === itemId ? { ...item, completed: !item.completed } : item
 			)
 		);
@@ -59,15 +59,15 @@ const ChecklistBox = ({ task }) => {
 					Please select a Task to show its check lists
 				</p>
 			)}
-			{checklistStatus === "succeeded" && checklist.length === 0 && (
+			{checklistStatus === "succeeded" && checklist?.length === 0 && (
 				<p className="text-gray-600">
 					No Check list available for the selected task
 				</p>
 			)}
-			{checklistStatus === "succeeded" && checklist.length > 0 && (
+			{checklistStatus === "succeeded" && checklist?.length > 0 && (
 				<div>
 					<ul className="list-none">
-						{checklist.map((item) => (
+						{checklist?.map((item) => (
 							<li
 								key={item.id}
 								className="flex items-center"
@@ -77,7 +77,7 @@ const ChecklistBox = ({ task }) => {
 									type="checkbox"
 									id={item.id}
 									checked={
-										checkedItems.find((i) => i.id === item.id)?.completed ||
+										checkedItems?.find((i) => i.id === item.id)?.completed ||
 										taskMetadata?.status === "done"
 									}
 									onChange={() => handleToggle(item.id)}

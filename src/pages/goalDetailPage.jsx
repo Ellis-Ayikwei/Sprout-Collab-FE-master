@@ -12,9 +12,7 @@ const GoalDetails = () => {
 	const { goalId } = useParams();
 	const [goal, setGoal] = useState();
 
-	const dispatch = useDispatch();
 	const { data: goalData, error } = useSWR(`/goals/${goalId}`, fetcher);
-	console.log("the goal data", goalData);
 
 	useEffect(() => {
 		if (goalData) {

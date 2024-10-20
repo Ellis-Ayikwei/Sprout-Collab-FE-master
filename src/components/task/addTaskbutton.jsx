@@ -15,7 +15,6 @@ const initialdata = {
 	end_date: "",
 };
 const AddTaskButton = ({ projectID, goalID }) => {
-	console.log("the goal id", goalID);
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [isFormDisabled, setIsFormDisabled] = useState(false);
 	const dispatch = useDispatch();
@@ -57,7 +56,6 @@ const AddTaskButton = ({ projectID, goalID }) => {
 			await axiosInstance.post(`projects/${projectID}/tasks`, taskData);
 			dispatch(fetchtasks(projectID));
 			toast.success("Task created successfully");
-			console.log("Task created successfully:", taskData);
 			setTaskFormData(initialdata);
 			closeModal();
 		} catch (error) {
@@ -79,7 +77,6 @@ const AddTaskButton = ({ projectID, goalID }) => {
 			<ReusableModal
 				isOpen={isModalOpen}
 				onRequestClose={closeModal}
-				contentLabel="Add Task"
 			>
 				<h2 className="text-2xl font-bold mb-4">Add New Task</h2>
 				<form

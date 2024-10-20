@@ -11,7 +11,6 @@ const CollabList = ({ goal }) => {
 	const collaborations = useSelector(
 		(state) => state.collaborations.collaborations
 	);
-	console.log(collaborations);
 	const status = useSelector((state) => state.collaborations.status);
 	const error = useSelector((state) => state.collaborations.error);
 
@@ -59,20 +58,9 @@ const CollabList = ({ goal }) => {
 				{status === "succeeded" &&
 					sortedCollaborations.length > 0 &&
 					sortedCollaborations.map((collab) => {
-						console.log("all members in this group", collab.all_members);
 						const membersCount = collab.all_members?.length;
 						const isMember = collab.all_members?.some(
 							(member) => member.user_id === localStorage.getItem("userid")
-						);
-
-						console.log(
-							"I am A member",
-							isMember,
-							"for",
-							collab.name,
-							"collaboration memebr:",
-							collab.all_members,
-							localStorage.getItem("userid")
 						);
 
 						return (

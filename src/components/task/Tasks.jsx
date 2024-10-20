@@ -5,7 +5,12 @@ import useSWR from "swr";
 import fetcher from "../../helpers/fetcher";
 import taskImg from "../../images/task.png";
 import { fetchtaskCheckList } from "../../redux/ChecklistSlice";
-import { fetchtasks, setTaskData } from "../../redux/TaskSlice";
+import {
+	fetchtasks,
+	setTaskChecklist,
+	setTaskData,
+	setTaskMetaData,
+} from "../../redux/TaskSlice";
 import AddTaskButton from "./addTaskbutton";
 import GenericCard from "./genericCard";
 
@@ -20,11 +25,20 @@ const Tasks = ({ projectID }) => {
 	const handleTaskClick = (task) => {
 		dispatch(fetchtaskCheckList(task.id));
 		dispatch(setTaskData(task));
+		dispatch(setTaskChecklist(task.all_checklists));
+		dispatch(setTaskMetaData(task.all_members));
 	};
 
 	useEffect(() => {
 		dispatch(fetchtasks(projectID));
 	}, [projectID]);
+
+	useEffect(() => {
+		return () => {
+			dispatch(setTaskData(null));
+			dispatch(setTaskChecklist(null));
+		};
+	}, []);
 
 	return (
 		<div className="flex flex-col justify-start items-center h-full border-2 border-main rounded-3xl py-5 px-2">
@@ -34,25 +48,30 @@ const Tasks = ({ projectID }) => {
 					projectID={projectID}
 					goalID={project?.goal_id}
 				/>
+				<button className="btn" onClick={() => dispatch(fetchtasks(projectID))}>
+				ghteti
+				</button>
 			</div>
-			<div className="mt-6 flex flex-col items-center justify-center h-full w-full p-2 gap-2">
+			<div className="mt-6 flex flex-col items-center justify-start h-full w-full p-2 gap-2">
 				{status === "loading" && <DotLoader />}
 				{status === "failed" && (
 					<div className="error-message">{error.message}</div>
 				)}
-				{status === "succeeded" && taskList.length === 0 && (
+				{status === "succeeded" && taskList?.length === 0 && (
 					<p>No tasks found.</p>
 				)}
 				{status === "succeeded" &&
-					taskList.length > 0 &&
-					taskList.map((task) => (
+					taskList?.length > 0 &&
+					taskList?.map((task) => (
 						<GenericCard
+							key={task?.id}
 							icon={taskImg}
 							title={task.name}
 							description={task.description}
 							status={task.status}
 							dateCreated={task?.created_at.split("T")[0]}
 							duration={6}
+							memberCount={task?.all_members?.length}
 							onClick={() => handleTaskClick(task)}
 						/>
 					))}

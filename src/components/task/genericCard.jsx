@@ -6,7 +6,6 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ProgressBar from "@ramonak/react-progress-bar";
 import joinCollab from "components/collabs/joinCollab";
-import PropTypes from "prop-types";
 import React, { useCallback, useState } from "react";
 import { buildStyles, CircularProgressbar } from "react-circular-progressbar";
 import { useDispatch, useSelector } from "react-redux";
@@ -17,7 +16,7 @@ import { GetColor1BasedOnProgress } from "../../utils/getColorBasedOnProgress";
 const GenericCard = ({
 	onClick,
 	title,
-	description,
+	description = "",
 	duration,
 	progress,
 	progressType = "circular",
@@ -64,12 +63,14 @@ const GenericCard = ({
 			onClick={handleClick}
 		>
 			<div className="generic--details1">
-				{icon && (
+				{icon ? (
 					<img
 						src={icon}
 						alt="Icon"
-						className="growth--icon"
+						className="w-6 h-6"
 					/>
+				) : (
+					<FontAwesomeIcon icon={faUserGroup} /> // Fallback to an icon from FontAwesome
 				)}
 				<div className="generic-info">
 					<div className="generic-info1">
@@ -100,17 +101,15 @@ const GenericCard = ({
 
 					<ul className="generic-info2 w-full">
 						{dateCreated && (
-							<li className="generic-info__created_at text-xs sm:text-sm lg:text-sm xl:text-sm">
+							<li className="generic-info__created_at text-sm">
 								{dateCreated}
 							</li>
 						)}
 						{visibility && (
-							<li className="generic-info__visibility text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl">
-								{visibility}
-							</li>
+							<li className="generic-info__visibility text-sm">{visibility}</li>
 						)}
 						<li>
-							<span className="text-xs sm:text-sm md:text-base lg:text-lg xl:text-sm">
+							<span className="text-sm">
 								<FontAwesomeIcon icon={faUserGroup} />
 								{"  "}
 								{memberCount}
@@ -118,16 +117,16 @@ const GenericCard = ({
 						</li>
 						{collaborationCount > 0 && (
 							<li>
-								<FontAwesomeIcon icon={faHandshake} /> {"  "}
-								<span className="text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl">
+								<span className="text-sm">
+									<FontAwesomeIcon icon={faHandshake} /> {"  "}
 									{collaborationCount}
 								</span>
 							</li>
 						)}
 						{duration && (
 							<li>
-								<FontAwesomeIcon icon={faClockFour} /> {"  "}
-								<span className="text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl">
+								<span className="text-sm">
+									<FontAwesomeIcon icon={faClockFour} /> {"  "}
 									{duration} days
 								</span>
 							</li>
@@ -164,35 +163,6 @@ const GenericCard = ({
 			</div>
 		</div>
 	);
-};
-
-// PropTypes validation
-GenericCard.propTypes = {
-	onClick: PropTypes.func.isRequired,
-	title: PropTypes.string.isRequired,
-	description: PropTypes.string,
-	duration: PropTypes.number,
-	progress: PropTypes.number,
-	progressType: PropTypes.oneOf(["circular", "bar"]),
-	memberCount: PropTypes.number,
-	collaborationCount: PropTypes.number,
-	visibility: PropTypes.string,
-	dateCreated: PropTypes.string,
-	status: PropTypes.string,
-	icon: PropTypes.string,
-	isCollaboration: PropTypes.bool,
-	isMember: PropTypes.bool,
-	data: PropTypes.object,
-	goalId: PropTypes.string,
-};
-
-// Default Props
-GenericCard.defaultProps = {
-	progressType: "circular",
-	memberCount: 0,
-	collaborationCount: 0,
-	isCollaboration: false,
-	isMember: false,
 };
 
 export default GenericCard;
