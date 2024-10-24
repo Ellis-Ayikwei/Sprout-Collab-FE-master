@@ -4,28 +4,41 @@ import { Link, useNavigate } from "react-router-dom";
 import { usePreferences } from "../../contexts/PreferenceContext";
 import logo from "../../images/sclogo-alone.png";
 
-import { faBell, faGear } from "@fortawesome/free-solid-svg-icons";
+import { faBell, faGear, faHomeAlt } from "@fortawesome/free-solid-svg-icons";
 import { Dialog, DialogPanel } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { resetLogin } from "../../redux/authActions/LoginSlice";
+import { auth, signOut } from "firebase/firebaseAuthConfig";
 
 const Example = () => {
 	const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 	const { showPrefs } = usePreferences();
 	const isLoggedIn = useSelector((state) => state.login.isLoggedIn);
 	const dispatch = useDispatch();
+	const myData = useSelector((state) => state.login.myData);
 	const navigate = useNavigate();
 
 	const logoutHandler = async () => {
 		try {
+			signOut(auth)
+		  .then(() => {
+			console.log("User signed out");
+		  })
+		  .catch(error => {
+			console.error("Error during logout:", error);
+		  });
 			await dispatch(resetLogin());
 			navigate("/login");
 		} catch (error) {
 			console.error(error);
 		}
 	};
+
+
+
+	
 
 	const NavItems = () => {
 		return (
@@ -48,13 +61,15 @@ const Example = () => {
 				)}
 				{isLoggedIn && (
 					<div className="flex items-center space-x-4">
-						<div className="flex items-center space-x-4">
-							<img
-								className="h-10 w-10 rounded-full shadow border-main border-2"
-								src="https://avatars.githubusercontent.com/u/57622665?v=4"
-								alt="Atilwind Logo"
-							/>
+						<div>
+							<Link
+								to="/home"
+								className="btn--primary menu-item rounded-3xl"
+							>
+								<FontAwesomeIcon icon={faHomeAlt} />
+							</Link>
 						</div>
+						
 						<div>
 							<button
 								type="button"
@@ -70,6 +85,14 @@ const Example = () => {
 						>
 							Logout
 						</button>
+						<div className="flex items-center space-x-4 rounded-full shadow border-main border-2 pl-1">
+							<b>{myData.username}</b>
+							<img
+								className="h-10 w-10 rounded-full shadow border-main border-2"
+								src="https://avatars.githubusercontent.com/u/57622665?v=4"
+								alt="Atilwind Logo"
+							/>
+						</div>
 					</div>
 				)}
 				{isLoggedIn && (

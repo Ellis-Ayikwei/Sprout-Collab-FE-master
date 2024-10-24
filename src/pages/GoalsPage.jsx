@@ -45,17 +45,7 @@ const GoalsPage = () => {
 				title={`goals in the ${type?.name} category`}
 				addedComponent={<AddGoalButton TypeData={type} />}
 			/>
-			<div
-				style={{
-					display: "grid",
-					gridTemplateColumns: "repeat(auto-fill, minmax(320px, 1fr))",
-					gap: "0.6rem",
-					justifyContent: "flex-start",
-					alignContent: "flex-start",
-					height: "60vh",
-				}}
-				className="goal-cards"
-			>
+			<div className=" grid grid-cols-1 xl:grid-cols-3 md:grid-cols-2 2xl:grid-cols-5 gap-2 justify-start">
 				{goalsStatus === "loading" && <DotLoader />}
 				{filteredGoals?.map((goal) => (
 					<GenericCard

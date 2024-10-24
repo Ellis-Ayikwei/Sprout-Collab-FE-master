@@ -93,9 +93,9 @@ const AddGoalButton = ({ TypeData }) => {
 		<div className="">
 			<button
 				onClick={openModal}
-				className="bg-main !rounded-full text-xl text-white px-4 py-1"
+				className="bg-main !rounded-full text-white px-4 py-1 shadow"
 			>
-				<b>+</b> New Goal
+				<b className="text-sm">+</b> New Goal
 			</button>
 			<ReusableModal
 				isOpen={isModalOpen}

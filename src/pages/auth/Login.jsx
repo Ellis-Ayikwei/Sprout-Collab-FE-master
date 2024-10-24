@@ -9,6 +9,7 @@ import React from "react";
 import authAxiosInstance from "../../helpers/authAxiosInstance";
 import logo from "../../images/sclogo-alone.png";
 import { SetloginData } from "../../redux/authActions/LoginSlice";
+import { auth, facebookProvider, googleProvider, signInWithPopup } from "firebase/firebaseAuthConfig";
 
 const Login = () => {
 	const [isLogin, setIsLogin] = useState(true);
@@ -24,6 +25,45 @@ const Login = () => {
 	const [userNameOrEmail, setUserNameOrEmail] = useState("");
 	const [error, setError] = useState("");
 
+	
+	//google login Handler
+
+	const handleGoogleLogin = async () => {
+		try {
+			const result = await signInWithPopup(auth, googleProvider);
+			const user = result.user;
+			const token = await user.getIdToken();
+			const response = await authAxiosInstance.post("/verify_token", JSON.stringify({ token }))
+			if (response.status === 200){
+				dispatch(SetloginData(response.data));
+				navigate("/");
+			}
+		} catch (error) {
+			console.error("Error during Google sign-in", error);
+		}
+	};
+
+
+	const handleFacebookLogin = async () => {
+		try {
+		  const result = await signInWithPopup(auth, facebookProvider);
+		  const user = result.user;
+		  const token = await user.getIdToken();
+		  const response = await authAxiosInstance.post("/verify_token", JSON.stringify({ token }))
+			if (response.status === 200){
+				dispatch(SetloginData(response.data));
+				navigate("/");
+			}
+		} catch (error) {
+		  console.error("Error during Facebook sign-in", error);
+		}
+		};
+	
+	
+	
+	
+	
+	
 	const loginHandler = async (event) => {
 		event.preventDefault();
 		setError("");
@@ -143,15 +183,15 @@ const Login = () => {
 						</button>
 					</form>
 					<div className="flex space-x-2 m-4 items-center justify-center rounded-full border-[3px] border-black-400 hover:border-green-400 p-2">
-						<button className="flex gap-2 ">
-							<div className="item-center">
+						<button className="flex gap-2 " onClick={handleGoogleLogin}>
+							<div className="item-center" >
 								<Google />
 							</div>{" "}
 							Sign In With Google
 						</button>
 					</div>
 					<div className="flex space-x-2 m-4 items-center justify-center rounded-full border-[3px] border-black-400 hover:border-green-400 p-2">
-						<button className="flex gap-2 ">
+						<button className="flex gap-2 " onClick={handleFacebookLogin}>
 							<div className="item-center">
 								<Facebook />
 							</div>{" "}
