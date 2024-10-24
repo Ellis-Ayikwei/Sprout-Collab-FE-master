@@ -14,13 +14,14 @@ const AddGoalButton = ({ TypeData }) => {
 		duration: "",
 		visibility: "Public",
 		type: "",
+		creator_id: localStorage.getItem("userid"),
 	};
 
 	const [isModalOpen, setModalOpen] = useState(false);
 	const [formData, setFormData] = useState(forminitState);
 	const [types, setTypes] = useState([]);
 	const [typeMap, setTypeMap] = useState({});
-	const [loading, setLoading] = useState(false); // Loading state
+	const [loading, setLoading] = useState(false);
 
 	const dispatch = useDispatch();
 
@@ -99,7 +100,6 @@ const AddGoalButton = ({ TypeData }) => {
 			<ReusableModal
 				isOpen={isModalOpen}
 				onRequestClose={closeModal}
-				contentLabel="Add Goal"
 			>
 				{loading ? (
 					<Loader /> // Show loader when loading

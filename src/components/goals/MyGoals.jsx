@@ -20,6 +20,8 @@ const MyGoals = () => {
 		isLoading,
 	} = useSWR(`/goals/mygoals/${localStorage.getItem("userid")}`, fetcher);
 
+	console.log("my goals", mygoalsList);
+
 	// Fetch member count for a specific goal
 	const getGoalMemberCount = async (goalId) => {
 		try {
