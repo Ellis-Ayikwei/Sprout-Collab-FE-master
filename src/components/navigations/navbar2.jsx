@@ -7,10 +7,10 @@ import logo from "../../images/sclogo-alone.png";
 import { faBell, faGear, faHomeAlt } from "@fortawesome/free-solid-svg-icons";
 import { Dialog, DialogPanel } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import { auth, signOut } from "firebase/firebaseAuthConfig";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { resetLogin } from "../../redux/authActions/LoginSlice";
-import { auth, signOut } from "firebase/firebaseAuthConfig";
 
 const Example = () => {
 	const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -108,7 +108,7 @@ const Example = () => {
 	};
 
 	return (
-		<header className="sticky top-0">
+		<header className="sticky top-0 z-10">
 			<nav className="mx-auto fixed flex w-full items-center justify-between p-6 lg:px-8">
 				<div className="flex lg:flex-1">
 					<Link
@@ -149,7 +149,7 @@ const Example = () => {
 				onClose={setMobileMenuOpen}
 				className="lg:hidden"
 			>
-				<div className="fixed inset-0 z-100000" />
+				<div className="fixed inset-0 z-20" />
 				<DialogPanel className="fixed inset-y-0 right-0 top-0 z-1000 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
 					<div className="flex items-center justify-between">
 						<Link
