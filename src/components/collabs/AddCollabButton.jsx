@@ -73,7 +73,7 @@ const AddCollabButton = ({ goalId }) => {
 			<ReusableModal
 				isOpen={isModalOpen}
 				onRequestClose={closeModal}
-				contentLabel="Add Collab"
+				contentLabel="Add A New Collab Group"
 			>
 				<h2>Add New Collab</h2>
 				<form onSubmit={handleSubmit}>
@@ -112,7 +112,7 @@ const AddCollabButton = ({ goalId }) => {
 							className="btn--primary"
 							type="submit"
 						>
-							Add Goal
+							Add Collab
 						</button>
 						<button
 							type="button"

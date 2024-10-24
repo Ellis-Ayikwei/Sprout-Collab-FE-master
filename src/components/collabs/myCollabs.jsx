@@ -17,20 +17,16 @@ const MyCollabs = () => {
 	);
 
 	return (
-		<div className="h-auto py-2 gap-2 justify-center">
+		<div className="h-auto py-2 gap-2 justify-center items-center">
 			{isLoading && <DotLoader />}
-			{data?.slice(0, 3).map(
-				(collab) => (
-					(
-						<GenericCard
-							key={collab.collaboration_member.id}
-							title={collab.collaboration.name}
-							icon={Handshake}
-							memberCount={50}
-						/>
-					)
-				)
-			)}
+			{data?.slice(0, 3).map((collab) => (
+				<GenericCard
+					key={collab.collaboration_member.id}
+					title={collab.collaboration.name}
+					icon={Handshake}
+					memberCount={50}
+				/>
+			))}
 		</div>
 	);
 };

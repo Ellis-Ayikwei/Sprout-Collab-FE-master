@@ -1,12 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-	FaBars,
-	FaProjectDiagram,
-	FaRocket,
-	FaTasks,
-	FaTh,
-	FaUserAlt,
-} from "react-icons/fa";
+import { FaBars, FaTh, FaUserAlt } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
 import MyCollabs from "../collabs/myCollabs";
 
@@ -47,21 +40,6 @@ const Sidebar = () => {
 			path: "/goal-catergories",
 			name: "Goals",
 			icon: <FaUserAlt />,
-		},
-		{
-			path: "/home",
-			name: "My Tasks",
-			icon: <FaTasks />,
-		},
-		{
-			path: "/home",
-			name: "My projects",
-			icon: <FaProjectDiagram />,
-		},
-		{
-			path: "/home",
-			name: "My Goals",
-			icon: <FaRocket />,
 		},
 	];
 
@@ -122,7 +100,7 @@ const Sidebar = () => {
 						margin: "10px",
 						display: isOpen || !isMobile ? "block" : "none",
 					}}
-					className="!justify-center !items-center h-[40%] bg-red-700 overflow-y-scroll"
+					className="!justify-center !items-center h-[40%]  overflow-y-scroll"
 				>
 					<MyCollabs />
 				</div>
