@@ -7,6 +7,8 @@ const axiosInstance = axios.create({
 	withCredentials: true,
 	headers: {
 		"Content-Type": "application/json",
+		"Authorization": `Bearer ${localStorage.getItem("acccesToken")}`,
+		"X-Refresh-Token": `${localStorage.getItem("refreshToken")}`,
 	},
 });
 export default axiosInstance;

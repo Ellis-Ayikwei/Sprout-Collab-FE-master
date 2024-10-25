@@ -8,7 +8,7 @@ const HomeLoggedIn = () => {
 		<div className="w-full flex flex-col justify-start ">
 			<div
 				aria-hidden="true"
-				className="absolute opacity-70 inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
+				className="absolute opacity-70 inset-x-0 -top-40 z-0 transform-gpu overflow-hidden blur-3xl sm:-top-80"
 			>
 				<div
 					style={{

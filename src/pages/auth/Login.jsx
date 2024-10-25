@@ -1,4 +1,4 @@
-import { Facebook, Google } from "@mui/icons-material";
+import { Google } from "@mui/icons-material";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
@@ -6,10 +6,15 @@ import { Link, useNavigate } from "react-router-dom";
 import DotLoader from "components/DotLoader";
 import CheckedSymbol from "components/checkSymbol";
 import React from "react";
+import {
+	auth,
+	facebookProvider,
+	googleProvider,
+	signInWithPopup,
+} from "../../firebase/firebaseAuthConfig";
 import authAxiosInstance from "../../helpers/authAxiosInstance";
 import logo from "../../images/sclogo-alone.png";
 import { SetloginData } from "../../redux/authActions/LoginSlice";
-import { auth, facebookProvider, googleProvider, signInWithPopup } from "firebase/firebaseAuthConfig";
 
 const Login = () => {
 	const [isLogin, setIsLogin] = useState(true);
@@ -25,7 +30,6 @@ const Login = () => {
 	const [userNameOrEmail, setUserNameOrEmail] = useState("");
 	const [error, setError] = useState("");
 
-	
 	//google login Handler
 
 	const handleGoogleLogin = async () => {
@@ -33,8 +37,11 @@ const Login = () => {
 			const result = await signInWithPopup(auth, googleProvider);
 			const user = result.user;
 			const token = await user.getIdToken();
-			const response = await authAxiosInstance.post("/verify_token", JSON.stringify({ token }))
-			if (response.status === 200){
+			const response = await authAxiosInstance.post(
+				"/verify_token",
+				JSON.stringify({ token })
+			);
+			if (response.status === 200) {
 				dispatch(SetloginData(response.data));
 				navigate("/");
 			}
@@ -43,27 +50,24 @@ const Login = () => {
 		}
 	};
 
-
 	const handleFacebookLogin = async () => {
 		try {
-		  const result = await signInWithPopup(auth, facebookProvider);
-		  const user = result.user;
-		  const token = await user.getIdToken();
-		  const response = await authAxiosInstance.post("/verify_token", JSON.stringify({ token }))
-			if (response.status === 200){
+			const result = await signInWithPopup(auth, facebookProvider);
+			const user = result.user;
+			const token = await user.getIdToken();
+			const response = await authAxiosInstance.post(
+				"/verify_token",
+				JSON.stringify({ token })
+			);
+			if (response.status === 200) {
 				dispatch(SetloginData(response.data));
 				navigate("/");
 			}
 		} catch (error) {
-		  console.error("Error during Facebook sign-in", error);
+			console.error("Error during Facebook sign-in", error);
 		}
-		};
-	
-	
-	
-	
-	
-	
+	};
+
 	const loginHandler = async (event) => {
 		event.preventDefault();
 		setError("");
@@ -116,7 +120,10 @@ const Login = () => {
 	return (
 		<div className="h-screen flex items-center justify-center">
 			<main className="flex flex-col items-center w-full mx-auto">
-				<div className="flex items-center text-3xl mb-8">
+				<Link
+					to="/"
+					className="flex items-center text-3xl mb-8"
+				>
 					<img
 						className="w-14 h-14"
 						src={logo}
@@ -125,8 +132,8 @@ const Login = () => {
 					<p className="logo-text">
 						<b>Sprout</b>Collab
 					</p>{" "}
-				</div>
-				<div className="w-full max-w-md rounded-2xl shadow p-10 items-center">
+				</Link>
+				<div className="w-full max-w-md rounded-2xl border-2 border-main shadow p-10 items-center">
 					<h3 className="text-2xl font-semibold  pt-2 mb-4">Sign In!</h3>
 					{/* Inputs */}
 					{error && (
@@ -160,9 +167,11 @@ const Login = () => {
 						<button
 							onClick={(e) => loginHandler(e)}
 							className="flex gap-2 rounded-full m-2 
-						font-semibold w-2/5 px-4 
+						font-semibold px-2 
 						py-2 shadow-md justify-center
 						items-center
+						btn
+						text-white bg-main
 						hover:text-blue-400 hover:bg-white
 						transition duration-200 ease-in"
 						>
@@ -183,21 +192,27 @@ const Login = () => {
 						</button>
 					</form>
 					<div className="flex space-x-2 m-4 items-center justify-center rounded-full border-[3px] border-black-400 hover:border-green-400 p-2">
-						<button className="flex gap-2 " onClick={handleGoogleLogin}>
-							<div className="item-center" >
+						<button
+							className="flex gap-2 "
+							onClick={handleGoogleLogin}
+						>
+							<div className="item-center">
 								<Google />
 							</div>{" "}
 							Sign In With Google
 						</button>
 					</div>
-					<div className="flex space-x-2 m-4 items-center justify-center rounded-full border-[3px] border-black-400 hover:border-green-400 p-2">
-						<button className="flex gap-2 " onClick={handleFacebookLogin}>
+					{/* <div className="flex space-x-2 m-4 items-center justify-center rounded-full border-[3px] border-black-400 hover:border-green-400 p-2">
+						<button
+							className="flex gap-2 "
+							onClick={handleFacebookLogin}
+						>
 							<div className="item-center">
 								<Facebook />
 							</div>{" "}
 							Sign In With Facebook
 						</button>
-					</div>
+					</div> */}
 
 					<div className="flex flex-row items-center justify-center text-center !gab-6">
 						<p className="  text-sm"> Don't have an account?</p>

@@ -2,7 +2,7 @@ import Footer from "components/navigations/Footer";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Outlet, useLocation } from "react-router-dom";
-import SecondNav from "../components/navigations/navbar2";
+import SecondNav from "../components/navigations/Navbar";
 import Sidebar from "../components/navigations/Sidebar";
 import AllProviders from "../contexts/allProviders";
 import SeTT from "./SettingsPage";

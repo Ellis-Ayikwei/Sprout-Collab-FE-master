@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { Facebook, Google } from "@mui/icons-material";
+import { Google } from "@mui/icons-material";
 import React, { useState } from "react";
 import { eye } from "react-icons-kit/fa/eye";
 import { eyeOff } from "react-icons-kit/feather/eyeOff";
@@ -15,19 +15,14 @@ import "tippy.js/dist/tippy.css";
 import CheckedSymbol from "../../components/checkSymbol";
 import axiosInstance from "../../helpers/configEndpoints";
 import DefaultParams from "./authUtils/dparams";
+import { auth, googleProvider, signInWithPopup } from "../../firebase/firebaseAuthConfig";
+import authAxiosInstance from "helpers/authAxiosInstance";
+import { SetloginData } from "../../redux/authActions/LoginSlice";
 
 const RegisterPage = () => {
 	const [errorMessage, setErrorMessage] = useState(null);
 
-	const handleGoogleLogin = () => {
-		console.log("Google login clicked");
-		// Implement Google login logic here
-	};
 
-	const handleFacebookLogin = () => {
-		console.log("Facebook login clicked");
-		// Implement Facebook login logic here
-	};
 
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState(null);
@@ -65,6 +60,24 @@ const RegisterPage = () => {
 
 	const handlePasswordChange = (e) => {
 		setPassword(e.target.value);
+	};
+
+	const handleGoogSignUp = async () => {
+		try {
+			const result = await signInWithPopup(auth, googleProvider);
+			const user = result.user;
+			const token = await user.getIdToken();
+			const response = await authAxiosInstance.post(
+				"/verify_token",
+				JSON.stringify({ token })
+			);
+			if (response.status === 200) {
+				dispatch(SetloginData(response.data));
+				navigate("/");
+			}
+		} catch (error) {
+			console.error("Error during Google sign-in", error);
+		}
 	};
 
 	const saveNewUser = async () => {
@@ -135,7 +148,7 @@ const RegisterPage = () => {
 			className="h-screen flex flex-wrap !items-center justify-center
 		"
 		>
-			<div className="w-full max-w-md rounded-2xl shadow p-10 !items-center">
+			<div className="w-full max-w-md rounded-2xl shadow p-10 !items-center border-2 border-main">
 				<h3 className="text-2xl font-semibold  pt-2 mb-4 !items-center">
 					Create an Account
 				</h3>
@@ -243,7 +256,8 @@ const RegisterPage = () => {
 
 					<button
 						onClick={saveNewUser}
-						className=" flex gap-2 rounded-full justify-center m-2 font-semibold fon w-2/5 px-4 py-2 shadow-md hover:text-blue-400 hover:bg-white transition duration-200 ease-in"
+						className=" btn
+						text-white bg-main flex gap-2 rounded-full justify-center m-2 font-semibold fon w-2/5 px-4 py-2 shadow-md hover:text-blue-400 hover:bg-white transition duration-200 ease-in"
 					>
 						{loading && (
 							<DotLoader
@@ -261,21 +275,21 @@ const RegisterPage = () => {
 					</button>
 				</form>
 				<div className="flex space-x-2 m-4 items-center justify-center rounded-full border-[3px] border-black-400 hover:border-green-400 p-2">
-					<button className="flex gap-2 ">
+					<button className="flex gap-2 " onClick={handleGoogSignUp}>
 						<div className="item-center">
 							<Google />
 						</div>{" "}
 						Sign Up With Google
 					</button>
 				</div>
-				<div className="flex space-x-2 m-4 items-center justify-center rounded-full border-[3px] border-black-400 hover:border-green-400 p-2">
+				{/* <div className="flex space-x-2 m-4 items-center justify-center rounded-full border-[3px] border-black-400 hover:border-green-400 p-2">
 					<button className="flex gap-2 ">
 						<div className="item-center">
 							<Facebook />
 						</div>{" "}
 						Sign Up With Facebook
 					</button>
-				</div>
+				</div> */}
 
 				<div className="flex flex-row items-center justify-center text-center !gab-6">
 					<p className="  text-sm"> Already have an account?</p>
