@@ -7,6 +7,9 @@ import axiosInstance from "../../helpers/configEndpoints";
 import Rocket from "../../images/rocket.png";
 import DotLoader from "../DotLoader";
 import GenericCard from "../task/genericCard";
+import ProjectIMg from "../../images/project.png";
+import { setCollabid } from "../../redux/collabSlice";
+
 
 const MyProjects = () => {
 	const dispatch = useDispatch();
@@ -85,11 +88,14 @@ const MyProjects = () => {
 						progress={project.project_member.progress ?? 0}
 						title={project.project.name}
 						description={project.project.description}
-						icon={Rocket}
+						icon={ProjectIMg}
 						collaborationCount={0}
 						memberCount={projectMemberCount[project.project.id] || 0} // Default to 0 if missing
 						dateCreated={project.project.created_at.split("T")[0]}
-						onClick={() => navigate(`/projects/${project.project.id}/tasks/`)}
+						onClick={() => {navigate(`/projects/${project.project.id}/tasks/`) 
+							dispatch(setCollabid(project.project.collab_id))
+						}}
+						
 					/>
 				))}
 			</div>

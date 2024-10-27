@@ -5,8 +5,8 @@ import MyTasks from "../components/task/MyTasks";
 
 const HomeLoggedIn = () => {
 	return (
-		<div className="w-full flex flex-col justify-start ">
-			<div
+		<div className="w-full h-full flex flex-col !justify-start ">
+			{/* <div
 				aria-hidden="true"
 				className="absolute opacity-70 inset-x-0 -top-40 z-0 transform-gpu overflow-hidden blur-3xl sm:-top-80"
 			>
@@ -17,18 +17,28 @@ const HomeLoggedIn = () => {
 					}}
 					className="relative left-1/2 aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:w-[72.1875rem]"
 				/>
-			</div>
+			</div> */}
 			<div className="flex items-center justify-center w-full bg-white rounded-full px-5 py-2 text-main shadow h-16 mb-0">
 				Set your goals high, and don’t stop till you get there. 🌟
 			</div>
-			<div className="grid xl:grid-cols-3 md:grid-cols-2 gap-2 items-center ">
-				<div className="h-full md:h-[90%] xl:h-md" id="mygoals">
+
+			<div className="grid grid-cols-1 xl:grid-cols-3 md:grid-cols-2 gap-2">
+				<div
+					className="h-full md:h-[90%] xl:h-[90%]"
+					id="mygoals"
+				>
 					<MyGoals />
 				</div>
-				<div className="h-full md:h-[90%] xl:h-md" id="myprojects">
+				<div
+					className="h-full md:h-[90%] xl:h-[90%]"
+					id="myprojects"
+				>
 					<MyProjects />
 				</div>
-				<div className="h-full md:h-[90%] xl:h-md" id="mytasks">
+				<div
+					className="h-full md:h-[90%] xl:h-[90%]"
+					id="mytasks"
+				>
 					<MyTasks />
 				</div>
 			</div>

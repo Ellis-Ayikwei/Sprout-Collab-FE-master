@@ -1,5 +1,5 @@
 import DotLoader from "components/DotLoader";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import useSWR from "swr";
 import fetcher from "../../helpers/fetcher";
@@ -21,6 +21,7 @@ const Tasks = ({ projectID }) => {
 	const status = useSelector((state) => state.tasks.status);
 	const error = useSelector((state) => state.tasks.error);
 	const taskMetadata = useSelector((state) => state.tasks.taskMetaData);
+	const [selectedTaskId, setSelectedTaskId] = useState("");
 
 	const { data: project } = useSWR(`/projects/${projectID}`, fetcher);
 
@@ -30,6 +31,7 @@ const Tasks = ({ projectID }) => {
 		dispatch(setTaskChecklist(task.all_checklists));
 		dispatch(setTaskMetaData(task.all_members));
 		dispatch(fetchUserTaskCheckList());
+		setSelectedTaskId(task.id);
 	};
 
 	useEffect(() => {
@@ -52,12 +54,6 @@ const Tasks = ({ projectID }) => {
 					projectID={projectID}
 					goalID={project?.goal_id}
 				/>
-				<button
-					className="btn"
-					onClick={() => dispatch(fetchtasks(projectID))}
-				>
-					ghteti
-				</button>
 			</div>
 			<div className="mt-6 flex flex-col items-center justify-start h-full w-full p-2 gap-2">
 				{status === "loading" && <DotLoader />}
@@ -80,6 +76,7 @@ const Tasks = ({ projectID }) => {
 							duration={6}
 							memberCount={task?.all_members?.length}
 							onClick={() => handleTaskClick(task)}
+							className={selectedTaskId === task.id ? "border-2 border-main" : ""}
 						/>
 					))}
 			</div>

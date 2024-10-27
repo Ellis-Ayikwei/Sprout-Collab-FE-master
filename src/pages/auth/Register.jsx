@@ -7,22 +7,23 @@ import DotLoader from "../../components/DotLoader";
 import GrowthBenefits from "../../components/landingpage/growth_benefits";
 import logo from "../../images/sclogo-alone.png";
 
+import authAxiosInstance from "helpers/authAxiosInstance";
 import Icon from "react-icons-kit";
 import PasswordChecklist from "react-password-checklist";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import "tippy.js/dist/tippy.css";
 import CheckedSymbol from "../../components/checkSymbol";
-import axiosInstance from "../../helpers/configEndpoints";
-import DefaultParams from "./authUtils/dparams";
-import { auth, googleProvider, signInWithPopup } from "../../firebase/firebaseAuthConfig";
-import authAxiosInstance from "helpers/authAxiosInstance";
+import {
+	auth,
+	googleProvider,
+	signInWithPopup,
+} from "../../firebase/firebaseAuthConfig";
 import { SetloginData } from "../../redux/authActions/LoginSlice";
+import DefaultParams from "./authUtils/dparams";
 
 const RegisterPage = () => {
 	const [errorMessage, setErrorMessage] = useState(null);
-
-
 
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState(null);
@@ -113,15 +114,13 @@ const RegisterPage = () => {
 		const payload = JSON.stringify({ ...params });
 		try {
 			setLoading(true);
-			const response = await axiosInstance.post("/auth/register", {
+			const response = await authAxiosInstance.post("/register", {
 				...params,
 			});
 			if (response.status === 201) {
 				setParams(defaultParams);
 				setIsignedUp(true);
 				setLoading(false);
-				alert(response.data);
-
 				setTimeout(() => {
 					navigate("/login");
 				}, 1000);
@@ -275,7 +274,10 @@ const RegisterPage = () => {
 					</button>
 				</form>
 				<div className="flex space-x-2 m-4 items-center justify-center rounded-full border-[3px] border-black-400 hover:border-green-400 p-2">
-					<button className="flex gap-2 " onClick={handleGoogSignUp}>
+					<button
+						className="flex gap-2 "
+						onClick={handleGoogSignUp}
+					>
 						<div className="item-center">
 							<Google />
 						</div>{" "}
@@ -302,7 +304,10 @@ const RegisterPage = () => {
 				</div>
 			</div>
 			<div className="justify-center items-center p-8">
-				<div className="flex items-center text-3xl p-8 pb-0">
+				<Link
+					to="/"
+					className="flex items-center text-3xl p-8 pb-0 cursor-pointer"
+				>
 					<img
 						className="w-14 h-14"
 						src={logo}
@@ -311,7 +316,7 @@ const RegisterPage = () => {
 					<p className="logo-text">
 						<b>Sprout</b>Collab
 					</p>{" "}
-				</div>
+				</Link>
 				<div className="inline-block border-[1px] justify-center w-20 border-black-600 border-solid"></div>
 
 				<GrowthBenefits />

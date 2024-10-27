@@ -1,3 +1,4 @@
+import DotLoader from "components/DotLoader";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
@@ -7,8 +8,7 @@ import GenericCard from "../components/task/genericCard";
 import Rocket from "../images/rocket.png";
 import { fetchGoals } from "../redux/goalsSlice";
 import { fetchGoalTypes } from "../redux/goalTypeSlice";
-
-import DotLoader from "components/DotLoader";
+import { setCollabid } from "../redux/collabSlice";
 
 const GoalsPage = () => {
 	const { typeId } = useParams();
@@ -49,17 +49,18 @@ const GoalsPage = () => {
 				{goalsStatus === "loading" && <DotLoader />}
 				{filteredGoals?.map((goal) => (
 					<GenericCard
-						key={goal.id}
-						title={goal.name}
-						description={goal.description}
+						key={goal?.id}
+						title={goal?.name}
+						description={goal?.description}
 						icon={Rocket}
-						duration={goal.duration}
+						duration={goal?.duration}
 						collaborationCount={goal.all_collaborations?.length}
-						dateCreated={goal.created_at.split("T")[0]}
+						dateCreated={goal?.created_at.split("T")[0]}
 						memberCount={goal.all_members?.length}
 						onClick={() => {
 							console.log("Navigating to goal-details...", goal.id);
 							navigate(`/goal-details/${goal.id}`);
+							dispatch(setCollabid(""));
 						}}
 					/>
 				))}

@@ -6,7 +6,16 @@ export const fetchCollaborations = createAsyncThunk(
 	"collaborations/fetchCollaborations",
 	async (goalId) => {
 		const response = await fetcher(`goals/${goalId}/collaborations`);
-		
+
+		return response;
+	}
+);
+export const fetchMyCollaborations = createAsyncThunk(
+	"collaborations/fetchMyCollaborations",
+	async () => {
+		const response = await fetcher(
+			`/collaborations/mycollaborations/${localStorage.getItem("userid")}`
+		);
 		return response;
 	}
 );
@@ -18,6 +27,9 @@ const collabSlice = createSlice({
 		collabid: null,
 		status: "idle",
 		error: null,
+		mycollabStatus: "idle",
+		mycollabError: null,
+		mycollabs: [],
 	},
 	reducers: {
 		setCollabid(state, action) {
@@ -36,6 +48,18 @@ const collabSlice = createSlice({
 			.addCase(fetchCollaborations.rejected, (state, action) => {
 				state.status = "failed";
 				state.error = action.error.message;
+			})
+			.addCase(fetchMyCollaborations.pending, (state) => {
+				state.mycollabStatus = "loading";
+			})
+			.addCase(fetchMyCollaborations.fulfilled, (state, action) => {
+				state.mycollabStatus = "succeeded";
+				state.mycollabs = action.payload;
+				console.log("my collabs in", action.payload);
+			})
+			.addCase(fetchMyCollaborations.rejected, (state, action) => {
+				state.mycollabStatus = "failed";
+				state.mycollabError = action.error.message;
 			});
 	},
 });

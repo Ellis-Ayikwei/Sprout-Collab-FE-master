@@ -25,11 +25,11 @@ const Resources = ({ goal }) => {
 		}
 	}, [dispatch, collabid]);
 
-	useEffect(() => {
-		return () => {
-			dispatch(setCollabid(""));
-		};
-	}, []);
+	// useEffect(() => {
+	// 	return () => {
+	// 		dispatch(setCollabid(""));
+	// 	};
+	// }, []);
 
 	return (
 		<div

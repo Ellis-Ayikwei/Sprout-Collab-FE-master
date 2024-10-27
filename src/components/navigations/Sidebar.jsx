@@ -100,7 +100,7 @@ const Sidebar = () => {
 						margin: "10px",
 						display: isOpen || !isMobile ? "block" : "none",
 					}}
-					className="!justify-center !items-center h-[40%]  overflow-y-scroll"
+					className="flex !justify-center !items-center   h-[60%] overflow-y-scroll gap-2 py-2"
 				>
 					<MyCollabs />
 				</div>

@@ -5,8 +5,8 @@ import useSWR from "swr";
 import GenericCard from "../../components/task/genericCard";
 import axiosInstance from "../../helpers/configEndpoints";
 import fetcher from "../../helpers/fetcher";
-import Rocket from "../../images/rocket.png";
-import { fetchtaskCheckList, setTaskMData } from "../../redux/ChecklistSlice";
+import taskImg from "../../images/task.png";
+import { fetchtaskCheckList } from "../../redux/ChecklistSlice";
 import { setTaskData } from "../../redux/TaskSlice";
 import { setCollabid } from "../../redux/collabSlice";
 import DotLoader from "../DotLoader";
@@ -74,7 +74,7 @@ const MyTasks = () => {
 	}, [userTasks]);
 
 	const handleClick = async (task) => {
-		dispatch(fetchtaskCheckList(task.task.id))
+		dispatch(fetchtaskCheckList(task.task.id));
 		const theProject = await getProject(task.task.project_id);
 		dispatch(setCollabid(theProject.collab_id));
 		dispatch(setTaskData(task.task));
@@ -87,14 +87,15 @@ const MyTasks = () => {
 
 			<h3 className="text-lg font-semibold mt-2">My Tasks</h3>
 			<div className="mt-6 flex flex-col items-center justify-start h-auto w-full p-2 gap-2 overflow-y-scroll">
-
-			{isLoading && (
-				<div className="flex justify-center mx-auto items-center">
-					<DotLoader />
-				</div>
-			)}
+				{isLoading && (
+					<div className="flex justify-center mx-auto items-center">
+						<DotLoader />
+					</div>
+				)}
 				{!isLoading && userTasks.length === 0 && (
-					<p className="text-center text-gray-500" >You Dont have any tasks yet yet</p>
+					<p className="text-center text-gray-500">
+						You Dont have any tasks yet yet
+					</p>
 				)}
 
 				{userTasks.map((userTask) => (
@@ -103,7 +104,7 @@ const MyTasks = () => {
 						progress={userTask.task_member.no_of_approvals ?? 0}
 						title={userTask.task.name}
 						description={userTask.task.description}
-						icon={Rocket}
+						icon={taskImg}
 						memberCount={taskMemberCounts[userTask.task.id]}
 						dateCreated={userTask.task.created_at.split("T")[0]}
 						onClick={() => handleClick(userTask)}

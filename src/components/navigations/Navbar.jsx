@@ -4,13 +4,14 @@ import { Link, useNavigate } from "react-router-dom";
 import { usePreferences } from "../../contexts/PreferenceContext";
 import logo from "../../images/sclogo-alone.png";
 
-import { faBell, faGear, faHomeAlt } from "@fortawesome/free-solid-svg-icons";
+import { faBell, faHomeAlt } from "@fortawesome/free-solid-svg-icons";
 import { Dialog, DialogPanel } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { auth, signOut } from "../../firebase/firebaseAuthConfig";
 import { resetLogin } from "../../redux/authActions/LoginSlice";
+import { persistor } from "../../redux/store";
 
 const NavBar = () => {
 	const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -29,12 +30,23 @@ const NavBar = () => {
 				.catch((error) => {
 					console.error("Error during logout:", error);
 				});
-			await dispatch(resetLogin());
+		await dispatch(resetLogin());
+		await persistor.flush();
 			navigate("/login");
 		} catch (error) {
 			console.error(error);
 		}
 	};
+
+
+
+	useEffect(() => {
+		if (!isLoggedIn) {
+			navigate("/login");
+		}
+	}, [isLoggedIn]);
+
+
 
 	const NavItems = () => {
 		return (
@@ -66,7 +78,7 @@ const NavBar = () => {
 							</Link>
 						</div>
 
-						<div>
+						{/* <div>
 							<button
 								type="button"
 								className="btn--primary menu-item rounded-3xl"
@@ -74,7 +86,7 @@ const NavBar = () => {
 							>
 								<FontAwesomeIcon icon={faBell} />
 							</button>
-						</div>
+						</div> */}
 						<button
 							onClick={logoutHandler}
 							className="btn--primary menu-item rounded-3xl"
@@ -91,20 +103,20 @@ const NavBar = () => {
 						</div>
 					</div>
 				)}
-				{isLoggedIn && (
+				{/* {isLoggedIn && (
 					<button
 						onClick={() => dispatch(showPrefs())}
 						className="btn--primary menu-item rounded-3xl"
 					>
 						<FontAwesomeIcon icon={faGear} />
 					</button>
-				)}
+				)} */}
 			</div>
 		);
 	};
 
 	return (
-		<header className="sticky flex top-0 ">
+		<header className="sticky flex top-0 z-50">
 			<nav className="mx-auto fixed z-10 flex w-full items-center justify-between p-6 lg:px-8">
 				<div className="flex lg:flex-1">
 					<Link

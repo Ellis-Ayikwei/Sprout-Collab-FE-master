@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import CollabImage from "../../images/collabb.png";
 import { fetchCollaborations, setCollabid } from "../../redux/collabSlice";
@@ -7,6 +7,8 @@ import GenericCard from "../task/genericCard";
 import AddCollabButton from "./AddCollabButton";
 
 const CollabList = ({ goal }) => {
+	const [selectedCollabId, setSelectedCollabId] = useState("");
+
 	const dispatch = useDispatch();
 	const collaborations = useSelector(
 		(state) => state.collaborations.collaborations
@@ -19,7 +21,7 @@ const CollabList = ({ goal }) => {
 		if (goal?.id) {
 			dispatch(fetchCollaborations(goal.id));
 		}
-	}, [dispatch, collaborations.id]);
+	}, [dispatch, goal?.id]);
 
 	// Memoized sorted collaborations to avoid re-sorting on every render
 	const sortedCollaborations = useMemo(() => {
@@ -72,11 +74,17 @@ const CollabList = ({ goal }) => {
 								memberCount={membersCount}
 								status={collab.status}
 								dateCreated={collab.created_at.split("T")[0]}
-								onClick={() => dispatch(setCollabid(collab.id))}
+								onClick={() => {
+									dispatch(setCollabid(collab.id));
+									setSelectedCollabId(collab.id);
+								}}
 								isCollaboration={true}
 								isMember={isMember}
 								data={collab}
 								goalId={goal?.id}
+								className={
+									selectedCollabId === collab.id ? "border-2 border-main" : ""
+								}
 							/>
 						);
 					})}

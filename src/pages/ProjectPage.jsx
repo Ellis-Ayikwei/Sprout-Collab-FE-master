@@ -11,7 +11,6 @@ import TaskMembersDone from "../components/task/TMembersDone";
 import ChecklistBox from "../components/task/TaskCheckList";
 import Tasks from "../components/task/Tasks";
 import fetcher from "../helpers/fetcher";
-import { setCollabid } from "../redux/collabSlice";
 
 const ProjectPage = () => {
 	const dispatch = useDispatch();
@@ -22,10 +21,6 @@ const ProjectPage = () => {
 		if (data) {
 			setProjectdata(data);
 		}
-
-		return () => {
-			dispatch(setCollabid(""));
-		};
 	}, []);
 
 	return (

@@ -1,13 +1,12 @@
 import axios from "axios";
-// const apiUrl = 'https://127.0.0.1/sc/api/v1';
-const apiUrl = "http://api.sproutcollab.me/sc/api/v1";
+const apiUrl = "http://127.0.0.1:5004/sc/api/v1";
+//const apiUrl = "http://api.sproutcollab.me/sc/api/v1";
 
 const axiosInstance = axios.create({
 	baseURL: apiUrl,
-	withCredentials: true,
 	headers: {
 		"Content-Type": "application/json",
-		"Authorization": `Bearer ${localStorage.getItem("acccesToken")}`,
+		Authorization: `${localStorage.getItem("acccesToken")}`,
 		"X-Refresh-Token": `${localStorage.getItem("refreshToken")}`,
 	},
 });

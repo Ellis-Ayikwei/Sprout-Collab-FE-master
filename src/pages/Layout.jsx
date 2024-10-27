@@ -33,14 +33,14 @@ const Layout = () => {
 	return (
 		<>
 			<AllProviders>
-				{load && <div className="main-loader"></div>}
+				{/* {load && <div className="main-loader"></div>} */}
 
 				{showNav && <SecondNav />}
 				{showAside && <Sidebar />}
 				<div
 					className={
 						showAside
-							? "Outlet flex-col h-full relative !justify-start overflow-hidden lg:min-h-screen mt-5"
+							? "Outlet flex-col h-auto relative !justify-start overflow-hidden xl:min-h-screen mt-5"
 							: ""
 					}
 				>

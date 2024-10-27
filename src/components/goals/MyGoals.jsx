@@ -7,6 +7,7 @@ import axiosInstance from "../../helpers/configEndpoints";
 import Rocket from "../../images/rocket.png";
 import DotLoader from "../DotLoader";
 import GenericCard from "../task/genericCard";
+import { setCollabid } from "../../redux/collabSlice";
 
 const MyGoals = () => {
 	const userId = localStorage.getItem("userid");
@@ -65,7 +66,7 @@ const MyGoals = () => {
 			<div className="rounded-full border-2 border-blue-400 w-20 flex justify-center"></div>
 
 			<h3 className="text-lg font-semibold mt-2">My Goals</h3>
-			<div className="mt-6 flex flex-col items-center justify-start h-auto w-full p-2 gap-2 overflow-y-scroll">
+			<div className="flex flex-col w-full gap-2 h-96 overflow-y-scroll mt-6 p-2">
 				{isLoading && (
 					<div className="flex justify-center items-center mx-auto">
 						<DotLoader />
@@ -87,7 +88,9 @@ const MyGoals = () => {
 						progressType="bar"
 						memberCount={goalMemberCount[goal.goal.id] || 0} // Default to 0 if missing
 						dateCreated={goal.goal.created_at.split("T")[0]}
-						onClick={() => navigate(`/goal-details/${goal.goal.id}`)}
+						onClick={() => {navigate(`/goal-details/${goal.goal.id}`)
+							dispatch(setCollabid(""));
+						}}
 					/>
 				))}
 			</div>

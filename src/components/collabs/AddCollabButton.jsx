@@ -1,9 +1,12 @@
+import DotLoader from "components/DotLoader";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import axiosInstance from "../../helpers/configEndpoints";
-import { fetchCollaborations } from "../../redux/collabSlice";
-import { load } from "../../redux/mainLoaderSlice";
+import {
+	fetchCollaborations,
+	fetchMyCollaborations,
+} from "../../redux/collabSlice";
 import ReusableModal from "../ReusableModal"; // Adjust the import path as necessary
 
 const initialdata = {
@@ -17,6 +20,7 @@ const AddCollabButton = ({ goalId }) => {
 	const [disabled, setDisabled] = useState(false);
 	const dispatch = useDispatch();
 	const [formData, setFormData] = useState(initialdata);
+	const [loading, setLoading] = useState(false);
 
 	const openModal = () => setIsModalOpen(true);
 	const closeModal = () => setIsModalOpen(false);
@@ -30,10 +34,10 @@ const AddCollabButton = ({ goalId }) => {
 	};
 
 	const handleSubmit = async (e) => {
-		dispatch(load(true));
 		e.preventDefault();
 
 		setDisabled(true);
+		setLoading(true);
 
 		try {
 			const isPublic = formData.visibility === "Public";
@@ -45,15 +49,16 @@ const AddCollabButton = ({ goalId }) => {
 				user_id: localStorage.getItem("userid"),
 				goal_id: goalId,
 			};
-			closeModal();
 			await axiosInstance.post(
 				`goals/${goalId}/collaborations`,
 				collaborationData
 			);
 			dispatch(fetchCollaborations(goalId));
+			dispatch(fetchMyCollaborations(goalId));
 			toast.success("Collaboration created successfully");
 			setFormData(initialdata);
-			dispatch(load(false));
+			setLoading(false);
+			closeModal();
 		} catch (error) {
 			console.error("Error creating collaboration:", error);
 		} finally {
@@ -107,16 +112,25 @@ const AddCollabButton = ({ goalId }) => {
 						<option value="Private" />
 					</datalist>
 
-					<div className="form-buttons">
-						<button
-							className="btn--primary"
-							type="submit"
-						>
-							Add Collab
-						</button>
+					<div className="flex flex-row !justify-end !items-end gap-2">
+						{loading ? (
+							<button className="btn bg-main text-white rounded-full">
+								<DotLoader
+									height={"h-5"}
+									width={"w-5"}
+								/>
+							</button>
+						) : (
+							<button
+								className="btn bg-main text-white rounded-full"
+								type="submit"
+							>
+								Add Collab
+							</button>
+						)}
 						<button
 							type="button"
-							className="btn--outline"
+							className="btn--outline rounded-full"
 							onClick={closeModal}
 							disabled={disabled}
 						>

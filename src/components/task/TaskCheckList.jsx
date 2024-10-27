@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toast, ToastContainer } from "react-toastify";
 import { submitLink } from "../../redux/ChecklistSlice"; // Import your action for link submission
+import Tippy from "@tippyjs/react";
 
 const ChecklistBox = ({ task }) => {
 	const dispatch = useDispatch();
@@ -107,12 +108,14 @@ const ChecklistBox = ({ task }) => {
 									}
 									onChange={(e) => handleToggle(e, item.id)}
 								/>
-								<label
-									className="text-gray-700"
-									htmlFor={item.id}
-								>
-									{item.name}
-								</label>
+								<Tippy content={item.description}>
+									<label
+										className="text-gray-700"
+										htmlFor={item.id}
+									>
+										{item.name}
+									</label>
+								</Tippy>
 							</li>
 						))}
 					</ul>

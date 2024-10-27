@@ -99,10 +99,16 @@ const Login = () => {
 				password,
 			});
 			await dispatch(SetloginData(response.data));
+			const accessToken = response?.headers["authorization"]?.split(" ")[1];
+			const refreshToken = response?.headers["x-refresh-token"];
+
+			console.log(response);
+			localStorage.setItem("acccesToken", accessToken);
+			localStorage.setItem("refreshToken", refreshToken);
 		} catch (error) {
-			console.log(error.response.status);
+			console.log(error.response?.status);
 			setLoading(false);
-			if (error.response.status === 404) {
+			if (error.response?.status === 404) {
 				setError("User not found");
 			} else if (error.response.status === 401) {
 				setError("Wrong username/email or password");
