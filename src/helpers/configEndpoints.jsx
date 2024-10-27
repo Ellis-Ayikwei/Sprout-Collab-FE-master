@@ -1,6 +1,6 @@
 import axios from "axios";
-const apiUrl = "http://127.0.0.1:5004/sc/api/v1";
-//const apiUrl = "http://api.sproutcollab.me/sc/api/v1";
+// const apiUrl = "http://127.0.0.1:5004/sc/api/v1";
+const apiUrl = "http://api.sproutcollab.me/sc/api/v1";
 
 const axiosInstance = axios.create({
 	baseURL: apiUrl,
