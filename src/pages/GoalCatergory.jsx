@@ -13,6 +13,7 @@ const GoalCatergories = () => {
 	useEffect(() => {
 		if (data) {
 			setGoalTypes(data);
+			console.log("goalTypes", goalTypes);
 		}
 	}, [data]);
 
