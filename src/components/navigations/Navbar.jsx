@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { auth, signOut } from "../../firebase/firebaseAuthConfig";
 import { resetLogin } from "../../redux/authActions/LoginSlice";
 import { logoutSuccess } from "../../redux/authActions/authActions";
+import { persistor } from "../../redux/store";
 
 const NavBar = () => {
 	const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -22,6 +23,7 @@ const NavBar = () => {
 	const navigate = useNavigate();
 
 	const logoutHandler = async () => {
+		persistor.purge();
 		try {
 			signOut(auth)
 				.then(() => {
@@ -39,8 +41,17 @@ const NavBar = () => {
 	useEffect(() => {
 		if (!isLoggedIn) {
 			logoutSuccess();
+			persistor
+				.purge()
+				.then(() => {
+					return persistor.flush();
+				})
+				.then(() => {
+					persistor.pause();
+				});
+				localStorage.clear();
 		}
-	}, [isLoggedIn]);
+	}, [isLoggedIn, dispatch]);
 
 	const NavItems = () => {
 		return (
