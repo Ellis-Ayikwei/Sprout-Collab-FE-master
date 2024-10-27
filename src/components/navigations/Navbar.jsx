@@ -7,6 +7,7 @@ import logo from "../../images/sclogo-alone.png";
 import { faHomeAlt, faUserAlt } from "@fortawesome/free-solid-svg-icons";
 import { Dialog, DialogPanel } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import authAxiosInstance from "helpers/authAxiosInstance";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { auth, signOut } from "../../firebase/firebaseAuthConfig";
@@ -32,7 +33,17 @@ const NavBar = () => {
 				.catch((error) => {
 					console.error("Error during logout:", error);
 				});
-			await dispatch(resetLogin());
+			const logout = await authAxiosInstance.delete("/logout", {
+				headers: {
+					"Content-Type": "application/json",
+					Authorization: `${localStorage.getItem("acccesToken")}`,
+					"X-Refresh-Token": `${localStorage.getItem("refreshToken")}`,
+				},
+			});
+			if (logout.status === 200) {
+				logoutSuccess();
+				dispatch(resetLogin());
+			}
 		} catch (error) {
 			console.error(error);
 		}
