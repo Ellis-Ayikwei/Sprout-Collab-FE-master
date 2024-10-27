@@ -7,11 +7,11 @@ import logo from "../../images/sclogo-alone.png";
 import { faHomeAlt, faUserAlt } from "@fortawesome/free-solid-svg-icons";
 import { Dialog, DialogPanel } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { auth, signOut } from "../../firebase/firebaseAuthConfig";
 import { resetLogin } from "../../redux/authActions/LoginSlice";
-import { persistor } from "../../redux/store";
+import { logoutSuccess } from "../../redux/authActions/authActions";
 
 const NavBar = () => {
 	const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -31,18 +31,16 @@ const NavBar = () => {
 					console.error("Error during logout:", error);
 				});
 			await dispatch(resetLogin());
-			await persistor.flush();
-			navigate("/login");
 		} catch (error) {
 			console.error(error);
 		}
 	};
 
-	// useEffect(() => {
-	// 	if (!isLoggedIn) {
-	// 		navigate("/login");
-	// 	}
-	// }, [isLoggedIn]);
+	useEffect(() => {
+		if (!isLoggedIn) {
+			logoutSuccess();
+		}
+	}, [isLoggedIn]);
 
 	const NavItems = () => {
 		return (

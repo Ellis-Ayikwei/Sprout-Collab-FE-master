@@ -24,7 +24,7 @@ import taskSliceReducer from "./TaskSlice";
 
 const persistConfig = {
 	key: "root",
-	storage, // Use localStorage
+	storage,
 };
 
 const rootReducer = combineReducers({
@@ -49,7 +49,7 @@ const store = configureStore({
 	middleware: (getDefaultMiddleware) =>
 		getDefaultMiddleware({
 			serializableCheck: {
-				ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER], // Avoid errors with redux-persist actions
+				ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
 			},
 		}),
 });

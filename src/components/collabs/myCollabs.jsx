@@ -6,8 +6,6 @@ import fetcher from "../../helpers/fetcher";
 import HandShake from "../../images/handshake.png";
 import { fetchMyCollaborations } from "../../redux/collabSlice";
 import GenericCard from "../task/genericCard";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHandshake } from "@fortawesome/free-solid-svg-icons";
 
 const MyCollabs = () => {
 	const dispatch = useDispatch();
@@ -32,6 +30,10 @@ const MyCollabs = () => {
 			dispatch(fetchMyCollaborations());
 		}
 	}, [dispatch, mycollabStatus]);
+	
+	useEffect(() => {
+		dispatch(fetchMyCollaborations());
+	}, []);
 
 	return (
 		<div className="flex flex-col justify-start items-center h-auto p-2 !gap-2 text-black justify-center items-center">
