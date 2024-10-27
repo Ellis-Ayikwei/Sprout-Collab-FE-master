@@ -49,7 +49,7 @@ const NavBar = () => {
 				.then(() => {
 					persistor.pause();
 				});
-				localStorage.clear();
+			localStorage.clear();
 		}
 	}, [isLoggedIn, dispatch]);
 
