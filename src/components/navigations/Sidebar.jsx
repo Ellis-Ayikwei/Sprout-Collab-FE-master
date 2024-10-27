@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { FaBars, FaTh, FaUserAlt } from "react-icons/fa";
+import { FaBars, FaBrain, FaHome, FaRocket, FaTh, FaUserAlt } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
 import MyCollabs from "../collabs/myCollabs";
 
@@ -34,12 +34,12 @@ const Sidebar = () => {
 		{
 			path: "/home",
 			name: "Home",
-			icon: <FaTh />,
+			icon: <FaHome />,
 		},
 		{
-			path: "/goal-catergories",
+			path: "/goalcategories",
 			name: "Goals",
-			icon: <FaUserAlt />,
+			icon: <FaRocket />,
 		},
 	];
 

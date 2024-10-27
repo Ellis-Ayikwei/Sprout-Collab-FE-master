@@ -64,7 +64,7 @@ const GenericCard = ({
 			className={`w-full flex flex-col rounded-lg shadow-lg p-2 bg-white ${className}`}
 			onClick={handleClick}
 		>
-			<div className="flex flex-row justify-between">
+			<div className="flex flex-row justify-between items-center">
 				<div className="flex items-center">
 					{icon ? (
 						<img
@@ -87,9 +87,9 @@ const GenericCard = ({
 						)}
 					</div>
 				</div>
-				<div className=" w-16">
+				<div className=" justify-center">
 					{progress != null && progressType === "circular" && (
-						<div className="flex items-center justify-center mt-4">
+						<div className="flex items-center justify-center w-14">
 							<CircularProgressbar
 								value={progress}
 								maxValue={100}
@@ -123,60 +123,50 @@ const GenericCard = ({
 			)}
 			<ul className="list-none  flex flex-row flex-nowrap">
 				{dateCreated && (
-					<li className="w-1/2 xl:w-1/3 p-2">
-						<span className="text-xs text-gray-600">
-							<FontAwesomeIcon
-								icon={faClockFour}
-								className="mr-2"
-							/>
-							{dayjs(dateCreated).format("DD MMM YYYY")}
-						</span>
+					<li className="p-2 flex-nowrap text-xs text-gray-600 items-center">
+						<FontAwesomeIcon
+							icon={faClockFour}
+							className="mr-2"
+						/>
+						{dayjs(dateCreated).format("DD MMM YYYY")}
 					</li>
 				)}
 				{visibility && (
-					<li className="w-1/2 xl:w-1/3 p-2">
-						<span className="text-xs text-gray-600">
-							<FontAwesomeIcon
-								icon={faEye}
-								className="mr-2"
-							/>
-							{visibility}
-						</span>
-					</li>
-				)}
-				<li className="w-1/2 xl:w-1/3 p-2">
-					<span className="text-xs text-gray-600">
+					<li className="p-2 flex-nowrap text-xs text-gray-600 items-center">
 						<FontAwesomeIcon
-							icon={faUserGroup}
+							icon={faEye}
 							className="mr-2"
 						/>
-						{memberCount}
-					</span>
+						{visibility}
+					</li>
+				)}
+				<li className="p-2 flex-nowrap text-xs text-gray-600 items-center">
+					<FontAwesomeIcon
+						icon={faUserGroup}
+						className="mr-2"
+					/>
+					{memberCount}
 				</li>
 				{collaborationCount > 0 && (
-					<li className="w-1/2 xl:w-1/3 p-2">
-						<span className="text-xs text-gray-600">
-							<FontAwesomeIcon
-								icon={faHandshake}
-								className="mr-2"
-							/>
-							{collaborationCount}
-						</span>
+					<li className="p-2 flex-nowrap text-xs text-gray-600 items-center">
+						<FontAwesomeIcon
+							icon={faHandshake}
+							className="mr-2"
+						/>
+						{collaborationCount}
 					</li>
 				)}
 				{duration && (
-					<li className="w-1/2 xl:w-1/3 p-2">
-						<span className="text-xs text-gray-600">
-							<FontAwesomeIcon
-								icon={faClockFour}
-								className="mr-2"
-							/>
-							{duration} days
-						</span>
+					<li className="p-2 flex-nowrap text-xs text-gray-600 items-center">
+						<FontAwesomeIcon
+							icon={faClockFour}
+							className="mr-2"
+						/>
+						{duration} days
 					</li>
 				)}
 				{status && (
-					<li className="w-1/2 xl:w-1/3 p-2">
+					<li className="p-2 flex-nowrap text-xs text-gray-600 items-center">
 						<span className="text-xs text-gray-600">{status}</span>
 					</li>
 				)}

@@ -42,7 +42,7 @@ const GoalsPage = () => {
 	return (
 		<div className="goals-page">
 			<SubNav
-				title={`goals in the ${type?.name} category`}
+				title={`Goals in the ${type?.name} category`}
 				addedComponent={<AddGoalButton TypeData={type} />}
 			/>
 			<div className=" grid grid-cols-1 xl:grid-cols-3 md:grid-cols-2 2xl:grid-cols-5 gap-2 justify-start">
@@ -59,7 +59,7 @@ const GoalsPage = () => {
 						memberCount={goal.all_members?.length}
 						onClick={() => {
 							console.log("Navigating to goal-details...", goal.id);
-							navigate(`/goal-details/${goal.id}`);
+							navigate(`/goaldetails/${goal.id}`);
 							dispatch(setCollabid(""));
 						}}
 					/>

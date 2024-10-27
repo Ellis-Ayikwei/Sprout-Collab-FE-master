@@ -5,9 +5,9 @@ import { useNavigate } from "react-router-dom";
 import useSWR from "swr";
 import axiosInstance from "../../helpers/configEndpoints";
 import Rocket from "../../images/rocket.png";
+import { setCollabid } from "../../redux/collabSlice";
 import DotLoader from "../DotLoader";
 import GenericCard from "../task/genericCard";
-import { setCollabid } from "../../redux/collabSlice";
 
 const MyGoals = () => {
 	const userId = localStorage.getItem("userid");
@@ -88,7 +88,8 @@ const MyGoals = () => {
 						progressType="bar"
 						memberCount={goalMemberCount[goal.goal.id] || 0} // Default to 0 if missing
 						dateCreated={goal.goal.created_at.split("T")[0]}
-						onClick={() => {navigate(`/goal-details/${goal.goal.id}`)
+						onClick={() => {
+							navigate(`/goaldetails/${goal.goal.id}`);
 							dispatch(setCollabid(""));
 						}}
 					/>

@@ -1,9 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
 import MyGoals from "../components/goals/MyGoals";
 import MyProjects from "../components/projects/MyProjects";
 import MyTasks from "../components/task/MyTasks";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const HomeLoggedIn = () => {
+	const isLoggedIn = useSelector((state) => state.login.isLoggedIn);
+	const navigate = useNavigate();
+
+	useEffect(() => {
+		if (!isLoggedIn) {
+			navigate("/login");
+		}
+	}, [isLoggedIn]);
+
 	return (
 		<div className="w-full h-full flex flex-col !justify-start ">
 			{/* <div

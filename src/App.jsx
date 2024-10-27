@@ -24,58 +24,59 @@ import NoPage from "./pages/NoPage";
 import ProjectPage from "./pages/ProjectPage";
 import SeTT from "./pages/SettingsPage";
 import store, { persistor } from "./redux/store";
+import router from "Router/routes";
 
-const router = createBrowserRouter(
-	createRoutesFromElements(
-		<Route
-			path="/"
-			element={<Layout />}
-		>
-			<Route
-				index
-				element={<LandingPage />}
-			/>
-			<Route
-				path="login"
-				element={<LoginPage />}
-			/>
-			<Route
-				path="register"
-				element={<RegisterPage />}
-			/>
-			<Route
-				path="home"
-				element={<HomeLoggedIn />}
-			/>
-			<Route
-				path="sett"
-				element={<SeTT />}
-			/>
+// const router = createBrowserRouter(
+// 	createRoutesFromElements(
+// 		<Route
+// 			path="/"
+// 			element={<Layout />}
+// 		>
+// 			<Route
+// 				index
+// 				element={<LandingPage />}
+// 			/>
+// 			<Route
+// 				path="login"
+// 				element={<LoginPage />}
+// 			/>
+// 			<Route
+// 				path="register"
+// 				element={<RegisterPage />}
+// 			/>
+// 			<Route
+// 				path="home"
+// 				element={<HomeLoggedIn />}
+// 			/>
+// 			<Route
+// 				path="sett"
+// 				element={<SeTT />}
+// 			/>
 
-			<Route
-				path="goal-details/:goalId"
-				element={<GoalDetails />}
-			/>
-			<Route
-				path="goals/:typeId"
-				element={<Goals />}
-			/>
-			<Route
-				path="/projects/:projectId/tasks"
-				element={<ProjectPage />}
-			/>
-			<Route
-				path="/goal-catergories"
-				element={<GoalCatergories />}
-			/>
+// 			<Route
+// 				path="goal-details/:goalId"
+// 				element={<GoalDetails />}
+// 			/>
+// 			<Route
+// 				path="goals/:typeId"
+// 				element={<Goals />}
+// 			/>
+// 			<Route
+// 				path="/projects/:projectId/tasks"
+// 				element={<ProjectPage />}
+// 			/>
+// 			<Route
+// 				path="/goal-catergories"
+// 				element={<GoalCatergories />}
+// 			/>
 
-			<Route
-				path="*"
-				element={<NoPage />}
-			/>
-		</Route>
-	)
-);
+// 			<Route
+// 				path="*"
+// 				element={<NoPage />}
+// 			/>
+// 		</Route>
+// 	)
+// );
 const App = () => {
 	return (
 		<div className="App mt-20">

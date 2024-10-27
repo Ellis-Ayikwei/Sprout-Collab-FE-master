@@ -86,6 +86,18 @@ const RegisterPage = () => {
 			setErrorMessage("First Name is required.");
 			return true;
 		}
+		if (!params.last_name) {
+			setErrorMessage("Last Name is required.");
+			return true;
+		}
+		if (params?.first_name.includes(" ")){
+			setErrorMessage("First Name cannot contain spaces.");
+			return true;
+		}
+		if (params?.last_name.includes(" ")){
+			setErrorMessage("Last Name cannot contain spaces.");
+			return true;
+		}
 		if (!params.email) {
 			setErrorMessage("Email is required.");
 			return true;

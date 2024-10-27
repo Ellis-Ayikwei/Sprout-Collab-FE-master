@@ -1,7 +1,7 @@
 import { Google } from "@mui/icons-material";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 import DotLoader from "components/DotLoader";
 import CheckedSymbol from "components/checkSymbol";
@@ -19,6 +19,7 @@ import { SetloginData } from "../../redux/authActions/LoginSlice";
 const Login = () => {
 	const [isLogin, setIsLogin] = useState(true);
 	const navigate = useNavigate();
+	const location = useLocation();
 	const dispatch = useDispatch();
 	const [loginEmail, setLoginEmail] = useState("");
 	const [password, setPassword] = useState("");
@@ -68,6 +69,8 @@ const Login = () => {
 		}
 	};
 
+
+	const from = location.state?.from?.pathname || "/home";
 	const loginHandler = async (event) => {
 		event.preventDefault();
 		setError("");
@@ -119,7 +122,7 @@ const Login = () => {
 	useEffect(() => {
 		if (isLoggedIn) {
 			setLoading(false);
-			navigate("/home");
+			navigate(from, { replace: true })
 		}
 	}, [isLoggedIn]);
 
@@ -224,7 +227,7 @@ const Login = () => {
 						<p className="  text-sm"> Don't have an account?</p>
 						<Link
 							to="/register"
-							className="text-blue-400 ml-1 text-sm font-medium"
+							className="text-blue-400 ml-1 text-sm font-medium cursor-pointer"
 						>
 							Register
 						</Link>

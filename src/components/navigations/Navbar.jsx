@@ -4,10 +4,10 @@ import { Link, useNavigate } from "react-router-dom";
 import { usePreferences } from "../../contexts/PreferenceContext";
 import logo from "../../images/sclogo-alone.png";
 
-import { faBell, faHomeAlt } from "@fortawesome/free-solid-svg-icons";
+import { faHomeAlt, faUserAlt } from "@fortawesome/free-solid-svg-icons";
 import { Dialog, DialogPanel } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { auth, signOut } from "../../firebase/firebaseAuthConfig";
 import { resetLogin } from "../../redux/authActions/LoginSlice";
@@ -30,23 +30,19 @@ const NavBar = () => {
 				.catch((error) => {
 					console.error("Error during logout:", error);
 				});
-		await dispatch(resetLogin());
-		await persistor.flush();
+			await dispatch(resetLogin());
+			await persistor.flush();
 			navigate("/login");
 		} catch (error) {
 			console.error(error);
 		}
 	};
 
-
-
-	useEffect(() => {
-		if (!isLoggedIn) {
-			navigate("/login");
-		}
-	}, [isLoggedIn]);
-
-
+	// useEffect(() => {
+	// 	if (!isLoggedIn) {
+	// 		navigate("/login");
+	// 	}
+	// }, [isLoggedIn]);
 
 	const NavItems = () => {
 		return (
@@ -95,11 +91,17 @@ const NavBar = () => {
 						</button>
 						<div className="flex items-center space-x-4 rounded-full shadow border-main border-2 pl-1">
 							<b>{myData.username}</b>
-							<img
-								className="h-10 w-10 rounded-full shadow border-main border-2"
-								src="https://avatars.githubusercontent.com/u/57622665?v=4"
-								alt="Atilwind Logo"
-							/>
+							{myData.profilePicture ? (
+								<img
+									className="h-10 w-10 rounded-full shadow border-main border-2"
+									src={myData.profilePicture}
+									alt={`${myData.username}'s Profile`}
+								/>
+							) : (
+								<div className="px-2 py-1 rounded-full shadow border-main border-2 text-main text- justify-center items-center">
+									<FontAwesomeIcon icon={faUserAlt} />
+								</div>
+							)}
 						</div>
 					</div>
 				)}
