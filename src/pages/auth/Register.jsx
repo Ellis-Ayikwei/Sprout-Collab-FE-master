@@ -12,6 +12,7 @@ import Icon from "react-icons-kit";
 import PasswordChecklist from "react-password-checklist";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import "tippy.js/dist/tippy.css";
 import CheckedSymbol from "../../components/checkSymbol";
 import {
@@ -19,7 +20,6 @@ import {
 	googleProvider,
 	signInWithPopup,
 } from "../../firebase/firebaseAuthConfig";
-import { SetloginData } from "../../redux/authActions/LoginSlice";
 import DefaultParams from "./authUtils/dparams";
 
 const RegisterPage = () => {
@@ -65,38 +65,39 @@ const RegisterPage = () => {
 
 	const handleGoogSignUp = async () => {
 		try {
-				const result = await signInWithPopup(auth, googleProvider);
-				const user = result.user;
-				const token = await user.getIdToken();
-				const userDetails ={
-					google_0auth_uid: user.id,
-					email: user.email,
-					first_name: user.displayName.split(" ")[0],
-					last_name: user.displayName.split(" ")[1],
-					username: user.displayName,
-					profile_picture: user.photoURL,
-					phone: "",
+			const result = await signInWithPopup(auth, googleProvider);
+			const user = result.user;
+			const token = await user.getIdToken();
+			const userDetails = {
+				google_0auth_uid: user.uid,
+				email: user.email,
+				first_name: user.displayName.split(" ")[0],
+				last_name: user.displayName.split(" ")[-1],
+				username: user.displayName,
+				profile_picture: user.photoURL,
+				phone: "",
+			};
+			const response = await authAxiosInstance.post(
+				"/signup_with_google",
+				{ userDetails },
+				{
+					headers: {
+						Authorization: `Bearer ${token}`,
+					},
 				}
-				const response = await authAxiosInstance.post(
-					"/verify_token",
-					{},
-					{
-						headers: {
-							Authorization: `Bearer ${token}`,
-						},
-					}
-				);
-				if (response.status === 200) {
-					dispatch(SetloginData(response.data));
-					navigate("/");
-				}
-			} catch (error) {
-				console.error("Error during Google sign-in", error);
+			);
+
+			if (response.status === 200) {
+				navigate("/login");
 			}
-		};
-
-
-
+		} catch (error) {
+			if (error.response.status === 409) {
+				toast.success("user already exist kindly login");
+				navigate("/login");
+			}
+			// console.error("Error during Google sign-in", error);
+		}
+	};
 
 	const saveNewUser = async () => {
 		if (!params.first_name) {
@@ -107,11 +108,11 @@ const RegisterPage = () => {
 			setErrorMessage("Last Name is required.");
 			return true;
 		}
-		if (params?.first_name.includes(" ")){
+		if (params?.first_name.includes(" ")) {
 			setErrorMessage("First Name cannot contain spaces.");
 			return true;
 		}
-		if (params?.last_name.includes(" ")){
+		if (params?.last_name.includes(" ")) {
 			setErrorMessage("Last Name cannot contain spaces.");
 			return true;
 		}

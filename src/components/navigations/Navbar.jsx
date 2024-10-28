@@ -38,6 +38,7 @@ const NavBar = () => {
 				dispatch(logoutSuccess());
 				dispatch(resetLogin());
 				localStorage.clear();
+				navigate("/login");
 			}
 		} catch (error) {
 			console.error(error);
@@ -48,13 +49,12 @@ const NavBar = () => {
 		if (!isLoggedIn) {
 			persistor.purge().then(() => persistor.pause());
 			localStorage.clear();
-			navigate("/login"); // Ensure redirection upon logout
 		}
 	}, [isLoggedIn, dispatch, navigate]);
 
 	const NavItems = () => {
 		return (
-			<div className={`lg:flex lg:flex-1 gap-2 lg:justify-end`}>
+			<div className={`lg:flex lg:flex-1 gap-1 lg:justify-end`}>
 				{!isLoggedIn && (
 					<Link
 						to="/register"

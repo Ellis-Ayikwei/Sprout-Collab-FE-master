@@ -23,7 +23,6 @@ const MyCollabs = () => {
 		(state) => state.collaborations
 	);
 
-	console.log("MYCOLLABS: ", mycollabs);
 
 	useEffect(() => {
 		if (mycollabStatus === "idle" || mycollabStatus === "failed") {

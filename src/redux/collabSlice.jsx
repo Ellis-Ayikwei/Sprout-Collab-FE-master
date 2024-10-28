@@ -55,7 +55,6 @@ const collabSlice = createSlice({
 			.addCase(fetchMyCollaborations.fulfilled, (state, action) => {
 				state.mycollabStatus = "succeeded";
 				state.mycollabs = action.payload;
-				console.log("my collabs in", action.payload);
 			})
 			.addCase(fetchMyCollaborations.rejected, (state, action) => {
 				state.mycollabStatus = "failed";
