@@ -65,21 +65,38 @@ const RegisterPage = () => {
 
 	const handleGoogSignUp = async () => {
 		try {
-			const result = await signInWithPopup(auth, googleProvider);
-			const user = result.user;
-			const token = await user.getIdToken();
-			const response = await authAxiosInstance.post(
-				"/verify_token",
-				JSON.stringify({ token })
-			);
-			if (response.status === 200) {
-				dispatch(SetloginData(response.data));
-				navigate("/");
+				const result = await signInWithPopup(auth, googleProvider);
+				const user = result.user;
+				const token = await user.getIdToken();
+				const userDetails ={
+					google_0auth_uid: user.id,
+					email: user.email,
+					first_name: user.displayName.split(" ")[0],
+					last_name: user.displayName.split(" ")[1],
+					username: user.displayName,
+					profile_picture: user.photoURL,
+					phone: "",
+				}
+				const response = await authAxiosInstance.post(
+					"/verify_token",
+					{},
+					{
+						headers: {
+							Authorization: `Bearer ${token}`,
+						},
+					}
+				);
+				if (response.status === 200) {
+					dispatch(SetloginData(response.data));
+					navigate("/");
+				}
+			} catch (error) {
+				console.error("Error during Google sign-in", error);
 			}
-		} catch (error) {
-			console.error("Error during Google sign-in", error);
-		}
-	};
+		};
+
+
+
 
 	const saveNewUser = async () => {
 		if (!params.first_name) {

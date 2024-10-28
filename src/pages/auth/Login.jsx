@@ -8,7 +8,6 @@ import CheckedSymbol from "components/checkSymbol";
 import React from "react";
 import {
 	auth,
-	facebookProvider,
 	googleProvider,
 	signInWithPopup,
 } from "../../firebase/firebaseAuthConfig";
@@ -40,32 +39,25 @@ const Login = () => {
 			const token = await user.getIdToken();
 			const response = await authAxiosInstance.post(
 				"/verify_token",
-				JSON.stringify({ token })
+				{},
+				{
+					headers: {
+						Authorization: `Bearer ${token}`,
+					},
+				}
 			);
 			if (response.status === 200) {
 				dispatch(SetloginData(response.data));
-				navigate("/");
+				await dispatch(SetloginData(response.data));
+				const accessToken = response?.headers["authorization"];
+				const refreshToken = response?.headers["x-refresh-token"];
+
+				localStorage.setItem("acccesToken", accessToken);
+				localStorage.setItem("refreshToken", refreshToken);
+				navigate("/home");
 			}
 		} catch (error) {
 			console.error("Error during Google sign-in", error);
-		}
-	};
-
-	const handleFacebookLogin = async () => {
-		try {
-			const result = await signInWithPopup(auth, facebookProvider);
-			const user = result.user;
-			const token = await user.getIdToken();
-			const response = await authAxiosInstance.post(
-				"/verify_token",
-				JSON.stringify({ token })
-			);
-			if (response.status === 200) {
-				dispatch(SetloginData(response.data));
-				navigate("/");
-			}
-		} catch (error) {
-			console.error("Error during Facebook sign-in", error);
 		}
 	};
 

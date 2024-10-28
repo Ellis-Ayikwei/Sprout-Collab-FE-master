@@ -8,11 +8,12 @@ import { faHomeAlt, faUserAlt } from "@fortawesome/free-solid-svg-icons";
 import { Dialog, DialogPanel } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import authAxiosInstance from "helpers/authAxiosInstance";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { auth, signOut } from "../../firebase/firebaseAuthConfig";
 import { resetLogin } from "../../redux/authActions/LoginSlice";
 import { logoutSuccess } from "../../redux/authActions/authActions";
+import { persistor } from "../../redux/store";
 
 const NavBar = () => {
 	const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -33,7 +34,8 @@ const NavBar = () => {
 				});
 			const logout = await authAxiosInstance.post("/logout", {});
 			if (logout.status === 202) {
-				logoutSuccess();
+				alert("Logged out successfully");
+				dispatch(logoutSuccess());
 				dispatch(resetLogin());
 				localStorage.clear();
 			}
@@ -42,24 +44,17 @@ const NavBar = () => {
 		}
 	};
 
-	// useEffect(() => {
-	// 	if (!isLoggedIn) {
-	// 		logoutSuccess();
-	// 		persistor
-	// 			.purge()
-	// 			.then(() => {
-	// 				return persistor.flush();
-	// 			})
-	// 			.then(() => {
-	// 				persistor.pause();
-	// 			});
-	// 		localStorage.clear();
-	// 	}
-	// }, [isLoggedIn, dispatch]);
+	useEffect(() => {
+		if (!isLoggedIn) {
+			persistor.purge().then(() => persistor.pause());
+			localStorage.clear();
+			navigate("/login"); // Ensure redirection upon logout
+		}
+	}, [isLoggedIn, dispatch, navigate]);
 
 	const NavItems = () => {
 		return (
-			<div className={`lg:flex lg:flex-1 gap-2 lg:justify-end `}>
+			<div className={`lg:flex lg:flex-1 gap-2 lg:justify-end`}>
 				{!isLoggedIn && (
 					<Link
 						to="/register"
@@ -118,6 +113,17 @@ const NavBar = () => {
 						</div>
 					</div>
 				)}
+				<button
+					type="button"
+					className="btn--secondary menu-item rounded-3xl"
+					onClick={() =>
+						alert(
+							"if you need assistance  reset password and make changes to you profile kilndly send a whatsapp message to +233 248138722"
+						)
+					}
+				>
+					Help
+				</button>
 				{/* {isLoggedIn && (
 					<button
 						onClick={() => dispatch(showPrefs())}
@@ -173,7 +179,7 @@ const NavBar = () => {
 				className="lg:hidden"
 			>
 				<div className="fixed inset-0" />
-				<DialogPanel className="fixed inset-y-0 right-0 top-0 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
+				<DialogPanel className="fixed inset-y-0 right-0 top-0 w-full overflow-y-auto sm:z-50 md:z-50 bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
 					<div className="flex items-center justify-between">
 						<Link
 							to="/"

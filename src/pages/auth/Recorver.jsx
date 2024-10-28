@@ -6,7 +6,6 @@ import DotLoader from "components/DotLoader";
 import React from "react";
 import authAxiosInstance from "../../helpers/authAxiosInstance";
 import logo from "../../images/sclogo-alone.png";
-import { SetloginData } from "../../redux/authActions/LoginSlice";
 
 const Recorver = () => {
 	const [password, setPassword] = useState("");
@@ -18,10 +17,10 @@ const Recorver = () => {
 	const dispatch = useDispatch();
 	const location = useLocation();
 
-  // Parse the token and email from the URL query parameters
-  const queryParams = new URLSearchParams(location.search);
-  const token = queryParams.get("token");
-  const email = queryParams.get("email");
+	// Parse the token and email from the URL query parameters
+	const queryParams = new URLSearchParams(location.search);
+	const token = queryParams.get("token");
+	const email = queryParams.get("email");
 
 	const resetPasswordHandler = async (event) => {
 		event.preventDefault();
@@ -40,7 +39,9 @@ const Recorver = () => {
 
 		try {
 			setLoading(true);
-			const response = await authAxiosInstance.post(`/resetpassword/${token}/${email}`);
+			const response = await authAxiosInstance.post(
+				`/reset_password/${token}/${email}`, ({"password": password})
+			);
 			if (response.status === 200) {
 				setSuccess(true);
 				setTimeout(() => navigate("/login"), 3000);
@@ -55,8 +56,15 @@ const Recorver = () => {
 	return (
 		<div className="h-screen flex items-center justify-center">
 			<main className="flex flex-col items-center w-full mx-auto">
-				<Link to="/" className="flex items-center text-3xl mb-8">
-					<img className="w-14 h-14" src={logo} alt="Logo" />
+				<Link
+					to="/"
+					className="flex items-center text-3xl mb-8"
+				>
+					<img
+						className="w-14 h-14"
+						src={logo}
+						alt="Logo"
+					/>
 					<p className="logo-text">
 						<b>Sprout</b>Collab
 					</p>
@@ -73,7 +81,10 @@ const Recorver = () => {
 							Password reset! Redirecting to login...
 						</div>
 					)}
-					<form className="flex flex-col" onSubmit={resetPasswordHandler}>
+					<form
+						className="flex flex-col"
+						onSubmit={resetPasswordHandler}
+					>
 						<input
 							type="password"
 							className="p-2 rounded-2xl lg:-full md:w-full border-[1px] focus:border-[3px] border-green-400 m-1 focus:shadow-md focus:border-green-500 focus:outline-none focus:ring-0"
@@ -94,12 +105,22 @@ const Recorver = () => {
 							type="submit"
 							className="flex gap-2 rounded-full m-2 font-semibold px-2 py-2 shadow-md justify-center items-center btn text-white bg-main hover:text-blue-400 hover:bg-white transition duration-200 ease-in"
 						>
-							{loading ? <DotLoader width="w-7" height="h-7" /> : "Reset Password"}
+							{loading ? (
+								<DotLoader
+									width="w-7"
+									height="h-7"
+								/>
+							) : (
+								"Reset Password"
+							)}
 						</button>
 					</form>
 					<div className="flex flex-row items-center justify-center text-center !gab-6">
 						<p className="text-sm">Remembered your password?</p>
-						<Link to="/login" className="text-blue-400 ml-1 text-sm font-medium cursor-pointer">
+						<Link
+							to="/login"
+							className="text-blue-400 ml-1 text-sm font-medium cursor-pointer"
+						>
 							Sign In
 						</Link>
 					</div>
@@ -110,4 +131,3 @@ const Recorver = () => {
 };
 
 export default Recorver;
-

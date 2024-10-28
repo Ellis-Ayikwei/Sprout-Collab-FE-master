@@ -14,8 +14,7 @@ const logInSlice = createSlice({
 	initialState,
 	reducers: {
 		resetLogin: (state) => {
-			state.isLoggedIn = false;
-			state.error = null;
+			Object.assign(state, initialState);
 		},
 		SetloginData: (state, action) => {
 			state.isLoggedIn = true;
