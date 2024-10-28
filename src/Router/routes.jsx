@@ -18,6 +18,7 @@ import NoPage from "../pages/NoPage";
 import ProjectPage from "../pages/ProjectPage";
 import SeTT from "../pages/SettingsPage";
 import GoalCatergories from "../pages/GoalCatergory";
+import ResetPassword from "pages/auth/ResetPassword";
 
 const router = createBrowserRouter(
 	createRoutesFromElements(
@@ -32,6 +33,10 @@ const router = createBrowserRouter(
 			<Route
 				path="login"
 				element={<LoginPage />}
+			/>
+			<Route
+				path="resetpassword"
+				element={<ResetPassword />}
 			/>
 			<Route
 				path="register"

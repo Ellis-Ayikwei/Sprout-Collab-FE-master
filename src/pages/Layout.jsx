@@ -18,10 +18,11 @@ const Layout = () => {
 		setShowAside(
 			location.pathname !== "/register" &&
 				location.pathname !== "/login" &&
+				location.pathname !== "/resetpassword" &&
 				location.pathname !== "/"
 		);
 		setShowNav(
-			location.pathname !== "/register" && location.pathname !== "/login"
+			location.pathname !== "/register" && location.pathname !== "/resetpassword" && location.pathname !== "/login"
 		);
 		setShowFooter(location.pathname === "/");
 	}, [location.pathname]);
@@ -40,7 +41,7 @@ const Layout = () => {
 				<div
 					className={
 						showAside
-							? "Outlet flex-col h-auto relative !justify-start overflow-hidden xl:min-h-screen mt-5"
+							? "Outlet flex-col h-auto relative !justify-start overflow-hidden xl:min-h-screen"
 							: ""
 					}
 				>

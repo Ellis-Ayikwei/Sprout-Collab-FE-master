@@ -69,7 +69,6 @@ const Login = () => {
 		}
 	};
 
-
 	const from = location.state?.from?.pathname || "/home";
 	const loginHandler = async (event) => {
 		event.preventDefault();
@@ -102,12 +101,13 @@ const Login = () => {
 				password,
 			});
 			await dispatch(SetloginData(response.data));
-			const accessToken = response?.headers["authorization"]?.split(" ")[1];
+			const accessToken = response?.headers["authorization"];
 			const refreshToken = response?.headers["x-refresh-token"];
 
 			console.log(response);
 			localStorage.setItem("acccesToken", accessToken);
 			localStorage.setItem("refreshToken", refreshToken);
+			console.log("Access Token:", localStorage.getItem("accessToken"));
 		} catch (error) {
 			console.log(error.response?.status);
 			setLoading(false);
@@ -122,7 +122,7 @@ const Login = () => {
 	useEffect(() => {
 		if (isLoggedIn) {
 			setLoading(false);
-			navigate(from, { replace: true })
+			navigate(from, { replace: true });
 		}
 	}, [isLoggedIn]);
 
@@ -168,10 +168,13 @@ const Login = () => {
 							autoComplete="on"
 						></input>
 						<div className="flex-row-reverse items-center w-full">
-							<p className="text-sm justify-end text-right">
+							<Link
+								to="/resetpassword"
+								className="text-sm justify-end text-right  cursor-pointer"
+							>
 								{" "}
 								Forgot Password?
-							</p>
+							</Link>
 						</div>
 						<button
 							onClick={(e) => loginHandler(e)}

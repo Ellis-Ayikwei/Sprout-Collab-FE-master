@@ -40,14 +40,20 @@ const GoalDetails = () => {
 					projects={goal?.all_projects?.length}
 					tasks={goal?.all_tasks?.length}
 				/>
-				<div className="h-screen w-full flex flex-col justify-start items-start">
+				<div className="h-screen w-full flex flex-col justify-start items-start ">
 					<div className="flex items-center justify-center w-full bg-white rounded-full px-5 py-2 text-main shadow h-16 mb-0">
 						{goalData?.description}
 					</div>
-					<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 flex-grow w-full max-h-[70%] mt-5">
-						<CollabList goal={goalData} />
-						<ProjectList goal={goalData} />
-						<Resources goal={goalData} />
+					<div className="grid grid-cols-1 xl:grid-cols-3 md:grid-cols-2 gap-2 mt-2">
+						<div className="h-full md:h-[90%] xl:h-[90%]">
+							<CollabList goal={goalData} />
+						</div>
+						<div className="h-full md:h-[90%] xl:h-[90%]">
+							<ProjectList goal={goalData} />
+						</div>
+						<div className="h-full md:h-[90%] xl:h-[90%] ">
+							<Resources goal={goalData} />
+						</div>
 					</div>
 				</div>
 			</Suspense>

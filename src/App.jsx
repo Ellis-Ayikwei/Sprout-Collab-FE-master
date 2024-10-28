@@ -2,29 +2,13 @@ import { ThemeProvider } from "@material-tailwind/react";
 import React from "react";
 import "react-circular-progressbar/dist/styles.css";
 import { Provider } from "react-redux";
-import {
-	Route,
-	RouterProvider,
-	createBrowserRouter,
-	createRoutesFromElements,
-} from "react-router-dom";
+import { RouterProvider } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { PersistGate } from "redux-persist/integration/react";
-import "./App.scss";
-import LoginPage from "./pages/auth/Login";
-import RegisterPage from "./pages/auth/Register";
-import GoalCatergories from "./pages/GoalCatergory";
-import GoalDetails from "./pages/goalDetailPage";
-import Goals from "./pages/GoalsPage";
-import HomeLoggedIn from "./pages/HomeLoggedIn";
-import LandingPage from "./pages/LandingPage";
-import Layout from "./pages/Layout";
-import NoPage from "./pages/NoPage";
-import ProjectPage from "./pages/ProjectPage";
-import SeTT from "./pages/SettingsPage";
-import store, { persistor } from "./redux/store";
 import router from "Router/routes";
+import "./App.scss";
+import store, { persistor } from "./redux/store";
 
 // const router = createBrowserRouter(
 // 	createRoutesFromElements(
@@ -79,7 +63,7 @@ import router from "Router/routes";
 // );
 const App = () => {
 	return (
-		<div className="App mt-20">
+		<div className="App mt-16">
 			<ThemeProvider>
 				<Provider store={store}>
 					<PersistGate

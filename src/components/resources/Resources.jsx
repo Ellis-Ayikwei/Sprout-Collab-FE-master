@@ -33,7 +33,7 @@ const Resources = ({ goal }) => {
 
 	return (
 		<div
-			className="flex flex-col justify-start items-center h-full border-2 border-main rounded-3xl py-5 px-2"
+			className="flex flex-col justify-start items-center h-full border-2 border-main rounded-3xl py-5 px-2 shadow-xl"
 			ref={parentRef}
 		>
 			<div className="w-full flex items-center justify-between">
@@ -63,7 +63,7 @@ const Resources = ({ goal }) => {
 					</div>
 				)}
 			</div>
-			<ul className="resource-list">
+			<ul className="resource-list ">
 				{!isLoading && !collabid && (
 					<p>Please select a collaboration to view its resources.</p>
 				)}

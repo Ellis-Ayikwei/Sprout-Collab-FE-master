@@ -35,13 +35,13 @@ const CollabList = ({ goal }) => {
 	);
 
 	return (
-		<div className="flex flex-col justify-start items-center h-full border-2 border-main rounded-3xl py-5 px-2">
+		<div className="flex flex-col justify-start items-center h-full border-2 border-main rounded-3xl py-5 px-2 shadow-xl">
 			<div className="w-full flex items-center justify-between">
 				<h2>Collaborations</h2>
 				{goal && <AddCollabButton goalId={goal.id} />}
 			</div>
 
-			<div className="mt-6 flex flex-col items-center justify-start h-full w-full p-2 gap-2">
+			<div className="flex flex-col w-full gap-2 h-96 overflow-y-scroll mt-6 p-2">
 				{/* Loader */}
 				{status === "loading" && (
 					<div className="flex justify-center mx-auto items-center">

@@ -4,8 +4,10 @@ const apiUrl = "https://api.sproutcollab.me/sc/api/v1/auth";
 
 const authAxiosInstance = axios.create({
 	baseURL: apiUrl,
-	headers : {
-		'content-type': 'application/json'
+	headers: {
+		"Content-Type": "application/json",
+		"Authorization": `${localStorage.getItem("acccesToken")}`,
+		"X-Refresh-Token": `${localStorage.getItem("refreshToken")}`,
 	},
 });
 export default authAxiosInstance;

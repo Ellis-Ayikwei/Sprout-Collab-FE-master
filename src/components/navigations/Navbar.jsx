@@ -8,12 +8,11 @@ import { faHomeAlt, faUserAlt } from "@fortawesome/free-solid-svg-icons";
 import { Dialog, DialogPanel } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import authAxiosInstance from "helpers/authAxiosInstance";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { auth, signOut } from "../../firebase/firebaseAuthConfig";
 import { resetLogin } from "../../redux/authActions/LoginSlice";
 import { logoutSuccess } from "../../redux/authActions/authActions";
-import { persistor } from "../../redux/store";
 
 const NavBar = () => {
 	const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -24,7 +23,6 @@ const NavBar = () => {
 	const navigate = useNavigate();
 
 	const logoutHandler = async () => {
-		persistor.purge();
 		try {
 			signOut(auth)
 				.then(() => {
@@ -33,36 +31,31 @@ const NavBar = () => {
 				.catch((error) => {
 					console.error("Error during logout:", error);
 				});
-			const logout = await authAxiosInstance.delete("/logout", {
-				headers: {
-					"Content-Type": "application/json",
-					Authorization: `${localStorage.getItem("acccesToken")}`,
-					"X-Refresh-Token": `${localStorage.getItem("refreshToken")}`,
-				},
-			});
-			if (logout.status === 200) {
+			const logout = await authAxiosInstance.post("/logout", {});
+			if (logout.status === 202) {
 				logoutSuccess();
 				dispatch(resetLogin());
+				localStorage.clear();
 			}
 		} catch (error) {
 			console.error(error);
 		}
 	};
 
-	useEffect(() => {
-		if (!isLoggedIn) {
-			logoutSuccess();
-			persistor
-				.purge()
-				.then(() => {
-					return persistor.flush();
-				})
-				.then(() => {
-					persistor.pause();
-				});
-			localStorage.clear();
-		}
-	}, [isLoggedIn, dispatch]);
+	// useEffect(() => {
+	// 	if (!isLoggedIn) {
+	// 		logoutSuccess();
+	// 		persistor
+	// 			.purge()
+	// 			.then(() => {
+	// 				return persistor.flush();
+	// 			})
+	// 			.then(() => {
+	// 				persistor.pause();
+	// 			});
+	// 		localStorage.clear();
+	// 	}
+	// }, [isLoggedIn, dispatch]);
 
 	const NavItems = () => {
 		return (
