@@ -61,12 +61,6 @@ export default function Hero() {
 							>
 								Plant Your Goals Today
 							</NavLink>
-							<a
-								href="#"
-								className="text-sm font-semibold leading-6 text-gray-900"
-							>
-								Learn more <span aria-hidden="true">→</span>
-							</a>
 						</div>
 						<div className="mt-10 flex items-center justify-center gap-x-6 w-full opacity-90">
 							<div className="flex  flex-wrap flex-shrink-0 lg:flex-nowrap items-center justify-center grid-cols-2 md:grid-cols-3 gap-4 w-full ">

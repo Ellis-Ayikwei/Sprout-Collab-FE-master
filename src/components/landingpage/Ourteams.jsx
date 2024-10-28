@@ -6,7 +6,7 @@ import {
 } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
-import image1 from "../../images/collab1.jpg";
+import image1 from "../../images/ellisphotot.jpg";
 
 const Ourteams = () => {
 	return (

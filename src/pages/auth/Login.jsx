@@ -105,6 +105,7 @@ const Login = () => {
 			setLoading(false);
 			if (error.response?.status === 404) {
 				setError("User not found");
+				navigate("/register");
 			} else if (error.response.status === 401) {
 				setError("Wrong username/email or password");
 			}
