@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 import DotLoader from "components/DotLoader";
 import React from "react";
@@ -16,6 +16,12 @@ const Recorver = () => {
 	const [success, setSuccess] = useState(false);
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
+	const location = useLocation();
+
+  // Parse the token and email from the URL query parameters
+  const queryParams = new URLSearchParams(location.search);
+  const token = queryParams.get("token");
+  const email = queryParams.get("email");
 
 	const resetPasswordHandler = async (event) => {
 		event.preventDefault();
@@ -34,10 +40,7 @@ const Recorver = () => {
 
 		try {
 			setLoading(true);
-			const response = await authAxiosInstance.post("/resetpassword", {
-				password,
-				confirmPassword,
-			});
+			const response = await authAxiosInstance.post(`/resetpassword/${token}/${email}`);
 			if (response.status === 200) {
 				setSuccess(true);
 				setTimeout(() => navigate("/login"), 3000);

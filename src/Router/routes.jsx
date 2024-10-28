@@ -44,7 +44,7 @@ const router = createBrowserRouter(
 				element={<RegisterPage />}
 			/>
 			<Route
-				path="auth/reset_password/:token/:email"
+				path="auth/reset_password"
 				element={<Recorver />}
 			/>
 
