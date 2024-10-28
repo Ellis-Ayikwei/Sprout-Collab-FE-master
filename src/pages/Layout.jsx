@@ -19,7 +19,7 @@ const Layout = () => {
 			location.pathname !== "/register" &&
 				location.pathname !== "/login" &&
 				location.pathname !== "/resetpassword" &&
-				location.pathname !== "/auth/reset_password/:token/:email" &&
+				location.pathname !== "/auth/reset_password" &&
 				location.pathname !== "/"
 		);
 		setShowNav(
