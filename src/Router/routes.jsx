@@ -19,6 +19,7 @@ import ProjectPage from "../pages/ProjectPage";
 import SeTT from "../pages/SettingsPage";
 import GoalCatergories from "../pages/GoalCatergory";
 import ResetPassword from "pages/auth/ResetPassword";
+import Recorver from "pages/auth/Recorver";
 
 const router = createBrowserRouter(
 	createRoutesFromElements(
@@ -41,6 +42,10 @@ const router = createBrowserRouter(
 			<Route
 				path="register"
 				element={<RegisterPage />}
+			/>
+			<Route
+				path="auth/reset_password/:token/:email"
+				element={<Recorver />}
 			/>
 
 			{/* Protected Routes */}
