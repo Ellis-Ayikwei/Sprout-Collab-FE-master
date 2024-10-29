@@ -1,6 +1,8 @@
 # SproutCollab
 
-![SproutCollab Logo](<img src="./assets/logo512.png" width="80" height="80" alt="Landing Page">)
+<p align="center">
+  <img src="./assets/logo512.png" width="80" height="80" alt="SproutCollab Logo">
+</p>
 
 [![Website](https://img.shields.io/badge/Website-sproutcollab.me-blue)](https://sproutcollab.me)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
@@ -48,17 +50,51 @@ npm start
 
 ### User Interface
 
-![Landing Page](./assets/screenshots/landing.png)
-![Register Page](./assets/screenshots/register.png)
-![Login Page](./assets/screenshots/signin.png)
-![Homepage](./assets/screenshots/home.png)
+<p align="center">
+  Landing Page
+</p>
+<p align="center">
+  <img src="./assets/screenshots/landing.png" alt="Landing Page">
+</p>
+
+<p align="center">
+  Register Page
+</p>
+<p align="center">
+  <img src="./assets/screenshots/register.png" alt="Register Page">
+</p>
+
+<p align="center">
+  Login Page
+</p>
+<p align="center">
+  <img src="./assets/screenshots/signin.png" alt="Login Page">
+</p>
+
+<p align="center">
+  Homepage
+</p>
+<p align="center">
+  <img src="./assets/screenshots/home.png" alt="Homepage">
+</p>
 
 ### Features
 
-![Goal Categories](./assets/screenshots/goals.png)
-![Goal Detail Page](./assets/screenshots/goalpage.png)
-![Tasks Page](./assets/screenshots/tasks.png)
-![Add Task](./assets/screenshots/addtask.png)
+<p align="center">
+  <img src="./assets/screenshots/goals.png" alt="Goal Categories">
+</p>
+
+<p align="center">
+  <img src="./assets/screenshots/goalpage.png" alt="Goal Detail Page">
+</p>
+
+<p align="center">
+  <img src="./assets/screenshots/tasks.png" alt="Tasks Page">
+</p>
+
+<p align="center">
+  <img src="./assets/screenshots/addtask.png" alt="Add Task">
+</p>
 
 ## Technologies Used
 
