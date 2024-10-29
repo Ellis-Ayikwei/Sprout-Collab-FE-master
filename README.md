@@ -81,17 +81,29 @@ npm start
 ### Features
 
 <p align="center">
+  Goal Categories
+</p>
+<p align="center">
   <img src="./assets/screenshots/goals.png" alt="Goal Categories">
 </p>
 
+<p align="center">
+  Goal Detail Page
+</p>
 <p align="center">
   <img src="./assets/screenshots/goalpage.png" alt="Goal Detail Page">
 </p>
 
 <p align="center">
+  Tasks Page
+</p>
+<p align="center">
   <img src="./assets/screenshots/tasks.png" alt="Tasks Page">
 </p>
 
+<p align="center">
+  Add Task
+</p>
 <p align="center">
   <img src="./assets/screenshots/addtask.png" alt="Add Task">
 </p>
