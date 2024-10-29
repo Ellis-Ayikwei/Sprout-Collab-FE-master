@@ -1,8 +1,7 @@
 # SproutCollab
 
+![SproutCollab Logo](<img src="./assets/logo512.png" width="80" height="80" alt="Landing Page">)
 
-![SproutCollab Logo](./assets/logo512.png)
- 
 [![Website](https://img.shields.io/badge/Website-sproutcollab.me-blue)](https://sproutcollab.me)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 [![React](https://img.shields.io/badge/React-18.0.0-blue)](https://reactjs.org/)
@@ -48,12 +47,14 @@ npm start
 ## Screenshots
 
 ### User Interface
+
 ![Landing Page](./assets/screenshots/landing.png)
 ![Register Page](./assets/screenshots/register.png)
 ![Login Page](./assets/screenshots/signin.png)
 ![Homepage](./assets/screenshots/home.png)
 
 ### Features
+
 ![Goal Categories](./assets/screenshots/goals.png)
 ![Goal Detail Page](./assets/screenshots/goalpage.png)
 ![Tasks Page](./assets/screenshots/tasks.png)
@@ -62,30 +63,36 @@ npm start
 ## Technologies Used
 
 ### Frontend Stack
+
 - [React](https://reactjs.org/)
 - [CSS/Styled Components](https://styled-components.com/)
 
 ### Backend Stack
+
 - [Python/Flask](https://flask.palletsprojects.com/)
 - [MySQL](https://www.mysql.com/)
 - [Redis](https://redis.io/) (for caching)
 
 ### Cloud Services
+
 - [Firebase](https://firebase.google.com/) (file storage)
 - [Digital Ocean](https://www.digitalocean.com/) (backend hosting)
 - [Vercel](https://vercel.com/) (frontend hosting)
 
 ### Development Tools
+
 - Git
 - Docker
 
 ## Third-Party Services
+
 - Firebase Storage
 - Google OAuth/Custom Authentication
 
 ## API Routes
 
 The following routes support POST, GET, PUT, and DELETE methods:
+
 ```bash
 /api/users
 /api/goals
@@ -117,11 +124,13 @@ The following routes support POST, GET, PUT, and DELETE methods:
 ## Competitive Advantages
 
 ### vs Trello
+
 - Advanced goal-setting capabilities
 - Integrated file storage through Firebase
 - Focus on collaborative goal tracking
 
 ### vs Monday.com
+
 - Streamlined, task-focused environment
 - Simpler out-of-the-box solution
 - Specific focus on collaboration and goal tracking
@@ -144,7 +153,7 @@ The MVP is currently available to the public, with ongoing development focused o
 
 ---
 
-*Your goals, Our Community*
+_Your goals, Our Community_
 
 <p align="center">Made with ❤️ by Ellis Armah Ayikwei</p>
 
