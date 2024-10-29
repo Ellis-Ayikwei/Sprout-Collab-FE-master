@@ -30,7 +30,7 @@ SproutCollab is a collaborative platform that helps users set and manage goals, 
 git clone https://github.com/Ellis-Ayikwei/Sprout-Collab-FE-v1.git
 
 # Navigate to the project directory
-cd sproutcollab
+cd Sprout-Collab-FE-v1
 
 # Install dependencies
 npm install
