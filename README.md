@@ -75,7 +75,7 @@ npm start
   Homepage
 </p>
 <p align="center">
-  <img src="./assets/screenshots/home.png" alt="Homepage">
+  <img src="./assets/screenshots/homepage.png" alt="Homepage">
 </p>
 
 ### Features
