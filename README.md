@@ -9,6 +9,7 @@
 [![React](https://img.shields.io/badge/React-18.0.0-blue)](https://reactjs.org/)
 [![Flask](https://img.shields.io/badge/Flask-2.0.0-lightgrey)](https://flask.palletsprojects.com/)
 
+- [Backend Repo](https://github.com/Ellis-Ayikwei/Sprout-Collab-BE.git)
 A platform for collaborative goal-setting and task management.
 
 ## Overview
