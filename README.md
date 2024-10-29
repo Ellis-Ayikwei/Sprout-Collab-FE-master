@@ -1,4 +1,5 @@
 <img src="./assets/logo512.png" width="80" height="80" alt="SproutCollab Logo">
+
 # SproutCollab
 
 [![Website](https://img.shields.io/badge/Website-sproutcollab.me-blue)](https://sproutcollab.me)
