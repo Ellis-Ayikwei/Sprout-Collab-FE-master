@@ -1,7 +1,5 @@
-# SproutCollab
-
 <p align="center">
-  <img src="./assets/logo512.png" width="80" height="80" alt="SproutCollab Logo">
+  <img src="./assets/logo512.png" width="80" height="80" alt="SproutCollab Logo"> # SproutCollab
 </p>
 
 [![Website](https://img.shields.io/badge/Website-sproutcollab.me-blue)](https://sproutcollab.me)
@@ -10,7 +8,7 @@
 [![Flask](https://img.shields.io/badge/Flask-2.0.0-lightgrey)](https://flask.palletsprojects.com/)
 
 - [Backend Repo](https://github.com/Ellis-Ayikwei/Sprout-Collab-BE.git)
-A platform for collaborative goal-setting and task management.
+  A platform for collaborative goal-setting and task management.
 
 ## Overview
 
