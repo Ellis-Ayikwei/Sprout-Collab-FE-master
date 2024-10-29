@@ -1,5 +1,8 @@
 # SproutCollab
 
+
+![SproutCollab Logo](./assets/logo512.png)
+ 
 [![Website](https://img.shields.io/badge/Website-sproutcollab.me-blue)](https://sproutcollab.me)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 [![React](https://img.shields.io/badge/React-18.0.0-blue)](https://reactjs.org/)
