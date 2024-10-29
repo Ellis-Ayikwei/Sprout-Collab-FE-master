@@ -1,3 +1,4 @@
+/*************  ✨ Codeium Command 🌟  *************/
 import { lazy, Suspense, useEffect, useState } from "react";
 import React from "react";
 import useSWR from "swr";
@@ -41,3 +42,5 @@ const GoalCatergories = () => {
 
 export default GoalCatergories;
 
+
+/******  8ff3383c-ac0a-41b2-bb3b-4174e5317a3e  *******/
